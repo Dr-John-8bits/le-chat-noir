@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Le Chat Noir — Webradio</title>
+  <meta name="description" content="Le Chat Noir, webradio indépendante. Émissions : Le Pseudodocumentaire de l'espace & L'Autre Nuit." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root{
+      --night-0:#000000;
+      --night-1:#05060a;
+      --night-2:#0a0b10;
+      --glow:#b6d4ff;
+      --glass: rgba(255,255,255,0.06);
+      --stroke: rgba(255,255,255,0.12);
+      --accent:#59f5a6;
+      --accent-2:#7aa8ff;
+      --accent-3:#ffd761;
+    }
+
+    html, body {height:100%;}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 900px at 50% -30%, rgba(255,255,255,.04) 0%, transparent 60%),
+        radial-gradient(1200px 900px at 50% 130%, rgba(255,255,255,.03) 0%, transparent 60%),
+        linear-gradient(180deg, var(--night-2), var(--night-1) 40%, var(--night-0));
+      color:#e9f1ff;
+      overflow-x:hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+
+    #starfieldCanvas{ position:fixed; inset:0; width:100%; height:100%; z-index:0; display:block; }
+
+    /* Glass cards / tiles */
+    .tile{ border-radius:20px; border:1px solid var(--stroke); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); position:relative; overflow:hidden; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .tile::after{ content:""; position:absolute; inset:1px; border-radius:19px; background: radial-gradient(600px 200px at -10% -20%, rgba(255,255,255,.12), transparent 40%), radial-gradient(240px 600px at 120% 120%, rgba(122,168,255,.10), transparent 50%); pointer-events:none; }
+    .tile:hover{ transform: translateY(-6px); border-color: rgba(255,255,255,.28); box-shadow: 0 18px 50px rgba(0,0,0,.45); }
+    .tile .h-icon{ width:56px; height:56px; border-radius:14px; display:inline-flex; align-items:center; justify-content:center; background:linear-gradient(145deg, var(--accent-2), var(--accent)); color:#041119; box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+    .tile .meta{ color:#9fb0d6; }
+    .tile .btn-ghost{ --bs-btn-border-color: rgba(255,255,255,.35); --bs-btn-color:#e9f1ff; --bs-btn-hover-bg: rgba(255,255,255,.08); }
+
+    .tile .btn-ghost i { margin-right: 0.3em; }
+
+    .tile:hover{ transform: translateY(-6px); border-color: rgba(255,255,255,.28); box-shadow: 0 18px 50px rgba(0,0,0,.45); }
+
+    .tile .btn-ghost{ --bs-btn-border-color: rgba(255,255,255,.35); --bs-btn-color:#e9f1ff; --bs-btn-hover-bg: rgba(255,255,255,.08); }
+
+    /* Navbar */
+    .navbar-custom{ background: rgba(6,9,20,.45); border-bottom:1px solid rgba(255,255,255,.06); }
+    .brand-mark{ letter-spacing:.6px; font-weight:800; text-transform:none; }
+
+    /* CTA About floating button */
+    .fab-about{
+      background: linear-gradient(145deg,var(--accent),var(--accent-2)); color:#041119; font-weight:800;
+      position: fixed; right: 18px; bottom: 18px; z-index:3;
+      border:none; border-radius: 40px; padding: 12px 16px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+    }
+    .fab-about:hover{ filter: brightness(1.05); }
+
+    /* Footer mini */
+    footer{ color:#b8c7e8; font-size:.9rem; }
+
+    /* Hero */
+    .hero{
+      position:relative; z-index:2; text-align:center; padding-top:2rem; padding-bottom:1rem;
+    }
+    .hero .brand-icon{ font-size:3rem; line-height:1; display:inline-flex; align-items:center; justify-content:center; width:72px; height:72px; border-radius:18px; background:linear-gradient(145deg,var(--accent),var(--accent-2)); color:#041119; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+    .hero h1{ letter-spacing:.4px; }
+    .hero .sub{ color:#b9c7ea; }
+
+    /* Wave divider (evokes audio waveform) */
+    .wave-divider{ height:14px; margin:22px auto 0; max-width:780px; opacity:.6; background: repeating-linear-gradient(90deg, transparent 0 6px, rgba(255,255,255,.06) 6px 7px), linear-gradient(90deg, #ff7a18, #ff3d00 50%, #ffd761); -webkit-mask: radial-gradient(8px 60% at 0 50%, transparent 99%, black 100%), radial-gradient(8px 60% at 100% 50%, transparent 99%, black 100%), linear-gradient(#000, #000); mask: radial-gradient(8px 60% at 0 50%, transparent 99%, black 100%), radial-gradient(8px 60% at 100% 50%, transparent 99%, black 100%), linear-gradient(#000, #000); border-radius:6px; filter: blur(.3px); }
+
+    /* Subtle EQ bars background (evokes live meters) */
+    .eq-bg{ position:absolute; inset:0; pointer-events:none; z-index:1; mask-image: radial-gradient(60% 60% at 50% 50%, black, transparent 70%); opacity:.25; }
+    .eq-bg .bar{ position:absolute; bottom:0; width:4px; background: linear-gradient(180deg, var(--accent-2), var(--accent)); border-radius:2px; animation: bounce 1.8s ease-in-out infinite; }
+    .eq-bg .bar:nth-child(2){ left:calc(50% - 24px); height:24vh; animation-delay:.1s; }
+    .eq-bg .bar:nth-child(3){ left:calc(50% - 16px); height:18vh; animation-delay:.2s; }
+    .eq-bg .bar:nth-child(4){ left:calc(50% - 8px); height:30vh; animation-delay:.05s; }
+    .eq-bg .bar:nth-child(5){ left:50%; height:14vh; animation-delay:.3s; }
+    .eq-bg .bar:nth-child(6){ left:calc(50% + 8px); height:26vh; animation-delay:.15s; }
+    .eq-bg .bar:nth-child(7){ left:calc(50% + 16px); height:20vh; animation-delay:.25s; }
+    .eq-bg .bar:nth-child(8){ left:calc(50% + 24px); height:28vh; animation-delay:.12s; }
+    @keyframes bounce{ 0%,100%{ transform: scaleY(.2);} 50%{ transform: scaleY(1);} }
+
+    /* Tile covers */
+    .tile .cover{ position:relative; border-radius:14px; overflow:hidden; margin-bottom:16px; background:#0b0d14; }
+    .tile .cover::after{ content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.15)); pointer-events:none; }
+    .tile .cover img{ display:block; width:100%; aspect-ratio:1/1; object-fit:cover; transform: scale(1.02); transition: transform .35s ease; }
+    .tile:hover .cover img{ transform: scale(1.06); }
+    .tile .corner-badge{ position:absolute; top:10px; left:10px; background:rgba(0,0,0,.6); color:#eaf2ff; border:1px solid rgba(255,255,255,.18); padding:6px 10px; border-radius:10px; font-size:.85rem; display:flex; align-items:center; gap:8px; backdrop-filter: blur(6px); }
+    .tile .corner-badge i{ opacity:.9; }
+  </style>
+</head>
+<body>
+  <!-- Canvas starfield (Atari-like) -->
+  <canvas id="starfieldCanvas" aria-hidden="true"></canvas>
+
+  <div class="eq-bg" aria-hidden="true">
+    <div class="bar" style="left:calc(50% - 32px); height:22vh"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
+
+  <!-- Nav -->
+  <nav class="navbar navbar-expand-md navbar-dark navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand brand-mark" href="#"><i class="fa-solid fa-broadcast-tower me-2"></i> Le Chat Noir</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMain" aria-controls="navbarsMain" aria-expanded="false" aria-label="Basculer la navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsMain">
+        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="py-5 position-relative">
+    <div class="container py-4">
+      <header class="hero mb-4">
+        <h1 class="display-5 fw-bold">Le Chat Noir</h1>
+        <p class="sub mt-2">Fictions, laboratoires nocturnes et voix à la dérive. Écoute lente, ondes courtes, mondes longs.</p>
+        <div class="wave-divider"></div>
+      </header>
+
+      <div class="row g-4 align-items-stretch">
+        <!-- Tile 1: Pseudodocumentaire -->
+        <div class="col-12 col-md-6 col-lg-3 d-flex">
+          <a href="pseudocumentaire.html" class="text-decoration-none flex-fill">
+            <article class="tile h-100 p-4">
+              <div class="cover">
+                <img src="PICS/pseudocumentaire.png" alt="Visuel — Le Pseudodocumentaire de l'espace" loading="lazy" />
+                <div class="corner-badge"><i class="fa-solid fa-user-astronaut"></i> Podcasts</div>
+              </div>
+              <h2 class="h4 text-white mb-2">Le Pseudodocumentaire de l'espace</h2>
+              <p class="mb-4 text-light">Série de podcasts d’anticipation où tout est faux ! Découvrez-y la vraie bande originale d’un leurre empruntant tout du réel, pour aborder les questions de la dépression verte.</p>
+              <div class="mt-auto d-flex gap-2 align-items-center">
+                <span class="btn btn-ghost btn-sm"><i class="fa-solid fa-play"></i> Écouter</span>
+              </div>
+            </article>
+          </a>
+        </div>
+
+        <!-- Tile 2: L'Autre Nuit -->
+        <div class="col-12 col-md-6 col-lg-3 d-flex">
+          <a href="lautrenuit.html" class="text-decoration-none flex-fill">
+            <article class="tile h-100 p-4">
+              <div class="cover">
+                <img src="PICS/lautrenuit.png" alt="Visuel — L’Autre Nuit" loading="lazy" />
+                <div class="corner-badge"><i class="fa-solid fa-moon"></i> Émissions</div>
+              </div>
+              <h2 class="h4 text-white mb-2">L’Autre Nuit</h2>
+              <p class="mb-4 text-light">Lectures sans centre, machines hésitantes, silences utiles. Une heure pour dériver autrement dans la nuit.</p>
+              <div class="mt-auto d-flex gap-2 align-items-center">
+                <span class="btn btn-ghost btn-sm"><i class="fa-solid fa-play"></i> Écouter</span>
+              </div>
+            </article>
+          </a>
+        </div>
+        <!-- Tile 3: NTS Supporter Mixtapes -->
+        <div class="col-12 col-md-6 col-lg-3 d-flex">
+          <a href="mixtapes.html" class="text-decoration-none flex-fill">
+            <article class="tile h-100 p-4">
+              <div class="cover">
+                <img src="PICS/ntsradiosupporter.png" alt="Visuel — NTS Supporter Mixtapes" loading="lazy" />
+                <div class="corner-badge"><i class="fa-solid fa-radio"></i> Mixtapes</div>
+              </div>
+              <h2 class="h4 text-white mb-2">NTS Supporter — Mixtapes</h2>
+              <p class="mb-4 text-light">Toutes les mixtapes liées à NTS : sélectionnées, diffusées, ou même refusées — un fil d’archives transparent.</p>
+              <div class="mt-auto d-flex gap-2 align-items-center">
+                <span class="btn btn-ghost btn-sm"><i class="fa-solid fa-headphones"></i> Écouter</span>
+              </div>
+            </article>
+          </a>
+        </div>
+        <!-- Tile 4: Home taping is killing music -->
+        <div class="col-12 col-md-6 col-lg-3 d-flex">
+          <a href="hometaping.html" class="text-decoration-none flex-fill">
+            <article class="tile h-100 p-4">
+              <div class="cover">
+                <img src="PICS/hometaping.png" alt="Visuel — Home taping is killing music" loading="lazy" />
+                <div class="corner-badge"><i class="fa-solid fa-tape"></i> Live bootlegs</div>
+              </div>
+              <h2 class="h4 text-white mb-2"></i>Home taping is killing music</h2>
+              <p class="mb-4 text-light">Enregistrements pirates de concerts. L’esprit cassette des années bricolées, version 2025.</p>
+              <div class="mt-auto d-flex gap-2 align-items-center">
+                <span class="btn btn-ghost btn-sm"><i class="fa-solid fa-headphones"></i> Écouter</span>
+              </div>
+            </article>
+          </a>
+        </div>
+      </div>
+
+      <footer class="mt-5 text-center">
+        <small>© <span id="year"></span> Le Chat Noir avec Dr. John</small>
+      </footer>
+    </div>
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script>
+    // Year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Tiny pointer parallax on tiles
+    for (const t of document.querySelectorAll('.tile')){
+      t.addEventListener('mousemove', (e)=>{
+        const r = t.getBoundingClientRect();
+        const x = ((e.clientX - r.left)/r.width - .5)*2;
+        const y = ((e.clientY - r.top)/r.height - .5)*2;
+        t.style.transform = `translateY(-6px) rotateX(${ -y*2 }deg) rotateY(${ x*2 }deg)`;
+      });
+      t.addEventListener('mouseleave', ()=>{ t.style.transform = ''; });
+    }
+  // --- Canvas starfield + UFOs (Atari-like) ---
+  (function(){
+    const canvas = document.getElementById('starfieldCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w,h,stars=[],ufos=[];
+    function resize(){
+      w = canvas.width  = window.innerWidth  * (window.devicePixelRatio||1);
+      h = canvas.height = window.innerHeight * (window.devicePixelRatio||1);
+      canvas.style.width='100%'; canvas.style.height='100%';
+      const isMobile = window.innerWidth < 700;
+      const starCount = isMobile ? 140 : 280;
+      const ufoCount  = isMobile ? 2   : 5;
+      stars = Array.from({length: starCount}, ()=>({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        s: Math.random()*(isMobile?1.1:1.6)+0.6,
+        a: Math.random(),
+        d: Math.random()*0.02+0.005
+      }));
+      ufos = Array.from({length: ufoCount}, ()=>({
+        x: Math.random()*w,
+        y: Math.random()*h*0.7,
+        ang: Math.random()*Math.PI*2,
+        spd: (Math.random()*0.4+0.15)*(window.devicePixelRatio||1),
+        sc:  (Math.random()*0.5+0.6)*(isMobile?0.8:1)
+      }));
+    }
+    window.addEventListener('resize', resize); resize();
+    function drawUFO(u){
+      ctx.save(); ctx.translate(u.x,u.y); ctx.scale(u.sc,u.sc);
+      ctx.beginPath();
+      const pts=[[-9,0],[-3,-3],[-2,-6],[2,-6],[3,-3],[9,0],[-9,0],[-3,4],[3,4],[9,0]];
+      ctx.moveTo(pts[0][0],pts[0][1]);
+      for(let i=1;i<pts.length;i++){ ctx.lineTo(pts[i][0],pts[i][1]); }
+      ctx.closePath(); ctx.fillStyle='#9ecbff'; ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,.9)'; ctx.lineWidth=1.2; ctx.stroke();
+      ctx.restore();
+    }
+    function loop(){
+      ctx.clearRect(0,0,w,h);
+      // Stars
+      for(const s of stars){
+        s.a += s.d*(Math.random()<0.5?1:-1);
+        if(s.a<0){ s.x=Math.random()*w; s.y=Math.random()*h; s.a=0; }
+        if(s.a>1) s.a=1;
+        ctx.globalAlpha = s.a; ctx.fillStyle='#fff';
+        const sz = s.s*(window.devicePixelRatio||1);
+        ctx.fillRect(s.x, s.y, sz, sz);
+      }
+      ctx.globalAlpha = 1;
+      // UFOs
+      for(const u of ufos){
+        u.ang += (Math.random()*0.08 - 0.04);
+        u.x   += Math.cos(u.ang)*u.spd;
+        u.y   += Math.sin(u.ang)*u.spd*0.6;
+        if(u.x < -60) u.x = w+60; if(u.x > w+60) u.x = -60;
+        if(u.y < -40) u.y = h+40; if(u.y > h+40) u.y = -40;
+        drawUFO(u);
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+  </script>
+</body>
+</html>

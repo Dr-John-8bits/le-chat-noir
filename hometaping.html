@@ -1,0 +1,122 @@
+
+
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home Taping is Killing Music — Le Chat Noir</title>
+  <meta name="description" content="Enregistrements pirates de concerts — archives live libres publiées sur Bandcamp." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root{ --night-0:#000000; --night-1:#05060a; --night-2:#0a0b10; --accent:#ff7a18; --accent-2:#ff3d00; --accent-3:#ffd761; }
+    html,body{height:100%;}
+    body{
+      margin:0; color:#e9f1ff;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif;
+      background:
+        radial-gradient(1200px 900px at 50% -30%, rgba(255,255,255,.04) 0%, transparent 60%),
+        radial-gradient(1200px 900px at 50% 130%, rgba(255,255,255,.03) 0%, transparent 60%),
+        linear-gradient(180deg, var(--night-2), var(--night-1) 40%, var(--night-0));
+      overflow-x:hidden;
+    }
+    #starfieldCanvas{ position:fixed; inset:0; width:100%; height:100%; z-index:0; display:block; }
+    .navbar-custom{ background: rgba(6,9,20,.45); border-bottom:1px solid rgba(255,255,255,.06); }
+    .wave-divider{ height:14px; margin:24px auto; max-width:780px; opacity:.7;
+      background: repeating-linear-gradient(90deg, transparent 0 6px, rgba(255,255,255,.06) 6px 7px),
+                  linear-gradient(90deg, var(--accent), var(--accent-2) 50%, var(--accent-3));
+      border-radius:6px; filter: blur(.3px);
+    }
+    main{ position:relative; z-index:2; }
+    .cover img{ display:block; width:25%; height:auto; object-fit:cover; margin:auto; border-radius:12px; }
+    .badge-tag{ background:rgba(0,0,0,.55); color:#eaf2ff; border:1px solid rgba(255,255,255,.18); padding:.35rem .6rem; border-radius:999px; font-size:.8rem; }
+  </style>
+</head>
+<body>
+  <canvas id="starfieldCanvas" aria-hidden="true"></canvas>
+  <nav class="navbar navbar-expand-md navbar-dark navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Le Chat Noir</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMain" aria-controls="navbarsMain" aria-expanded="false" aria-label="Basculer la navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsMain">
+        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <header class="text-center mb-4">
+      <h1 class="display-6 fw-bold">Home Taping is Killing Music</h1>
+      <p class="text-light-emphasis mt-2">Enregistrements pirates de concerts, partagés librement sur Bandcamp. Un geste de mémoire et d’amour pour la scène vivante.</p>
+      <div class="wave-divider"></div>
+    </header>
+
+    <section class="row justify-content-center g-4 align-items-start">
+      <div class="col-12 col-md-10">
+        <div class="cover mb-4">
+          <img src="PICS/hometaping.png" alt="Visuel Home Taping is Killing Music" loading="lazy" />
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="badge-tag"><i class="fa-solid fa-tape me-2"></i>Live bootlegs</span>
+          <span class="badge-tag"><i class="fa-solid fa-compact-disc me-2"></i>Bandcamp</span>
+          <span class="badge-tag"><i class="fa-solid fa-skull-crossbones me-2"></i>Esprit pirate</span>
+        </div>
+        <p class="lead text-light">Chaque enregistrement est capté sur le vif : micros bricolés, souffle du public, imprévus, saturation parfois. Rien n’est poli. C’est le grain du live, son authenticité. Tous les fichiers sont accessibles gratuitement.</p>
+        <p class="text-light-emphasis">Ici, 25 sessions — concerts, improvisations, happenings — publiées au fil des années. Chaque entrée ouvre un lecteur Bandcamp intégré.</p>
+      </div>
+    </section>
+
+    <section class="row justify-content-center mt-5">
+      <div class="col-12 col-md-10">
+        <h2 class="h5 mb-3">Enregistrements disponibles</h2>
+        <div class="list-group">
+          <!-- 25 placeholders for Bandcamp embeds -->
+          <!-- Each iframe can be replaced later with real Bandcamp embed code -->
+          <!-- Example shown once -->
+          <div class="list-group-item bg-transparent text-light border-secondary">
+            <h3 class="h6 mb-1">Groupuscule — Live à L’être lieu</h3>
+            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2269198219/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://hometapingiskillingmusic.bandcamp.com/album/groupuscule-live-l-tre-lieu">Groupuscule - Live à L'être lieu de Home Taping Is Killing Music</a></iframe>
+          </div>
+
+          <!-- Duplicate placeholder 24 more times -->
+          <!-- You can later replace titles and iframe codes manually -->
+          <!-- BEGIN placeholders -->
+          <!--#1-->
+          <div class="list-group-item bg-transparent text-light border-secondary"><h3 class="h6 mb-1">Enregistrement #1</h3><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2269198219/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe></div>
+          <!--#2-->
+          <div class="list-group-item bg-transparent text-light border-secondary"><h3 class="h6 mb-1">Enregistrement #2</h3><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2269198219/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe></div>
+          <!-- ... Repeat until #25 -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  // --- Canvas starfield + UFOs (Atari-like) ---
+  (function(){
+    const canvas = document.getElementById('starfieldCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w,h,stars=[],ufos=[];
+    function resize(){
+      w = canvas.width  = window.innerWidth  * (window.devicePixelRatio||1);
+      h = canvas.height = window.innerHeight * (window.devicePixelRatio||1);
+      canvas.style.width='100%'; canvas.style.height='100%';
+      const isMobile = window.innerWidth < 700;
+      const starCount = isMobile ? 120 : 220;
+      const ufoCount  = isMobile ? 2   : 4;
+      stars = Array.from({length: starCount}, ()=>({ x:Math.random()*w, y:Math.random()*h, s:Math.random()*(isMobile?1.1:1.5)+0.5, a:Math.random(), d:Math.random()*0.02+0.005 }));
+      ufos  = Array.from({length: ufoCount }, ()=>({ x:Math.random()*w, y:Math.random()*h*0.7, ang:Math.random()*Math.PI*2, spd:(Math.random()*0.35+0.12)*(window.devicePixelRatio||1), sc:(Math.random()*0.45+0.6)*(isMobile?0.85:1)}));
+    }
+    window.addEventListener('resize', resize); resize();
+    function drawUFO(u){ ctx.save(); ctx.translate(u.x,u.y); ctx.scale(u.sc,u.sc); ctx.beginPath(); const pts=[[-9,0],[-3,-3],[-2,-6],[2,-6],[3,-3],[9,0],[-9,0],[-3,4],[3,4],[9,0]]; ctx.moveTo(pts[0][0],pts[0][1]); for(let i=1;i<pts.length;i++){ ctx.lineTo(pts[i][0],pts[i][1]); } ctx.closePath(); ctx.fillStyle='#9ecbff'; ctx.fill(); ctx.strokeStyle='rgba(255,255,255,.9)'; ctx.lineWidth=1.2; ctx.stroke(); ctx.restore(); }
+    function loop(){ ctx.clearRect(0,0,w,h); for(const s of stars){ s.a += s.d*(Math.random()<0.5?1:-1); if(s.a<0){ s.x=Math.random()*w; s.y=Math.random()*h; s.a=0;} if(s.a>1) s.a=1; ctx.globalAlpha=s.a; ctx.fillStyle='#fff'; const sz = s.s*(window.devicePixelRatio||1); ctx.fillRect(s.x,s.y,sz,sz);} ctx.globalAlpha=1; for(const u of ufos){ u.ang += (Math.random()*0.08 - 0.04); u.x += Math.cos(u.ang)*u.spd; u.y += Math.sin(u.ang)*u.spd*0.6; if(u.x<-60)u.x=w+60; if(u.x>w+60)u.x=-60; if(u.y<-40)u.y=h+40; if(u.y>h+40)u.y=-40; drawUFO(u);} requestAnimationFrame(loop);} loop(); })();
+  </script>
+</body>
+</html>

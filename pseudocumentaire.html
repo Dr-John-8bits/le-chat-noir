@@ -1,0 +1,134 @@
+
+
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Le Pseudodocumentaire de l’espace — Le Chat Noir</title>
+  <meta name="description" content="Série de podcasts d’anticipation où tout est faux ! Découvrez-y la vraie bande originale d’un leurre empruntant tout du réel, pour aborder les questions de la dépression verte." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root{ --night-0:#000000; --night-1:#05060a; --night-2:#0a0b10; --accent:#ff7a18; --accent-2:#ff3d00; --accent-3:#ffd761; }
+    html,body{height:100%;}
+    body{
+      margin:0; color:#e9f1ff;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif;
+      background:
+        radial-gradient(1200px 900px at 50% -30%, rgba(255,255,255,.04) 0%, transparent 60%),
+        radial-gradient(1200px 900px at 50% 130%, rgba(255,255,255,.03) 0%, transparent 60%),
+        linear-gradient(180deg, var(--night-2), var(--night-1) 40%, var(--night-0));
+      overflow-x:hidden;
+    }
+    /* Canvas starfield layer */
+    #starfieldCanvas{ position:fixed; inset:0; width:100%; height:100%; z-index:0; display:block; }
+    /* Navbar */
+    .navbar-custom{ background: rgba(6,9,20,.45); border-bottom:1px solid rgba(255,255,255,.06); }
+    /* Wave divider */
+    .wave-divider{ height:14px; margin:24px auto; max-width:780px; opacity:.7;
+      background: repeating-linear-gradient(90deg, transparent 0 6px, rgba(255,255,255,.06) 6px 7px),
+                  linear-gradient(90deg, var(--accent), var(--accent-2) 50%, var(--accent-3));
+      border-radius:6px; filter: blur(.3px);
+    }
+    main{ position:relative; z-index:2; }
+    .cover{ border-radius:20px; overflow:hidden; box-shadow:0 12px 36px rgba(0,0,0,.55); background:#0b0d14; }
+    .cover img{ display:block; width:25%; height:auto; object-fit:cover; margin:auto; border-radius:12px; }
+    .badge-tag{ background:rgba(0,0,0,.55); color:#eaf2ff; border:1px solid rgba(255,255,255,.18); padding:.35rem .6rem; border-radius:999px; font-size:.8rem; }
+    .btn-ghost{ --bs-btn-border-color: rgba(255,255,255,.35); --bs-btn-color:#e9f1ff; --bs-btn-hover-bg: rgba(255,255,255,.08); }
+  </style>
+</head>
+<body>
+  <!-- Canvas starfield (Atari-like) -->
+  <canvas id="starfieldCanvas" aria-hidden="true"></canvas>
+
+  <!-- Nav -->
+  <nav class="navbar navbar-expand-md navbar-dark navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Le Chat Noir</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMain" aria-controls="navbarsMain" aria-expanded="false" aria-label="Basculer la navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsMain">
+        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <header class="text-center mb-4">
+      <h1 class="display-6 fw-bold">Le Pseudodocumentaire de l’espace</h1>
+      <p class="text-light-emphasis mt-2">Série de podcasts d’anticipation où tout est faux ! Découvrez-y la vraie bande originale d’un leurre empruntant tout du réel, pour aborder les questions de la dépression verte.</p>
+      <div class="wave-divider"></div>
+    </header>
+
+    <section class="row justify-content-center g-4 align-items-start">
+      <div class="col-12 col-md-8">
+        <div class="cover mb-4">
+          <img src="PICS/pseudocumentaire.png" alt="Visuel du Pseudodocumentaire de l’espace" loading="lazy"/>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="badge-tag"><i class="fa-solid fa-user-astronaut me-2"></i>Podcasts</span>
+          <span class="badge-tag"><i class="fa-solid fa-rotate-left me-2"></i>Replay</span>
+          <span class="badge-tag"><i class="fa-solid fa-satellite-dish me-2"></i>Fiction d’anticipation</span>
+        </div>
+        <p class="lead text-light">Voix, fragments, archives déplacées : une bande originale imaginaire qui emprunte la texture du réel pour mieux la fissurer. Ici, le récit est un leurre — et c’est précisément là que quelque chose de vrai affleure.</p>
+        <p class="text-light-emphasis">Le Pseudodocumentaire s’écoute comme on parcourt une rumeur : indices, faux-semblants, paysages sonores où la dépression verte fait retour. Rien n’est authentique — sauf l’expérience d’écoute.</p>
+        <div class="d-flex flex-wrap gap-2 mt-4">
+          <a class="btn btn-outline-light btn-sm" href="index.html"><i class="fa-solid fa-arrow-left me-2"></i>Retour à l’accueil</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="row justify-content-center mt-5">
+      <div class="col-12 col-md-8">
+        <h2 class="h5 mb-3">Saisons</h2>
+
+        <!-- Saison 1: Gabriel Thomson -->
+        <div class="mb-5">
+          <h3 class="h6 mb-2 text-uppercase text-light">Saison 1 — Arc Gabriel Thomson</h3>
+          <p class="text-light-emphasis mb-3">Dans la première saison se situant en 2050, suivez les pérégrinations mentales de Gabriel Thomson, ancien pilote automobile… Réalité, fiction et mémoire s’y confondent.</p>
+          <button class="btn btn-outline-light btn-sm mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#s1-gabriel" aria-expanded="false" aria-controls="s1-gabriel">
+            <i class="fa-solid fa-headphones me-2"></i>Écouter les épisodes
+          </button>
+          <div class="collapse mt-3" id="s1-gabriel">
+            <iframe height="466px" width="100%" src="https://audioblog.arteradio.com/playlist-embed/260448" style="margin: 0; padding: 0; border: none;"></iframe>
+          </div>
+        </div>
+
+        <!-- Saison 2: Rose Belmonde -->
+        <div class="mb-4">
+          <h3 class="h6 mb-2 text-uppercase text-light">Saison 2 — Arc Rose Belmonde</h3>
+          <p class="text-light-emphasis">Dans la deuxième saison, également située en 2050, suivez les aventures plus ou moins ordinaires de Rose Belmonde, dont la routine bascule lorsqu’elle reçoit Maé – Mon Ami Électronique…</p>
+          <p class="text-light-emphasis"><em>Playlist en cours de création...</em></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  // --- Canvas starfield + UFOs (Atari-like) ---
+  (function(){
+    const canvas = document.getElementById('starfieldCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w,h,stars=[],ufos=[];
+    function resize(){
+      w = canvas.width  = window.innerWidth  * (window.devicePixelRatio||1);
+      h = canvas.height = window.innerHeight * (window.devicePixelRatio||1);
+      canvas.style.width='100%'; canvas.style.height='100%';
+      const isMobile = window.innerWidth < 700;
+      const starCount = isMobile ? 120 : 220;
+      const ufoCount  = isMobile ? 2   : 4;
+      stars = Array.from({length: starCount}, ()=>({ x:Math.random()*w, y:Math.random()*h, s:Math.random()*(isMobile?1.1:1.5)+0.5, a:Math.random(), d:Math.random()*0.02+0.005 }));
+      ufos  = Array.from({length: ufoCount }, ()=>({ x:Math.random()*w, y:Math.random()*h*0.7, ang:Math.random()*Math.PI*2, spd:(Math.random()*0.35+0.12)*(window.devicePixelRatio||1), sc:(Math.random()*0.45+0.6)*(isMobile?0.85:1)}));
+    }
+    window.addEventListener('resize', resize); resize();
+    function drawUFO(u){ ctx.save(); ctx.translate(u.x,u.y); ctx.scale(u.sc,u.sc); ctx.beginPath(); const pts=[[-9,0],[-3,-3],[-2,-6],[2,-6],[3,-3],[9,0],[-9,0],[-3,4],[3,4],[9,0]]; ctx.moveTo(pts[0][0],pts[0][1]); for(let i=1;i<pts.length;i++){ ctx.lineTo(pts[i][0],pts[i][1]); } ctx.closePath(); ctx.fillStyle='#9ecbff'; ctx.fill(); ctx.strokeStyle='rgba(255,255,255,.9)'; ctx.lineWidth=1.2; ctx.stroke(); ctx.restore(); }
+    function loop(){ ctx.clearRect(0,0,w,h); for(const s of stars){ s.a += s.d*(Math.random()<0.5?1:-1); if(s.a<0){ s.x=Math.random()*w; s.y=Math.random()*h; s.a=0;} if(s.a>1) s.a=1; ctx.globalAlpha=s.a; ctx.fillStyle='#fff'; const sz = s.s*(window.devicePixelRatio||1); ctx.fillRect(s.x,s.y,sz,sz);} ctx.globalAlpha=1; for(const u of ufos){ u.ang += (Math.random()*0.08 - 0.04); u.x += Math.cos(u.ang)*u.spd; u.y += Math.sin(u.ang)*u.spd*0.6; if(u.x<-60)u.x=w+60; if(u.x>w+60)u.x=-60; if(u.y<-40)u.y=h+40; if(u.y>h+40)u.y=-40; drawUFO(u);} requestAnimationFrame(loop);} loop(); })();
+  </script>
+</body>
+</html>
