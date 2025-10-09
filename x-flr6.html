@@ -48,23 +48,21 @@
     @media (max-width: 400px) {
       p { font-size: 0.6rem; }
     }
-    .battle-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
     .scanlines {
       position: relative;
-      width: 400px;
-      height: 200px;
-      margin: auto;
+      width: 100%;
+      max-width: 960px;
+      aspect-ratio: 2 / 1; /* 400x200 logical ratio */
+      margin: 6vh auto;
     }
     #battle {
       background: #000;
       display: block;
       image-rendering: pixelated;
-      border: 4px solid #0F0;
+      width: 100%;
+      height: 100%;
+      border: clamp(2px, .6vh, 6px) solid #0F0;
+      box-sizing: border-box;
     }
     /* Game title on tourography page */
     #game-title {
@@ -111,10 +109,8 @@
   </nav>
   <a id="game-title" href="drone.html">Mission X-FLR6:<br>Drone Offensive</a>
   <main>
-    <div class="battle-container">
-      <div class="scanlines">
-        <canvas id="battle" width="400" height="200"></canvas>
-      </div>
+    <div class="scanlines">
+      <canvas id="battle" width="400" height="200"></canvas>
     </div>
   </main>
   <script>
@@ -232,6 +228,19 @@
     const ctxBattle = canvasBattle.getContext('2d');
     const explosions = [];
 
+    const LOGICAL_W = 400, LOGICAL_H = 200; // keep game logic in these units
+    function resizeBattle(){
+      const rect = canvasBattle.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      // Fit backing store to display size, then scale logical space to 400x200
+      canvasBattle.width  = Math.round(rect.width  * dpr);
+      canvasBattle.height = Math.round(rect.height * dpr);
+      const scaleX = (rect.width  / LOGICAL_W) * dpr;
+      const scaleY = (rect.height / LOGICAL_H) * dpr;
+      ctxBattle.setTransform(scaleX, 0, 0, scaleY, 0, 0);
+    }
+    window.addEventListener('resize', resizeBattle);
+
     class Drone {
       constructor(x, y, color) {
         this.x = x; this.y = y;
@@ -242,8 +251,8 @@
       }
       update() {
         this.x += this.vx; this.y += this.vy;
-        if (this.x < 0 || this.x > canvasBattle.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvasBattle.height) this.vy *= -1;
+        if (this.x < 0 || this.x > LOGICAL_W) this.vx *= -1;
+        if (this.y < 0 || this.y > LOGICAL_H) this.vy *= -1;
       }
       draw() {
         ctxBattle.fillStyle = this.color;
@@ -257,7 +266,7 @@
     const fleetB = Array.from({length: 20}, () => new Drone(350, 100, '#F00'));
 
     function loopBattle() {
-      ctxBattle.clearRect(0, 0, canvasBattle.width, canvasBattle.height);
+      ctxBattle.clearRect(0, 0, LOGICAL_W, LOGICAL_H);
       [...fleetA, ...fleetB].forEach(d => { d.update(); d.draw(); });
       if (Math.random() < 0.05) {
         ctxBattle.strokeStyle = '#fff';
@@ -285,9 +294,9 @@
       requestAnimationFrame(loopBattle);
     }
 
+    resizeBattle();
     loopBattle();
   </script>
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
