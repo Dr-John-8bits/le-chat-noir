@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Webradio — En travaux · Le Chat Noir</title>
+  <meta name="description" content="Le Chat Noir — Webradio libre. Page temporaire : en cours de conception, développement et production. Ouverture prévue fin 2025." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root{ --night-0:#000; --night-1:#05060a; --night-2:#0a0b10; --accent:#ff7a18; --accent-2:#ff3d00; --accent-3:#ffd761; }
+    html,body{height:100%;}
+    body{
+      margin:0; color:#e9f1ff;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif;
+      background:
+        radial-gradient(1200px 900px at 50% -30%, rgba(255,255,255,.04) 0%, transparent 60%),
+        radial-gradient(1200px 900px at 50% 130%, rgba(255,255,255,.03) 0%, transparent 60%),
+        linear-gradient(180deg, var(--night-2), var(--night-1) 40%, var(--night-0));
+      overflow-x:hidden;
+    }
+    #starfieldCanvas{ position:fixed; inset:0; width:100%; height:100%; z-index:0; display:block; }
+    .navbar-custom{ background: rgba(6,9,20,.45); border-bottom:1px solid rgba(255,255,255,.06); }
+    .wave-divider{ height:14px; margin:24px auto; max-width:780px; opacity:.7;
+      background: repeating-linear-gradient(90deg, transparent 0 6px, rgba(255,255,255,.06) 6px 7px),
+                  linear-gradient(90deg, var(--accent), var(--accent-2) 50%, var(--accent-3));
+      border-radius:6px; filter: blur(.3px);
+    }
+    main{ position:relative; z-index:2; }
+    .cover{ border-radius:20px; background:transparent; }
+    .cover img{ display:block; width:50%; height:auto; object-fit:cover; margin:auto; border-radius:12px; }
+    .badge-tag{ background:rgba(0,0,0,.55); color:#eaf2ff; border:1px solid rgba(255,255,255,.18); padding:.35rem .6rem; border-radius:999px; font-size:.8rem; }
+    .card-glass{ background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.14); border-radius:16px; backdrop-filter: blur(6px); }
+    .btn-ghost{ --bs-btn-border-color: rgba(255,255,255,.35); --bs-btn-color:#e9f1ff; --bs-btn-hover-bg: rgba(255,255,255,.08); }
+  </style>
+</head>
+<body>
+  <canvas id="starfieldCanvas" aria-hidden="true"></canvas>
+
+  <nav class="navbar navbar-expand-md navbar-dark navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><i class="fa-solid fa-broadcast-tower me-2"></i> Le Chat Noir</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsMain">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <header class="text-center mb-4">
+      <h1 class="display-6 fw-bold">LE CHAT NOIR — WEBRADIO</h1>
+      <p class="text-light-emphasis mt-2">Webradio libre — créations sonores & expérimentations</p>
+      <div class="wave-divider"></div>
+    </header>
+
+    <section class="row justify-content-center g-4 align-items-start">
+      <div class="col-12 col-md-8">
+        <div class="cover mb-4">
+          <a href="PICS/lcnwebradio.png" target="_blank" rel="noopener" title="Ouvrir l’image en grand">
+            <img src="PICS/lcnwebradio.png" alt="Visuel — Le Chat Noir Webradio" loading="lazy"/>
+          </a>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="badge-tag"><i class="fa-solid fa-tower-broadcast me-2"></i>Écoute 24/7 (bientôt)</span>
+          <span class="badge-tag"><i class="fa-brands fa-creative-commons me-2"></i>Créations libres</span>
+          <span class="badge-tag"><i class="fa-solid fa-ban me-2"></i>Sans SACEM</span>
+        </div>
+
+         <!-- Intro text placed above the player -->
+        <p class="lead text-light"><strong>Le Chat Noir — Webradio libre</strong></p>
+        <p class="text-light">Le Chat Noir est une webradio artisanale, indépendante et sans SACEM.</p>
+        <p class="text-light-emphasis">Elle diffuse en continu des créations libres : paysages sonores, field recordings, expérimentations radiophoniques, musiques ouvertes et archives vivantes. Un espace d’écoute lente, entre fiction et réel, où le bruit, la voix et le silence se rencontrent.</p>
+        <p class="text-light-emphasis">Tout est fait maison — hébergé, programmé et maintenu localement. Une radio de proximité cosmique, née dans une courée, tournée vers l’espace.</p>
+        <div class="d-flex flex-wrap gap-2 mt-3 mb-3">
+          <a class="btn btn-outline-light btn-sm" href="index.html"><i class="fa-solid fa-arrow-left me-2"></i>Retour à l’accueil</a>
+        </div>
+
+        <!-- EN TRAVAUX -->
+        <div class="card-glass p-4">
+          <div class="d-flex align-items-center gap-3 mb-2">
+            <i class="fa-solid fa-screwdriver-wrench fa-lg text-warning"></i>
+            <h2 class="h5 m-0">En travaux — en cours de conception, dev & prod</h2>
+          </div>
+          <p class="text-light-emphasis mb-3">
+            Les équipes techniques de <strong>Le Chat Noir</strong> sont en studio : on câble, on calibre, on règle le compresseur qui respire,
+            et on polit le silence entre deux souffles. La régie nous chuchote qu’on vise une <strong>ouverture fin 2025</strong> — si tout
+            reste en vert et que le <em>crossfader</em> ne fait pas des siennes.
+          </p>
+          <ul class="mb-3">
+            <li><i class="fa-solid fa-satellite-dish me-2"></i>Station d’émission : <em>en orbite de test</em></li>
+            <li><i class="fa-solid fa-microchip me-2"></i>Automate antenne : <em>apprentissage nocturne</em></li>
+            <li><i class="fa-solid fa-wave-square me-2"></i>Chaîne audio : <em>EQ & compression en peaufinage</em></li>
+          </ul>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  // Fond étoilé + mini-OVNIs (même que tes autres pages)
+  (function(){
+    const canvas = document.getElementById('starfieldCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w,h,stars=[],ufos=[];
+    function resize(){
+      w = canvas.width  = window.innerWidth  * (window.devicePixelRatio||1);
+      h = canvas.height = window.innerHeight * (window.devicePixelRatio||1);
+      const isMobile = window.innerWidth < 700;
+      const starCount = isMobile ? 120 : 220;
+      const ufoCount  = isMobile ? 2   : 4;
+      stars = Array.from({length: starCount}, ()=>({ x:Math.random()*w, y:Math.random()*h, s:Math.random()*(isMobile?1.1:1.5)+0.5, a:Math.random(), d:Math.random()*0.02+0.005 }));
+      ufos  = Array.from({length: ufoCount }, ()=>({ x:Math.random()*w, y:Math.random()*h*0.7, ang:Math.random()*Math.PI*2, spd:(Math.random()*0.35+0.12)*(window.devicePixelRatio||1), sc:(Math.random()*0.45+0.6)*(isMobile?0.85:1)}));
+    }
+    window.addEventListener('resize', resize); resize();
+    function drawUFO(u){ ctx.save(); ctx.translate(u.x,u.y); ctx.scale(u.sc,u.sc); ctx.beginPath(); const pts=[[-9,0],[-3,-3],[-2,-6],[2,-6],[3,-3],[9,0],[-9,0],[-3,4],[3,4],[9,0]]; ctx.moveTo(pts[0][0],pts[0][1]); for(let i=1;i<pts.length;i++){ ctx.lineTo(pts[i][0],pts[i][1]); } ctx.closePath(); ctx.fillStyle='#9ecbff'; ctx.strokeStyle='rgba(255,255,255,.9)'; ctx.lineWidth=1.2; ctx.stroke(); ctx.restore(); }
+    function loop(){ ctx.clearRect(0,0,w,h);
+      for(const s of stars){ s.a += s.d*(Math.random()<0.5?1:-1); if(s.a<0){ s.x=Math.random()*w; s.y=Math.random()*h; s.a=0;} if(s.a>1) s.a=1; ctx.globalAlpha=s.a; ctx.fillStyle='#fff'; const sz = s.s*(window.devicePixelRatio||1); ctx.fillRect(s.x,s.y,sz,sz);} ctx.globalAlpha=1;
+      for(const u of ufos){ u.ang += (Math.random()*0.08 - 0.04); u.x += Math.cos(u.ang)*u.spd; u.y += Math.sin(u.ang)*u.spd*0.6; if(u.x<-60)u.x=w+60; if(u.x>w+60)u.x=-60; if(u.y<-40)u.y=h+40; if(u.y>h+40)u.y=-40; drawUFO(u);} requestAnimationFrame(loop);}
+    loop();
+  })();
+  </script>
+</body>
+</html>

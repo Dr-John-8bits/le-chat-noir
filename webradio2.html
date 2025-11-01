@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Webradio — Le Chat Noir</title>
+  <meta name="description" content="Le Chat Noir — Webradio libre : créations sonores, field recordings, expérimentations radiophoniques, musiques ouvertes et archives vivantes. Sans SACEM, 24/7." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root{
+      --night-0:#000000; --night-1:#05060a; --night-2:#0a0b10;
+      --accent:#ff7a18; --accent-2:#ff3d00; --accent-3:#ffd761;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; color:#e9f1ff;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif;
+      background:
+        radial-gradient(1200px 900px at 50% -30%, rgba(255,255,255,.04) 0%, transparent 60%),
+        radial-gradient(1200px 900px at 50% 130%, rgba(255,255,255,.03) 0%, transparent 60%),
+        linear-gradient(180deg, var(--night-2), var(--night-1) 40%, var(--night-0));
+      overflow-x:hidden;
+    }
+
+    /* Canvas starfield layer */
+    #starfieldCanvas{ position:fixed; inset:0; width:100%; height:100%; z-index:0; display:block; }
+
+    /* Navbar */
+    .navbar-custom{ background: rgba(6,9,20,.45); border-bottom:1px solid rgba(255,255,255,.06); }
+
+    /* Wave divider */
+    .wave-divider{ height:14px; margin:24px auto; max-width:780px; opacity:.7;
+      background: repeating-linear-gradient(90deg, transparent 0 6px, rgba(255,255,255,.06) 6px 7px),
+                  linear-gradient(90deg, var(--accent), var(--accent-2) 50%, var(--accent-3));
+      border-radius:6px; filter: blur(.3px);
+    }
+
+    main{ position:relative; z-index:2; }
+    .cover{ border-radius:20px; overflow:visible; box-shadow:none; background:transparent; }
+    .cover img{ display:block; width:50%; height:auto; object-fit:cover; margin:auto; border-radius:12px; }
+    .badge-tag{ background:rgba(0,0,0,.55); color:#eaf2ff; border:1px solid rgba(255,255,255,.18); padding:.35rem .6rem; border-radius:999px; font-size:.8rem; }
+    .btn-ghost{ --bs-btn-border-color: rgba(255,255,255,.35); --bs-btn-color:#e9f1ff; --bs-btn-hover-bg: rgba(255,255,255,.08); }
+
+    /* Faux player (glass card) */
+    .player-card{ background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.14); border-radius:16px; backdrop-filter: blur(6px); padding:14px 16px; }
+    .player-header{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .onair{ display:inline-flex; align-items:center; gap:8px; font-size:.85rem; color:#ffd761; }
+    .onair .dot{ width:8px; height:8px; border-radius:50%; background:#ff3d00; box-shadow:0 0 0 0 rgba(255,61,0,.7); animation:pulseDot 1.6s infinite; }
+    @keyframes pulseDot{ 0%{ box-shadow:0 0 0 0 rgba(255,61,0,.7);} 70%{ box-shadow:0 0 0 8px rgba(255,61,0,0);} 100%{ box-shadow:0 0 0 0 rgba(255,61,0,0);} }
+    .player-body{ display:flex; align-items:center; gap:12px; margin-top:10px; }
+    .player-btn{ width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.25); background:transparent; color:#e9f1ff; display:inline-flex; align-items:center; justify-content:center; }
+    .vol-group{ display:flex; align-items:center; gap:8px; margin-left:4px; }
+    .vol-btn{ width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,.25); background:transparent; color:#e9f1ff; display:inline-flex; align-items:center; justify-content:center; font-size:.9rem; }
+    .vol-range{ -webkit-appearance:none; appearance:none; width:110px; height:4px; background:rgba(255,255,255,.18); border-radius:999px; outline:none; }
+    .vol-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:16px; height:16px; border-radius:50%; background:#ffd761; border:1px solid rgba(0,0,0,.25); cursor:pointer; box-shadow:0 0 0 4px rgba(255,215,97,.18); }
+    .vol-range::-moz-range-thumb{ width:16px; height:16px; border-radius:50%; background:#ffd761; border:1px solid rgba(0,0,0,.25); cursor:pointer; box-shadow:0 0 0 4px rgba(255,215,97,.18); }
+    @media (max-width:576px){ .vol-range{ width:90px; } .vol-btn{ width:34px; height:34px; } }
+    .player-btn[disabled]{ opacity:.5; cursor:not-allowed; }
+    .np-line{ min-height:1.5rem; font-weight:600; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; line-height:1.2; max-height:calc(1.2em * 2); word-break:break-word; }
+    .np-marquee{ position:relative; overflow:hidden; white-space:nowrap; }
+    .np-marquee::before, .np-marquee::after{ content:""; position:absolute; top:0; bottom:0; width:22px; pointer-events:none; }
+    .np-marquee::before{ left:0; background:linear-gradient(90deg, rgba(0,0,0,.6), transparent); }
+    .np-marquee::after{ right:0; background:linear-gradient(270deg, rgba(0,0,0,.6), transparent); }
+    .np-marquee.marquee span{ display:inline-block; padding-right:2rem; }
+    .np-marquee.marquee .np-scroll{ animation: marquee 18s linear infinite; }
+    .np-marquee:hover .np-scroll{ animation-play-state: paused; }
+    @keyframes marquee{ from{ transform: translateX(0); } to{ transform: translateX(calc(-100% - 2rem)); } }
+    @media (prefers-reduced-motion: reduce){ .np-marquee.marquee .np-scroll{ animation: none; } }
+    .np-meta{ font-size:.85rem; opacity:.8; }
+    .player-body .flex-grow-1{ min-width:0; }
+    @media (max-width: 576px){ .np-line{ font-size:.95rem; -webkit-line-clamp:3; max-height:calc(1.2em * 3); } }
+    .shake{ animation: shake .6s; }
+    @keyframes shake{ 10%, 90%{ transform: translateX(-1px); } 20%, 80%{ transform: translateX(2px); } 30%, 50%, 70%{ transform: translateX(-4px); } 40%, 60%{ transform: translateX(4px); } }
+
+    /* History card */
+    .history-card{ background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.14); border-radius:16px; backdrop-filter: blur(6px); padding:16px; }
+    .history-controls{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+    .history-controls .form-control, .history-controls .btn{ height:38px; }
+    .tz-note{ opacity:.7; font-size:.85rem; }
+  </style>
+</head>
+<body>
+  <!-- Canvas starfield (Atari-like) -->
+  <canvas id="starfieldCanvas" aria-hidden="true"></canvas>
+
+  <!-- Nav -->
+  <nav class="navbar navbar-expand-md navbar-dark navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><i class="fa-solid fa-broadcast-tower me-2"></i> Le Chat Noir</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMain" aria-controls="navbarsMain" aria-expanded="false" aria-label="Basculer la navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsMain">
+        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <header class="text-center mb-4">
+      <h1 class="display-6 fw-bold">LE CHAT NOIR — WEBRADIO</h1>
+      <p class="text-light-emphasis mt-2">Webradio libre — créations sonores & expérimentations</p>
+      <div class="wave-divider"></div>
+    </header>
+
+    <section class="row justify-content-center g-4 align-items-start">
+      <div class="col-12 col-md-8">
+        <div class="cover mb-4">
+          <a href="PICS/lcnwebradio.png" target="_blank" rel="noopener" title="Ouvrir l’image en grand">
+            <img src="PICS/lcnwebradio.png" alt="Visuel — Le Chat Noir Webradio" loading="lazy"/>
+          </a>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="badge-tag"><i class="fa-solid fa-tower-broadcast me-2"></i>Écoute 24/7</span>
+          <span class="badge-tag"><i class="fa-brands fa-creative-commons me-2"></i>Créations libres</span>
+          <span class="badge-tag"><i class="fa-solid fa-ban me-2"></i>Sans SACEM</span>
+        </div>
+        <!-- Intro text placed above the player -->
+        <p class="lead text-light"><strong>Le Chat Noir — Webradio libre</strong></p>
+        <p class="text-light">Le Chat Noir est une webradio artisanale, indépendante et sans SACEM.</p>
+        <p class="text-light-emphasis">Elle diffuse en continu des créations libres : paysages sonores, field recordings, expérimentations radiophoniques, musiques ouvertes et archives vivantes. Un espace d’écoute lente, entre fiction et réel, où le bruit, la voix et le silence se rencontrent.</p>
+        <p class="text-light-emphasis">Tout est fait maison — hébergé, programmé et maintenu localement. Une radio de proximité cosmique, née dans une courée, tournée vers l’espace.</p>
+        <div class="d-flex flex-wrap gap-2 mt-3 mb-3">
+          <a class="btn btn-outline-light btn-sm" href="index.html"><i class="fa-solid fa-arrow-left me-2"></i>Retour à l’accueil</a>
+        </div>
+        <!-- Faux player / Now Playing -->
+        <div class="player-card mb-4" role="region" aria-label="Lecteur — Le Chat Noir">
+          <div class="player-header">
+            <div class="onair"><span class="dot" aria-hidden="true"></span><span>ON AIR</span></div>
+            <div class="text-light-emphasis small">Flux local (LAN)</div>
+          </div>
+          <div class="player-body">
+            <button id="playBtn" class="player-btn" type="button" aria-label="Lire le flux">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <audio id="lcnAudio" preload="none" src="http://192.168.1.115:8000/stream" crossorigin="anonymous"></audio>
+            <div class="vol-group" role="group" aria-label="Volume">
+              <button id="volDown" class="vol-btn" type="button" aria-label="Baisser le volume"><i class="fa-solid fa-volume-low"></i></button>
+              <input id="volRange" class="vol-range" type="range" min="0" max="1" step="0.01" value="0.80" aria-label="Régler le volume" />
+              <button id="volUp" class="vol-btn" type="button" aria-label="Augmenter le volume"><i class="fa-solid fa-volume-high"></i></button>
+            </div>
+            <div class="flex-grow-1">
+              <div class="np-line" title="Titre en cours">
+                <div id="npwrap" class="np-marquee"><span id="np">Chargement…</span></div>
+              </div>
+              <div class="np-meta text-light-emphasis">Now playing</div>
+            </div>
+          </div>
+        </div>
+        <!-- Historique des titres -->
+        <section class="history-card mb-4" role="region" aria-label="Historique des titres">
+          <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-2">
+            <h2 class="h6 m-0"><i class="fa-regular fa-clock me-2"></i>Historique des titres</h2>
+            <div class="tz-note text-light-emphasis">Heures affichées en <span id="tzLabel">heure locale</span>.</div>
+          </div>
+          <div class="history-controls mb-3">
+            <div class="input-group" style="max-width: 260px;">
+              <span class="input-group-text"><i class="fa-regular fa-calendar"></i></span>
+              <input id="histDay" type="date" class="form-control" aria-label="Choisir une date" />
+            </div>
+            <div class="input-group" style="max-width: 200px;">
+              <span class="input-group-text"><i class="fa-regular fa-clock"></i></span>
+              <input id="histTime" type="time" class="form-control" aria-label="Choisir une heure (facultatif)" />
+            </div>
+            <button id="histLoad" class="btn btn-outline-light"><i class="fa-solid fa-magnifying-glass me-2"></i>Rechercher</button>
+            <button id="histLatest" class="btn btn-ghost"><i class="fa-solid fa-rotate me-2"></i>Derniers titres</button>
+          </div>
+          <div class="table-responsive">
+            <table id="histTable" class="table table-dark table-striped table-sm align-middle m-0">
+              <thead>
+                <tr><th style="width:110px;">Date</th><th style="width:100px;">Heure</th><th>Titre</th></tr>
+              </thead>
+              <tbody id="histBody">
+                <tr><td colspan="3" class="text-light-emphasis">Choisis une date ou affiche les derniers titres…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  // --- Canvas starfield + UFOs (Atari-like) ---
+  (function(){
+    const canvas = document.getElementById('starfieldCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w,h,stars=[],ufos=[];
+    function resize(){
+      w = canvas.width  = window.innerWidth  * (window.devicePixelRatio||1);
+      h = canvas.height = window.innerHeight * (window.devicePixelRatio||1);
+      canvas.style.width='100%'; canvas.style.height='100%';
+      const isMobile = window.innerWidth < 700;
+      const starCount = isMobile ? 120 : 220;
+      const ufoCount  = isMobile ? 2   : 4;
+      stars = Array.from({length: starCount}, ()=>({ x:Math.random()*w, y:Math.random()*h, s:Math.random()*(isMobile?1.1:1.5)+0.5, a:Math.random(), d:Math.random()*0.02+0.005 }));
+      ufos  = Array.from({length: ufoCount }, ()=>({ x:Math.random()*w, y:Math.random()*h*0.7, ang:Math.random()*Math.PI*2, spd:(Math.random()*0.35+0.12)*(window.devicePixelRatio||1), sc:(Math.random()*0.45+0.6)*(isMobile?0.85:1)}));
+    }
+    window.addEventListener('resize', resize); resize();
+    function drawUFO(u){ ctx.save(); ctx.translate(u.x,u.y); ctx.scale(u.sc,u.sc); ctx.beginPath(); const pts=[[-9,0],[-3,-3],[-2,-6],[2,-6],[3,-3],[9,0],[-9,0],[-3,4],[3,4],[9,0]]; ctx.moveTo(pts[0][0],pts[0][1]); for(let i=1;i<pts.length;i++){ ctx.lineTo(pts[i][0],pts[i][1]); } ctx.closePath(); ctx.fillStyle='#9ecbff'; ctx.fill(); ctx.strokeStyle='rgba(255,255,255,.9)'; ctx.lineWidth=1.2; ctx.stroke(); ctx.restore(); }
+    function loop(){ ctx.clearRect(0,0,w,h); for(const s of stars){ s.a += s.d*(Math.random()<0.5?1:-1); if(s.a<0){ s.x=Math.random()*w; s.y=Math.random()*h; s.a=0;} if(s.a>1) s.a=1; ctx.globalAlpha=s.a; ctx.fillStyle='#fff'; const sz = s.s*(window.devicePixelRatio||1); ctx.fillRect(s.x,s.y,sz,sz);} ctx.globalAlpha=1; for(const u of ufos){ u.ang += (Math.random()*0.08 - 0.04); u.x += Math.cos(u.ang)*u.spd; u.y += Math.sin(u.ang)*u.spd*0.6; if(u.x<-60)u.x=w+60; if(u.x>w+60)u.x=-60; if(u.y<-40)u.y=h+40; if(u.y>h+40)u.y=-40; drawUFO(u);} requestAnimationFrame(loop);} loop(); })();
+  </script>
+  <script>
+  // --- Now Playing (placeholder; URL à renseigner) ---
+  const NP_URL = 'http://192.168.1.115/nowplaying.json';
+  async function refreshNP(){
+    try{
+      const r = await fetch(NP_URL + '?t=' + Date.now(), {cache:'no-store'});
+      if(!r.ok) throw new Error(r.status);
+      const np = await r.json();
+      const line = `${(np.title||'(sans titre)').trim()}`;
+      const wrap = document.getElementById('npwrap');
+      const span = document.getElementById('np');
+      if(wrap && span){
+        // Reset content
+        span.textContent = line;
+        span.classList.remove('np-scroll');
+        // Remove any ghost clone
+        const ghost = wrap.querySelector('span.ghost');
+        if(ghost) ghost.remove();
+        // Measure overflow
+        // Force single-line for measurement (np-line already constrains height in CSS)
+        wrap.classList.remove('marquee');
+        // Next frame to ensure layout updated
+        requestAnimationFrame(()=>{
+          const needsMarquee = wrap.scrollWidth > wrap.clientWidth + 6; // small tolerance
+          if(needsMarquee){
+            wrap.classList.add('marquee');
+            // Duplicate content for seamless loop
+            const clone = document.createElement('span');
+            clone.className = 'ghost np-scroll';
+            clone.textContent = line;
+            wrap.appendChild(clone);
+            // Mark original as scrolling too
+            span.classList.add('np-scroll');
+          }
+          // Update title tooltip on the parent line
+          const lineEl = wrap.closest('.np-line');
+          if(lineEl){ lineEl.setAttribute('title', line); }
+        });
+      }
+    }catch(e){ /* garder l’affichage précédent si indisponible */ }
+  }
+  refreshNP();
+  setInterval(refreshNP, 10000);
+
+  // --- Lecture du flux local (LAN) ---
+  (function(){
+    const btn = document.getElementById('playBtn');
+    const audio = document.getElementById('lcnAudio');
+    const volRange = document.getElementById('volRange');
+    const volDown  = document.getElementById('volDown');
+    const volUp    = document.getElementById('volUp');
+    const VOL_STEP = 0.05;
+
+    // Init volume from slider value
+    if(volRange){ audio.volume = parseFloat(volRange.value || '0.8'); }
+
+    if(!btn || !audio) return;
+
+    let isPlaying = false;
+    function setIcon(){ btn.querySelector('i').className = isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play'; }
+
+    btn.addEventListener('click', async ()=>{
+      try{
+        if(!isPlaying){ await audio.play(); isPlaying = true; btn.setAttribute('aria-label','Mettre en pause'); }
+        else { audio.pause(); isPlaying = false; btn.setAttribute('aria-label','Lire le flux'); }
+        setIcon();
+      }catch(e){
+        // Affiche une petite alerte discrète si le flux n’est pas accessible
+        console.warn('Lecture impossible:', e);
+        btn.classList.add('shake'); // optionnel si on veut un feedback visuel
+        setTimeout(()=>btn.classList.remove('shake'), 600);
+      }
+    });
+
+    audio.addEventListener('playing', ()=>{ isPlaying = true; setIcon(); });
+    audio.addEventListener('pause',   ()=>{ isPlaying = false; setIcon(); });
+    audio.addEventListener('error',   ()=>{ isPlaying = false; setIcon(); });
+
+    function clamp(v,min,max){ return Math.min(max, Math.max(min,v)); }
+
+    if(volRange){
+      volRange.addEventListener('input', ()=>{ audio.volume = clamp(parseFloat(volRange.value||'0.8'), 0, 1); });
+    }
+    if(volDown){
+      volDown.addEventListener('click', ()=>{
+        const v = clamp(audio.volume - VOL_STEP, 0, 1);
+        audio.volume = v; if(volRange) volRange.value = v.toFixed(2);
+      });
+    }
+    if(volUp){
+      volUp.addEventListener('click', ()=>{
+        const v = clamp(audio.volume + VOL_STEP, 0, 1);
+        audio.volume = v; if(volRange) volRange.value = v.toFixed(2);
+      });
+    }
+  })();
+  </script>
+  <script>
+  // --- Historique des titres ---
+  (function(){
+    const BASE = 'http://192.168.1.115/history'; // à remplacer par domaine public plus tard
+    const dayInput = document.getElementById('histDay');
+    const timeInput = document.getElementById('histTime');
+    const btnLoad = document.getElementById('histLoad');
+    const btnLatest = document.getElementById('histLatest');
+    const tbody = document.getElementById('histBody');
+    const tzLabel = document.getElementById('tzLabel');
+    let autoTimer = null;
+    const AUTO_MS = 20000; // 20s
+    function startAutoLatest(){
+      stopAutoLatest();
+      loadLatest();
+      autoTimer = setInterval(()=>{ if(!document.hidden) loadLatest(); }, AUTO_MS);
+    }
+    function stopAutoLatest(){ if(autoTimer){ clearInterval(autoTimer); autoTimer = null; } }
+
+    // Affiche le fuseau local (ex: Europe/Paris)
+    try{ tzLabel.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone || 'heure locale'; }catch(_){ /* noop */ }
+
+    // Préremplir la date avec aujourd'hui (local)
+    const todayLocal = new Date();
+    const yyyy = todayLocal.getFullYear();
+    const mm = String(todayLocal.getMonth()+1).padStart(2,'0');
+    const dd = String(todayLocal.getDate()).padStart(2,'0');
+    if(dayInput) dayInput.value = `${yyyy}-${mm}-${dd}`;
+
+    document.addEventListener('visibilitychange', ()=>{
+      if(document.hidden){ stopAutoLatest(); }
+      else if(!autoTimer){ startAutoLatest(); }
+    });
+
+    function toLocalHHMM(iso){
+      const d = new Date(iso);
+      if(isNaN(d)) return '';
+      return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    }
+    function toLocalDateDDMMYYYY(iso){
+      const d = new Date(iso);
+      if(isNaN(d)) return '';
+      const dd = String(d.getDate()).padStart(2,'0');
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      const yyyy = d.getFullYear();
+      return `${dd}/${mm}/${yyyy}`;
+    }
+
+    function parseCSV(text){
+      const lines = text.trim().split('\n');
+      const data = [];
+      for(let i=1;i<lines.length;i++){ // skip header
+        const line = lines[i];
+        const cols = [];
+        let cur = '', inside = false;
+        for(let j=0;j<line.length;j++){
+          const c = line[j];
+          if(c==='"'){ inside = !inside; continue; }
+          if(c===',' && !inside){ cols.push(cur); cur=''; } else { cur+=c; }
+        }
+        cols.push(cur);
+        const [ts_iso, , artist, title, album, year] = cols;
+        data.push({ ts_iso, artist, title, album, year });
+      }
+      return data;
+    }
+
+    function renderRows(rows){
+      if(!rows || !rows.length){
+        tbody.innerHTML = `<tr><td colspan="3" class="text-light-emphasis">Aucun titre pour cette date.</td></tr>`;
+        return;
+      }
+      const html = rows.map(r=>{
+        const hhmm = toLocalHHMM(r.ts_iso);
+        const safe = s=> (s||'').replace(/</g,'&lt;');
+        const dmy = toLocalDateDDMMYYYY(r.ts_iso);
+        return `<tr><td>${dmy}</td><td>${hhmm}</td><td>${safe(r.title)}</td></tr>`;
+      }).join('');
+      tbody.innerHTML = html || `<tr><td colspan="3" class="text-light-emphasis">Aucun titre pour cette date.</td></tr>`;
+    }
+
+    async function loadDay(ymd){
+      if(!ymd) return;
+      const d = new Date(ymd + 'T00:00:00'); // local midnight
+      const Y = d.getFullYear();
+      const M = String(d.getMonth()+1).padStart(2,'0');
+      const D = String(d.getDate()).padStart(2,'0');
+      const url = `${BASE}/${Y}/${M}/${Y}-${M}-${D}.csv`;
+      tbody.innerHTML = `<tr><td colspan="3" class="text-light-emphasis">Chargement…</td></tr>`;
+      try{
+        const res = await fetch(url, {cache:'no-store'});
+        if(!res.ok){ renderRows([]); return; }
+        const csv = await res.text();
+        let rows = parseCSV(csv);
+        rows = rows.filter(r => !(r.artist === 'Inconnu·e' && r.title === 'Inconnu·e — (sans titre)'));
+        // Tri chronologique croissant
+        rows.sort((a,b)=> new Date(a.ts_iso) - new Date(b.ts_iso));
+        // Si une heure est fournie, on met la ligne la plus proche en haut en scroll (optionnel)
+        if(timeInput && timeInput.value){
+          const [hh,mm] = timeInput.value.split(':').map(Number);
+          const ref = new Date(ymd + `T${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:00`);
+          rows.sort((a,b)=> Math.abs(new Date(a.ts_iso)-ref) - Math.abs(new Date(b.ts_iso)-ref));
+        }
+        renderRows(rows);
+      }catch(e){ renderRows([]); }
+    }
+
+    async function loadLatest(){
+      // Charge aujourd'hui et n'affiche que les 10 derniers titres
+      const ymd = dayInput?.value; if(!ymd) return;
+      const d = new Date(ymd + 'T00:00:00');
+      const Y = d.getFullYear();
+      const M = String(d.getMonth()+1).padStart(2,'0');
+      const D = String(d.getDate()).padStart(2,'0');
+      const url = `${BASE}/${Y}/${M}/${Y}-${M}-${D}.csv`;
+      tbody.innerHTML = `<tr><td colspan="3" class="text-light-emphasis">Chargement…</td></tr>`;
+      try{
+        const res = await fetch(url, {cache:'no-store'});
+        if(!res.ok){ renderRows([]); return; }
+        const csv = await res.text();
+        let rows = parseCSV(csv);
+        rows = rows.filter(r => !(r.artist === 'Inconnu·e' && r.title === 'Inconnu·e — (sans titre)'));
+        // Trier et garder les 10 plus récents
+        rows.sort((a,b)=> new Date(b.ts_iso) - new Date(a.ts_iso));
+        rows = rows.slice(0, 10);
+        renderRows(rows);
+      }catch(e){ renderRows([]); }
+    }
+
+    if(btnLoad){ btnLoad.addEventListener('click', ()=>{ stopAutoLatest(); loadDay(dayInput.value); }); }
+    if(btnLatest){ btnLatest.addEventListener('click', startAutoLatest); }
+
+    // Charger par défaut les derniers titres du jour + activer l’auto-refresh
+    startAutoLatest();
+  })();
+  </script>
+</body>
+</html>
