@@ -78,6 +78,30 @@
     .history-controls{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
     .history-controls .form-control, .history-controls .btn{ height:38px; }
     .tz-note{ opacity:.7; font-size:.85rem; }
+
+    /* Accordion (glass) */
+    .accordion-glass .accordion-item{ background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.14); border-radius:14px; overflow:hidden; }
+    .accordion-glass .accordion-item + .accordion-item{ margin-top:10px; }
+    .accordion-glass .accordion-button{ background:transparent; color:#e9f1ff; }
+    .accordion-glass .accordion-button:focus{ box-shadow:none; }
+    .accordion-glass .accordion-button:not(.collapsed){ color:#ffd761; background:rgba(255,255,255,.03); }
+    .accordion-glass .accordion-body{ color:#e9f1ff; }
+    .accordion-glass .muted{ color:#cfd8ffcc; }
+
+    /* Producers grid */
+    .prod-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px; }
+    .prod-card{ background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:14px; text-align:center; }
+    .prod-card .name{ font-weight:700; }
+    .prod-card .bio{ color:#cfd8ffcc; font-size:.95rem; }
+    .avatar{ width:96px; height:96px; border-radius:50%; overflow:hidden; margin:0 auto 8px; position:relative; }
+    .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .avatar::after{ content:""; position:absolute; inset:-3px; border-radius:50%; border:1px solid rgba(255,255,255,.25); box-shadow:0 0 0 0 rgba(255,215,97,.35); animation: ring 3s infinite; }
+    @keyframes ring{ 0%{ box-shadow:0 0 0 0 rgba(255,215,97,.35);} 70%{ box-shadow:0 0 0 10px rgba(255,215,97,0);} 100%{ box-shadow:0 0 0 0 rgba(255,215,97,0);} }
+
+    /* Back to top */
+    .back-to-top{ position:fixed; right:18px; bottom:18px; z-index:5; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.25); background:rgba(0,0,0,.4); color:#e9f1ff; display:inline-flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity .2s ease, visibility .2s ease, transform .2s ease; }
+    .back-to-top.show{ opacity:1; visibility:visible; transform: translateY(0); }
+    .back-to-top:not(.show){ transform: translateY(6px); }
   </style>
 </head>
 <body>
@@ -121,8 +145,9 @@
         <!-- Intro text placed above the player -->
         <p class="lead text-light"><strong>Le Chat Noir — Webradio libre</strong></p>
         <p class="text-light">Le Chat Noir est une webradio artisanale, indépendante et sans SACEM.</p>
-        <p class="text-light-emphasis">Elle diffuse en continu des créations libres : paysages sonores, field recordings, expérimentations radiophoniques, musiques ouvertes et archives vivantes. Un espace d’écoute lente, entre fiction et réel, où le bruit, la voix et le silence se rencontrent.</p>
-        <p class="text-light-emphasis">Tout est fait maison — hébergé, programmé et maintenu localement. Une radio de proximité cosmique, née dans une courée, tournée vers l’espace.</p>
+        <p class="text-light-emphasis"><i class="fa-solid fa-wave-square me-2" aria-hidden="true"></i>Elle diffuse en continu des créations libres : paysages sonores, field recordings, expérimentations radiophoniques, musiques ouvertes, fragiles et archives vivantes. On y écoute des émissions et de la musique de tous horizons, sans discrimination — de la noise à la chanson française, de l’expérimental à la dream pop, etc. Un espace d’écoute lente, entre fiction et réel, où le bruit, la voix et le silence se rencontrent.</p>
+        <p class="text-light-emphasis"><i class="fa-solid fa-sliders me-2" aria-hidden="true"></i>Nous n’appliquons aucune compression ni égalisation globale sur les œuvres diffusées, pour respecter au maximum leurs dynamiques et ce qu’elles sont. Si ça va trop fort, il faut baisser le volume ; si ce n’est pas assez fort, il faut simplement l’augmenter.</p>
+        <p class="text-light-emphasis"><i class="fa-solid fa-satellite-dish me-2" aria-hidden="true"></i>Tout est fait maison — hébergé, programmé et maintenu localement. Une radio de proximité cosmique, née dans une courée, tournée vers l’espace.</p>
         <div class="d-flex flex-wrap gap-2 mt-3 mb-3">
           <a class="btn btn-outline-light btn-sm" href="index.html"><i class="fa-solid fa-arrow-left me-2"></i>Retour à l’accueil</a>
         </div>
@@ -179,6 +204,120 @@
             </table>
           </div>
         </section>
+
+        <!-- Programme & Producteur·ices (accordion) -->
+        <section class="mb-4">
+          <div class="accordion accordion-glass" id="progAccordion">
+            <!-- Grille des programmes -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="acc-grid-h">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-grid" aria-expanded="false" aria-controls="acc-grid">
+                  <i class="fa-regular fa-calendar-days me-2"></i> Grille des programmes
+                </button>
+              </h2>
+              <div id="acc-grid" class="accordion-collapse collapse" aria-labelledby="acc-grid-h" data-bs-parent="#progAccordion">
+                <div class="accordion-body">
+                  <p>La grille est <strong>en cours de conception</strong> — on affine les cases, on teste les enchaînements, on règle le souffle entre deux morceaux.</p>
+                  <p>Pour l’instant, la station diffuse en <strong>lecture aléatoire</strong> parmi les créations disponibles. C’est brut, c’est vivant — et, honnêtement, <em>c’est fun</em>.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Producteur·ices -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="acc-prods-h">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-prods" aria-expanded="false" aria-controls="acc-prods">
+                  <i class="fa-solid fa-user-astronaut me-2"></i> Productrices & Producteurs
+                </button>
+              </h2>
+              <div id="acc-prods" class="accordion-collapse collapse" aria-labelledby="acc-prods-h" data-bs-parent="#progAccordion">
+                <div class="accordion-body">
+
+                  <div class="prod-grid">
+                    <article class="prod-card">
+                      <div class="avatar">
+                        <img src="PICS/drjohn.jpg" alt="Portrait de Dr. John" loading="lazy" />
+                      </div>
+                      <div class="name">Dr. John</div>
+                      <p class="bio mb-0">Dr. John explore les zones floues entre réalité sonore et fiction radiophonique.</p>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Infos: Contact + Mentions (accordion) -->
+        <section class="mb-5">
+          <div class="accordion accordion-glass" id="infosAccordion">
+            <!-- Contact -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="acc-contact-h">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-contact" aria-expanded="false" aria-controls="acc-contact">
+                  <i class="fa-regular fa-envelope me-2"></i> Contact
+                </button>
+              </h2>
+              <div id="acc-contact" class="accordion-collapse collapse" aria-labelledby="acc-contact-h" data-bs-parent="#infosAccordion">
+                <div class="accordion-body">
+                  <p>Tu veux proposer une émission, un podcast, ta musique, retirer un titre/artiste diffusé, signaler un problème ou simplement poser une question ?</p>
+                  <p>Tu peux nous écrire directement ici :</p>
+                  <p>
+                    <a class="btn btn-outline-light btn-sm" href="mailto:recordingsofthemasters@gmail.com?subject=Le%20Chat%20Noir%20-%20Contact" aria-label="Écrire un email à Le Chat Noir (objet pré-rempli)">
+                      <i class="fa-regular fa-envelope me-2"></i>Écrire un message
+                    </a>
+                  </p>
+                  <p class="mb-2">Nous sommes ouvert·es à toutes les propositions d’émission, de mix, de podcast ou de création sonore, à condition que tu détiennes les droits d’auteur sur tout ce que tu proposes. Le Chat Noir ne diffuse que des contenus libres de droits (sans SACEM).</p>
+                  <p class="mb-2">Nous ne diffuserons pas de contenus haineux, discriminatoires, fascistes, masculinistes, racistes, LGBTQIA+phobes ou assimilés&nbsp;: la radio reste un espace d’écoute safe.</p>
+                  <p class="muted">Nous écoutons tout ce qui nous est envoyé, sans garantie de diffusion.<br>
+                  Si tu demandes le retrait d’un morceau, la suppression est faite dès réception du message.<br>
+                  Aucune donnée personnelle n’est conservée au-delà du traitement de ta demande.</p>
+                  <p class="mb-1">Merci de préciser dans ton message :</p>
+                  <ul class="mb-0">
+                    <li>le titre ou l’artiste concerné,</li>
+                    <li>un lien d’écoute & de téléchargement (si tu proposes une œuvre),</li>
+                    <li>et ton nom ou pseudonyme.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Mentions & confidentialité -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="acc-legal-h">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-legal" aria-expanded="false" aria-controls="acc-legal">
+                  <i class="fa-regular fa-file-lines me-2"></i> Mentions & confidentialité
+                </button>
+              </h2>
+              <div id="acc-legal" class="accordion-collapse collapse" aria-labelledby="acc-legal-h" data-bs-parent="#infosAccordion">
+                <div class="accordion-body">
+                  <h3 class="h6">Éditeur du site</h3>
+                  <p class="mb-2">Le site Le Chat Noir Radio est édité et maintenu par un particulier, hébergé à titre non commercial sur un serveur personnel.</p>
+                  <p>
+                    <a class="btn btn-outline-light btn-sm" href="mailto:recordingsofthemasters@gmail.com?subject=Le%20Chat%20Noir%20-%20Contact" aria-label="Écrire un email à Le Chat Noir (objet pré-rempli)">
+                      <i class="fa-regular fa-envelope me-2"></i>Écrire un message (éditeur)
+                    </a>
+                  </p>
+
+                  <h3 class="h6 mt-3">Contenu et diffusion</h3>
+                  <p class="mb-2">Tous les morceaux diffusés sont des œuvres libres de droits ou créées par leurs auteur·ices respectif·ves.<br>
+                  Aucun contenu soumis à la SACEM n’est diffusé.<br>
+                  Si tu constates une erreur ou une diffusion non souhaitée, signale-la par le formulaire de contact.</p>
+
+                  <h3 class="h6 mt-3">Données personnelles</h3>
+                  <p class="mb-2">Le site ne trace pas les visiteurs. Les seules données collectées sont celles que tu fournis volontairement (nom, e-mail, message). Elles servent uniquement à répondre à ta demande et ne sont ni stockées ni partagées. Les statistiques d’écoute sont agrégées et anonymes.</p>
+
+                  <h3 class="h6 mt-3">Open source</h3>
+                  <p class="mb-2">Une partie du code du site et des scripts de diffusion est publiée sous licence libre. Le dépôt complet est consultable sur GitHub.</p>
+
+                  <h3 class="h6 mt-3">Responsabilité</h3>
+                  <p class="mb-0">L’éditeur ne saurait être tenu responsable d’une interruption temporaire du flux, ni de tout dommage indirect lié à l’usage du site ou à la diffusion en ligne.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Back to top floating button -->
+        <button id="backToTop" class="back-to-top" aria-label="Remonter en haut"><i class="fa-solid fa-arrow-up"></i></button>
       </div>
     </section>
   </main>
@@ -439,4 +578,16 @@
   })();
   </script>
 </body>
+  <script>
+    (function(){
+      const btn = document.getElementById('backToTop');
+      if(!btn) return;
+      function onScroll(){
+        if(window.scrollY > 400) btn.classList.add('show'); else btn.classList.remove('show');
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+      btn.addEventListener('click', ()=>{ window.scrollTo({top:0, behavior:'smooth'}); });
+    })();
+  </script>
 </html>
