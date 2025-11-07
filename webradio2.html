@@ -70,6 +70,20 @@
     .np-meta{ font-size:.85rem; opacity:.8; }
     .player-body .flex-grow-1{ min-width:0; }
     @media (max-width: 576px){ .np-line{ font-size:.95rem; -webkit-line-clamp:3; max-height:calc(1.2em * 3); } }
+    @media (max-width:576px){
+      .player-body{
+        flex-wrap:wrap;
+        align-items:flex-start;
+      }
+      .player-body .flex-grow-1{
+        flex-basis:100%;
+        order:3;
+        margin-top:8px;
+      }
+      .vol-group{
+        margin-left:0;
+      }
+    }
     .shake{ animation: shake .6s; }
     @keyframes shake{ 10%, 90%{ transform: translateX(-1px); } 20%, 80%{ transform: translateX(2px); } 30%, 50%, 70%{ transform: translateX(-4px); } 40%, 60%{ transform: translateX(4px); } }
 
@@ -78,6 +92,16 @@
     .history-controls{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
     .history-controls .form-control, .history-controls .btn{ height:38px; }
     .tz-note{ opacity:.7; font-size:.85rem; }
+
+    /* News / Actualité band */
+    .news-card{ background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:8px 14px; display:flex; align-items:center; gap:10px; backdrop-filter:blur(6px); font-size:.9rem; }
+    .news-label{ display:inline-flex; align-items:center; gap:6px; text-transform:uppercase; letter-spacing:.06em; font-size:.7rem; }
+    .news-ticker{ overflow:hidden; flex:1; }
+    .news-track{ display:inline-block; white-space:nowrap; animation: news-marquee 22s linear infinite; }
+    .news-card:hover .news-track{ animation-play-state:paused; }
+    @keyframes news-marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce){ .news-track{ animation:none; } }
+    @media (max-width:576px){ .news-card{ border-radius:14px; font-size:.85rem; } }
 
     /* Accordion (glass) */
     .accordion-glass .accordion-item{ background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.14); border-radius:14px; overflow:hidden; }
@@ -144,13 +168,6 @@
         </div>
         <!-- Intro text placed above the player -->
         <p class="lead text-light"><strong>Le Chat Noir — Webradio libre</strong></p>
-        <p class="text-light">Le Chat Noir est une webradio artisanale, indépendante et sans SACEM.</p>
-        <p class="text-light-emphasis"><i class="fa-solid fa-wave-square me-2" aria-hidden="true"></i>Elle diffuse en continu des créations libres : paysages sonores, field recordings, expérimentations radiophoniques, musiques ouvertes, fragiles et archives vivantes. On y écoute des émissions et de la musique de tous horizons, sans discrimination — de la noise à la chanson française, de l’expérimental à la dream pop, etc. Un espace d’écoute lente, entre fiction et réel, où le bruit, la voix et le silence se rencontrent.</p>
-        <p class="text-light-emphasis"><i class="fa-solid fa-sliders me-2" aria-hidden="true"></i>Nous n’appliquons aucune compression ni égalisation globale sur les œuvres diffusées, pour respecter au maximum leurs dynamiques et ce qu’elles sont. Si ça va trop fort, il faut baisser le volume ; si ce n’est pas assez fort, il faut simplement l’augmenter.</p>
-        <p class="text-light-emphasis"><i class="fa-solid fa-satellite-dish me-2" aria-hidden="true"></i>Tout est fait maison — hébergé, programmé et maintenu localement. Une radio de proximité cosmique, née dans une courée, tournée vers l’espace.</p>
-        <div class="d-flex flex-wrap gap-2 mt-3 mb-3">
-          <a class="btn btn-outline-light btn-sm" href="index.html"><i class="fa-solid fa-arrow-left me-2"></i>Retour à l’accueil</a>
-        </div>
         <!-- Faux player / Now Playing -->
         <div class="player-card mb-4" role="region" aria-label="Lecteur — Le Chat Noir">
           <div class="player-header">
@@ -174,6 +191,47 @@
               <div class="np-meta text-light-emphasis">Now playing</div>
             </div>
           </div>
+        </div>
+        <div class="news-card mb-4" role="status" aria-live="polite">
+          <div class="news-label text-warning">
+            <i class="fa-solid fa-bullhorn" aria-hidden="true"></i><span>Actualité</span>
+          </div>
+          <div class="news-ticker">
+            <div class="news-track">
+              Webradio en cours de construction — retrouvez bientôt ici des créations sonores actuelles et passées, locales et lointaines. · Webradio en cours de construction — retrouvez bientôt ici des créations sonores actuelles et passées, locales et lointaines.
+            </div>
+          </div>
+        </div>
+        <section class="mb-4">
+          <div class="accordion accordion-glass" id="introAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="acc-intro-h">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acc-intro" aria-expanded="true" aria-controls="acc-intro">
+                  <i class="fa-regular fa-circle-question me-2"></i> Présentation de la radio
+                </button>
+              </h2>
+              <div id="acc-intro" class="accordion-collapse collapse show" aria-labelledby="acc-intro-h">
+                <div class="accordion-body">
+                  <p class="text-light mb-2">Le Chat Noir est une webradio artisanale, indépendante et sans SACEM.</p>
+                  <p class="text-light-emphasis mb-2">
+                    <i class="fa-solid fa-wave-square me-2" aria-hidden="true"></i>
+                    Elle diffuse en continu des créations libres : paysages sonores, field recordings, expérimentations radiophoniques, musiques ouvertes, fragiles et archives vivantes. On y écoute des émissions et de la musique de tous horizons, sans discrimination — de la noise à la chanson française, de l’expérimental à la dream pop, etc. Un espace d’écoute lente, entre fiction et réel, où le bruit, la voix et le silence se rencontrent.
+                  </p>
+                  <p class="text-light-emphasis mb-2">
+                    <i class="fa-solid fa-sliders me-2" aria-hidden="true"></i>
+                    Nous n’appliquons aucune compression ni égalisation globale sur les œuvres diffusées, pour respecter au maximum leurs dynamiques et ce qu’elles sont. Si ça va trop fort, il faut baisser le volume ; si ce n’est pas assez fort, il faut simplement l’augmenter.
+                  </p>
+                  <p class="text-light-emphasis mb-0">
+                    <i class="fa-solid fa-satellite-dish me-2" aria-hidden="true"></i>
+                    Tout est fait maison — hébergé, programmé et maintenu localement. Une radio de proximité cosmique, née dans une courée, tournée vers l’espace.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="d-flex flex-wrap gap-2 mt-3 mb-3">
+          <a class="btn btn-outline-light btn-sm" href="index.html"><i class="fa-solid fa-arrow-left me-2"></i>Retour à l’accueil</a>
         </div>
         <!-- Historique des titres -->
         <section class="history-card mb-4" role="region" aria-label="Historique des titres">
