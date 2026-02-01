@@ -48,6 +48,16 @@
 
     .tile .btn-ghost{ --bs-btn-border-color: rgba(255,255,255,.35); --bs-btn-color:#e9f1ff; --bs-btn-hover-bg: rgba(255,255,255,.08); }
 
+    /* News / Actualité band */
+    .news-card{ background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:8px 14px; display:flex; align-items:center; gap:10px; backdrop-filter:blur(6px); font-size:.9rem; }
+    .news-label{ display:inline-flex; align-items:center; gap:6px; text-transform:uppercase; letter-spacing:.06em; font-size:.7rem; }
+    .news-ticker{ overflow:hidden; flex:1; }
+    .news-track{ display:inline-block; white-space:nowrap; animation: news-marquee 22s linear infinite; }
+    .news-card:hover .news-track{ animation-play-state:paused; }
+    @keyframes news-marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce){ .news-track{ animation:none; } }
+    @media (max-width:576px){ .news-card{ border-radius:14px; font-size:.85rem; } }
+
     /* Navbar */
     .navbar-custom{ background: rgba(6,9,20,.45); border-bottom:1px solid rgba(255,255,255,.06); }
     .brand-mark{ letter-spacing:.6px; font-weight:800; text-transform:none; }
@@ -134,6 +144,17 @@
         <p class="sub mt-2">Fictions, laboratoires nocturnes et voix à la dérive. Écoute lente, ondes courtes, mondes longs.</p>
         <div class="wave-divider"></div>
       </header>
+
+      <div class="news-card mb-4" role="status" aria-live="polite">
+        <div class="news-label text-warning">
+          <i class="fa-solid fa-bullhorn" aria-hidden="true"></i><span>Actualité</span>
+        </div>
+        <div class="news-ticker">
+          <div class="news-track">
+            La webradio Le Chat Noir avance bien — on espère une mise en ligne en février. Déjà en écoute : <strong>L’Autre Nuit</strong>, <strong>Console-toi</strong>, et une nouvelle mixtape. · La webradio Le Chat Noir avance bien — on espère une mise en ligne en février. Déjà en écoute : <strong>L’Autre Nuit</strong>, <strong>Console-toi</strong>, et une nouvelle mixtape.
+          </div>
+        </div>
+      </div>
 
       <div class="row g-4 align-items-stretch">
         <!-- Tile 0: Webradio -->
