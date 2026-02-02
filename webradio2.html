@@ -141,6 +141,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarsMain">
         <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item"><a class="nav-link" href="grille.html"><i class="fa-regular fa-calendar-days me-2"></i>Grille des programmes</a></li>
           <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
         </ul>
       </div>
@@ -201,6 +202,12 @@
               Webradio en cours de construction — retrouvez bientôt ici des créations sonores actuelles et passées, locales et lointaines. · Webradio en cours de construction — retrouvez bientôt ici des créations sonores actuelles et passées, locales et lointaines.
             </div>
           </div>
+        </div>
+        <!-- CTA : accès direct à la grille -->
+        <div class="d-grid mb-4">
+          <a class="btn btn-lg btn-warning fw-bold" href="grille.html">
+            <i class="fa-regular fa-calendar-days me-2"></i>Découvrir la grille des programmes
+          </a>
         </div>
         <section class="mb-4">
           <div class="accordion accordion-glass" id="introAccordion">
@@ -266,20 +273,6 @@
         <!-- Programme & Producteur·ices (accordion) -->
         <section class="mb-4">
           <div class="accordion accordion-glass" id="progAccordion">
-            <!-- Grille des programmes -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="acc-grid-h">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-grid" aria-expanded="false" aria-controls="acc-grid">
-                  <i class="fa-regular fa-calendar-days me-2"></i> Grille des programmes
-                </button>
-              </h2>
-              <div id="acc-grid" class="accordion-collapse collapse" aria-labelledby="acc-grid-h" data-bs-parent="#progAccordion">
-                <div class="accordion-body">
-                  <p>La grille est <strong>en cours de conception</strong> — on affine les cases, on teste les enchaînements, on règle le souffle entre deux morceaux.</p>
-                  <p>Pour l’instant, la station diffuse en <strong>lecture aléatoire</strong> parmi les créations disponibles. C’est brut, c’est vivant — et, honnêtement, <em>c’est fun</em>.</p>
-                </div>
-              </div>
-            </div>
             <!-- Producteur·ices -->
             <div class="accordion-item">
               <h2 class="accordion-header" id="acc-prods-h">
@@ -297,6 +290,13 @@
                       </div>
                       <div class="name">Dr. John</div>
                       <p class="bio mb-0">Dr. John explore les zones floues entre réalité sonore et fiction radiophonique.</p>
+                    </article>
+                    <article class="prod-card">
+                      <div class="avatar">
+                        <img src="PICS/ladyem.png" alt="Portrait de Lady Em" loading="lazy" />
+                      </div>
+                      <div class="name">Lady Em</div>
+                      <p class="bio mb-0">Lady Em démonte les mythes du vestiaire moderne, sur fond de velvet tips.</p>
                     </article>
                   </div>
                 </div>
@@ -634,7 +634,6 @@
     startAutoLatest();
   })();
   </script>
-</body>
   <script>
     (function(){
       const btn = document.getElementById('backToTop');
@@ -647,4 +646,5 @@
       btn.addEventListener('click', ()=>{ window.scrollTo({top:0, behavior:'smooth'}); });
     })();
   </script>
+</body>
 </html>
