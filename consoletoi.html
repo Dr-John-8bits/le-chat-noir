@@ -41,6 +41,13 @@
     .cover img{ display:block; width:50%; height:auto; object-fit:cover; margin:auto; border-radius:12px; }
     .badge-tag{ background:rgba(0,0,0,.55); color:#eaf2ff; border:1px solid rgba(255,255,255,.18); padding:.35rem .6rem; border-radius:999px; font-size:.8rem; }
     .btn-ghost{ --bs-btn-border-color: rgba(255,255,255,.35); --bs-btn-color:#e9f1ff; --bs-btn-hover-bg: rgba(255,255,255,.08); }
+
+    /* Podcast platforms */
+    .platforms{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+    .platforms .label{ font-size:.9rem; color:rgba(233,241,255,.9); }
+    .platforms a{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.35); transition:transform .12s ease, background .12s ease; }
+    .platforms a:hover{ transform:translateY(-1px); background:rgba(255,255,255,.08); }
+    .platforms img{ width:20px; height:20px; display:block; }
   </style>
 </head>
 <body>
@@ -85,7 +92,20 @@
         <p class="lead text-light">Le samedi matin, une console s’allume, un micro s’ouvre. Je joue, je râle — entre concentration et agacement. Pas d’image, pas de montage : juste le direct, brut.</p>
         <p class="text-light-emphasis">Console-toi, c’est une forme d’ASMR du stress et de poésie 8-bit : les menus, les bips, les loops, les silences, les ratés. Une écoute simple, sans filtre, où le jeu devient une matière sonore.</p>
         <p class="text-light-emphasis">Au programme : Atari 2600 et Atari 7800, sessions courtes (≈ 20 minutes), et cette petite tension familière du samedi matin — quand on veut juste jouer tranquille… et que tout résiste un peu.</p>
-        <div class="d-flex flex-wrap gap-2 mt-4">
+        <div class="platforms mt-4 mb-3" aria-label="Disponible sur les plateformes">
+          <span class="label"><i class="fa-solid fa-podcast me-2" aria-hidden="true"></i>Disponible sur les plateformes</span>
+          <a href="https://podcasts.apple.com/fr/podcast/le-chat-noir/id1871190456" target="_blank" rel="noopener" aria-label="Écouter sur Apple Podcasts">
+            <img src="PICS/podcast-apple.svg" alt="Apple Podcasts" loading="lazy" />
+          </a>
+          <a href="https://link.deezer.com/s/32kyeBkBNJM3uT08NoRBI" target="_blank" rel="noopener" aria-label="Écouter sur Deezer">
+            <img src="PICS/podcast-deezer.svg" alt="Deezer" loading="lazy" />
+          </a>
+          <a href="https://open.spotify.com/show/1sQCU8IcpyyEgBpmaDJmTG" target="_blank" rel="noopener" aria-label="Écouter sur Spotify">
+            <img src="PICS/podcast-spotify.svg" alt="Spotify" loading="lazy" />
+          </a>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
           <a class="btn btn-outline-light btn-sm" href="index.html"><i class="fa-solid fa-arrow-left me-2"></i>Retour à l’accueil</a>
         </div>
       </div>

@@ -36,6 +36,13 @@
     .cover img{ display:block; width:50%; height:auto; object-fit:cover; margin:auto; border-radius:12px; }
     .badge-tag{ background:rgba(0,0,0,.55); color:#eaf2ff; border:1px solid rgba(255,255,255,.18); padding:.35rem .6rem; border-radius:999px; font-size:.8rem; }
     .btn-ghost{ --bs-btn-border-color: rgba(255,255,255,.35); --bs-btn-color:#e9f1ff; --bs-btn-hover-bg: rgba(255,255,255,.08); }
+
+    /* Podcast platforms */
+    .platforms{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+    .platforms .label{ font-size:.9rem; color:rgba(233,241,255,.9); }
+    .platforms a{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.35); transition:transform .12s ease, background .12s ease; }
+    .platforms a:hover{ transform:translateY(-1px); background:rgba(255,255,255,.08); }
+    .platforms img{ width:20px; height:20px; display:block; }
   </style>
 </head>
 <body>
@@ -79,7 +86,20 @@
         </div>
         <p class="lead text-light">Voix, fragments, archives déplacées : une bande originale imaginaire qui emprunte la texture du réel pour mieux la fissurer. Ici, le récit est un leurre — et c’est précisément là que quelque chose de vrai affleure.</p>
         <p class="text-light-emphasis">Le Pseudodocumentaire s’écoute comme on parcourt une rumeur : indices, faux-semblants, paysages sonores où la dépression verte fait retour. Rien n’est authentique — sauf l’expérience d’écoute.</p>
-        <div class="d-flex flex-wrap gap-2 mt-4">
+        <div class="platforms mt-4 mb-3" aria-label="Disponible sur les plateformes">
+          <span class="label"><i class="fa-solid fa-podcast me-2" aria-hidden="true"></i>Disponible sur les plateformes</span>
+          <a href="https://podcasts.apple.com/fr/podcast/pseudocumentaire-de-lespace/id1663489966" target="_blank" rel="noopener" aria-label="Écouter sur Apple Podcasts">
+            <img src="PICS/podcast-apple.svg" alt="Apple Podcasts" loading="lazy" />
+          </a>
+          <a href="https://link.deezer.com/s/32kVCRRXVFZJc2LGvU9vs" target="_blank" rel="noopener" aria-label="Écouter sur Deezer">
+            <img src="PICS/podcast-deezer.svg" alt="Deezer" loading="lazy" />
+          </a>
+          <a href="https://open.spotify.com/show/6YcmqB1A1Lvs9wGKidtqDE" target="_blank" rel="noopener" aria-label="Écouter sur Spotify">
+            <img src="PICS/podcast-spotify.svg" alt="Spotify" loading="lazy" />
+          </a>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
           <a class="btn btn-outline-light btn-sm" href="index.html"><i class="fa-solid fa-arrow-left me-2"></i>Retour à l’accueil</a>
         </div>
       </div>
