@@ -1,391 +1,322 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Le Chat Noir Radio — Pré-production</title>
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --noir: #0a0a0c;
-      --charbon: #111115;
-      --or: #c8a96e;
-      --or-pale: #e8d5a3;
-      --rouge: #c0392b;
-      --blanc-cassé: #f0e8d8;
-      --gris: #3a3a4a;
-      --gris-clair: #6a6a7a;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      height: 100%;
-      background: var(--noir);
-      color: var(--blanc-cassé);
-      font-family: 'Crimson Pro', serif;
-      overflow-x: hidden;
-    }
-
-    /* ── Fond grain + vignette ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,169,110,.06) 0%, transparent 70%),
-        radial-gradient(ellipse 100% 100% at 50% 0%,   rgba(192, 57, 43,.08) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    /* Grain */
-    body::after {
-      content: '';
-      position: fixed; inset: 0; z-index: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      background-size: 256px 256px;
-      pointer-events: none;
-      opacity: .5;
-    }
-
-    /* ── WAVES SVG CONTAINER ── */
-    .waves-bg {
-      position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1;
-      pointer-events: none;
-    }
-
-    /* ── ONDES CIRCULAIRES (émission radio) ── */
-    .radio-waves {
-      position: fixed;
-      bottom: -60px; left: 50%;
-      transform: translateX(-50%);
-      width: 800px; height: 800px;
-      z-index: 1;
-      pointer-events: none;
-    }
-    .radio-waves circle {
-      fill: none;
-      stroke: var(--or);
-      stroke-width: 1px;
-      transform-origin: center;
-      animation: pulse-ring 4s ease-out infinite;
-      opacity: 0;
-    }
-    .radio-waves circle:nth-child(1) { r: 80;  animation-delay: 0s; }
-    .radio-waves circle:nth-child(2) { r: 140; animation-delay: .7s; }
-    .radio-waves circle:nth-child(3) { r: 200; animation-delay: 1.4s; }
-    .radio-waves circle:nth-child(4) { r: 260; animation-delay: 2.1s; }
-    .radio-waves circle:nth-child(5) { r: 320; animation-delay: 2.8s; }
-    .radio-waves circle:nth-child(6) { r: 380; animation-delay: 3.5s; }
-
-    @keyframes pulse-ring {
-      0%   { opacity: 0;    transform: scale(.6); }
-      20%  { opacity: .35; }
-      80%  { opacity: .08; }
-      100% { opacity: 0;    transform: scale(1.15); }
-    }
-
-    /* ── SINUSOÏDES SVG ANIMÉES ── */
-    .sine-layer {
-      position: fixed; left: 0; width: 100%;
-      z-index: 2; pointer-events: none;
-      overflow: hidden;
-    }
-    .sine-layer svg { display: block; }
-
-    .sl-1 { bottom: 0; opacity: .18; }
-    .sl-2 { bottom: 0; opacity: .10; }
-    .sl-3 { bottom: 0; opacity: .06; }
-
-    .sine-path {
-      fill: none;
-      stroke-linecap: round;
-    }
-    .s1 { stroke: var(--or);    stroke-width: 2; animation: wave-scroll 6s linear infinite; }
-    .s2 { stroke: var(--rouge); stroke-width: 1.5; animation: wave-scroll 9s linear infinite reverse; }
-    .s3 { stroke: var(--or-pale); stroke-width: 1; animation: wave-scroll 12s linear infinite; }
-
-    @keyframes wave-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ── WRAPPER PRINCIPAL ── */
-    .page {
-      position: relative; z-index: 10;
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 40px 20px 160px;
-      text-align: center;
-    }
-
-    /* ── LOGO / ICONE MICRO ── */
-    .icon-wrap {
-      position: relative;
-      width: 100px; height: 100px;
-      margin: 0 auto 32px;
-    }
-    .icon-wrap svg.mic-icon {
-      width: 100%; height: 100%;
-      filter: drop-shadow(0 0 16px rgba(200,169,110,.5));
-    }
-    .icon-pulse {
-      position: absolute; inset: -20px;
-      border-radius: 50%;
-      border: 1px solid var(--or);
-      animation: icon-pulse 2.5s ease-in-out infinite;
-    }
-    .icon-pulse:nth-child(2) { animation-delay: .8s; inset: -38px; opacity: .5; }
-    @keyframes icon-pulse {
-      0%,100% { transform: scale(1);   opacity: .6; }
-      50%      { transform: scale(1.1); opacity: .2; }
-    }
-
-    /* ── BADGE PRÉ-PROD ── */
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: 'Special Elite', monospace;
-      font-size: .7rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--rouge);
-      border: 1px solid var(--rouge);
-      padding: 5px 14px 4px;
-      border-radius: 2px;
-      margin-bottom: 28px;
-      background: rgba(192,57,43,.08);
-    }
-    .badge::before {
-      content: '';
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--rouge);
-      animation: blink 1.2s ease-in-out infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.15;} }
-
-    /* ── TITRE ── */
-    .brand {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 10vw, 8rem);
-      letter-spacing: .04em;
-      line-height: .92;
-      color: var(--or);
-      text-shadow:
-        0 0 60px rgba(200,169,110,.25),
-        0 2px 0 rgba(0,0,0,.6);
-      margin-bottom: 6px;
-    }
-    .brand span {
-      display: block;
-      color: var(--blanc-cassé);
-      font-size: .38em;
-      letter-spacing: .35em;
-      font-family: 'Special Elite', monospace;
-      text-shadow: none;
-      opacity: .75;
-      margin-bottom: 4px;
-    }
-
-    /* ── SÉPARATEUR ONDE ── */
-    .divider {
-      width: 180px; height: 24px;
-      margin: 22px auto 28px;
-      overflow: hidden;
-    }
-    .divider svg { width: 100%; height: 100%; }
-
-    /* ── MESSAGE ── */
-    .message {
-      max-width: 560px;
-      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-      font-weight: 300;
-      line-height: 1.75;
-      color: rgba(240,232,216,.7);
-      margin-bottom: 44px;
-    }
-    .message strong {
-      color: var(--or-pale);
-      font-weight: 400;
-    }
-    .message em {
-      color: rgba(240,232,216,.5);
-      font-style: italic;
-    }
-
-    /* ── CTA BUTTON ── */
-    .cta-wrap { position: relative; display: inline-block; }
-    .cta {
-      display: inline-flex; align-items: center; gap: 12px;
-      font-family: 'Special Elite', monospace;
-      font-size: .85rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--noir);
-      background: linear-gradient(135deg, var(--or) 0%, #a07840 100%);
-      padding: 16px 36px;
-      border-radius: 2px;
-      transition: transform .2s, box-shadow .2s;
-      box-shadow: 0 4px 30px rgba(200,169,110,.35), 0 0 0 1px rgba(200,169,110,.2);
-    }
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 40px rgba(200,169,110,.5), 0 0 0 1px rgba(200,169,110,.4);
-    }
-    .cta svg { width: 18px; height: 18px; }
-
-    /* Halo derrière le bouton */
-    .cta-halo {
-      position: absolute; inset: -12px;
-      border-radius: 4px;
-      background: radial-gradient(ellipse, rgba(200,169,110,.15) 0%, transparent 70%);
-      animation: halo-pulse 3s ease-in-out infinite;
-      pointer-events: none;
-    }
-    @keyframes halo-pulse { 0%,100%{opacity:1;} 50%{opacity:.3;} }
-
-    /* ── FRÉQUENCE ── */
-    .freq {
-      margin-top: 48px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      letter-spacing: .12em;
-      color: rgba(200,169,110,.2);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative; z-index: 10;
-      padding: 20px;
-      font-family: 'Special Elite', monospace;
-      font-size: .65rem;
-      letter-spacing: .15em;
-      color: rgba(240,232,216,.2);
-      text-align: center;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 480px) {
-      .brand { font-size: 3.2rem; }
-      .radio-waves { width: 500px; height: 500px; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Le Chat Noir Radio — Laboratoire</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:    #0d0e0f;
+  --paper: #f2ede6;
+  --amber: #e8a832;
+  --amber2:#f5c84a;
+  --green: #3ddc84;
+  --red:   #e84040;
+  --dim:   rgba(242,237,230,0.10);
+  --mono:  'IBM Plex Mono', monospace;
+  --serif: 'DM Serif Display', serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:16px;}
+body{
+  background:var(--bg);
+  color:var(--paper);
+  font-family:var(--mono);
+  min-height:100vh;
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+/* scanlines */
+body::after{
+  content:'';position:fixed;inset:0;z-index:100;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.07) 2px,rgba(0,0,0,.07) 4px);
+  pointer-events:none;
+}
+/* oscilloscope canvas */
+#osc{
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  z-index:0;opacity:.16;
+}
+/* noise */
+.noise{
+  position:fixed;inset:0;z-index:5;pointer-events:none;
+  opacity:.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:512px 512px;
+}
+/* LAYOUT */
+.frame{
+  position:relative;z-index:10;
+  min-height:100vh;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  padding:clamp(18px,4vw,48px);
+}
+/* TOP BAR */
+.topbar{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  border-bottom:1px solid var(--dim);
+  padding-bottom:16px;
+  flex-wrap:wrap;gap:10px;
+}
+.topbar-left{
+  font-size:.62rem;letter-spacing:.12em;
+  color:rgba(242,237,230,.28);line-height:1.9;
+}
+.topbar-left strong{color:var(--amber);font-weight:400;}
+.topbar-right{
+  display:flex;align-items:center;gap:8px;
+  font-size:.6rem;letter-spacing:.1em;color:var(--red);
+}
+.rec-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--red);
+  animation:blink-rec 1.4s ease-in-out infinite;
+}
+@keyframes blink-rec{0%,100%{opacity:1}50%{opacity:.1}}
+/* CENTRE */
+.center{
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:flex-start;
+  padding:clamp(36px,7vh,90px) 0;
+  max-width:860px;
+}
+/* tech label */
+.tech-label{
+  font-size:.58rem;letter-spacing:.26em;
+  color:var(--green);text-transform:uppercase;
+  margin-bottom:30px;
+  display:flex;align-items:center;gap:10px;
+}
+.tech-label::before{
+  content:'';display:inline-block;
+  width:26px;height:1px;background:var(--green);
+}
+/* TITRE */
+h1{
+  font-family:var(--serif);
+  font-size:clamp(3rem,9vw,7.5rem);
+  font-weight:400;font-style:italic;
+  line-height:.94;letter-spacing:-.01em;
+  color:var(--paper);margin-bottom:10px;
+}
+h1 .amber{
+  color:var(--amber);
+  position:relative;display:inline-block;
+}
+h1 .amber::after{
+  content:attr(data-t);
+  position:absolute;left:2px;top:0;
+  color:var(--red);
+  clip-path:inset(30% 0 50% 0);
+  animation:glitch 6s steps(2) infinite;
+  opacity:.45;
+}
+@keyframes glitch{
+  0%,93%{clip-path:inset(30% 0 50% 0);transform:translateX(0);}
+  94%{clip-path:inset(10% 0 65% 0);transform:translateX(-4px);}
+  95%{clip-path:inset(55% 0 20% 0);transform:translateX(3px);}
+  96%{clip-path:inset(40% 0 42% 0);transform:translateX(-2px);}
+  100%{clip-path:inset(30% 0 50% 0);transform:translateX(0);}
+}
+.subtitle{
+  font-family:var(--serif);
+  font-size:clamp(1rem,2.4vw,1.5rem);
+  font-weight:400;font-style:italic;
+  color:rgba(242,237,230,.3);
+  margin-bottom:56px;
+  letter-spacing:.01em;
+}
+/* MSG */
+.msg-block{
+  border-left:2px solid var(--amber);
+  padding-left:22px;
+  margin-bottom:52px;
+  max-width:500px;
+}
+.msg-block p{
+  font-size:clamp(.75rem,1.4vw,.88rem);
+  line-height:2;
+  color:rgba(242,237,230,.5);
+  letter-spacing:.03em;
+}
+.msg-block p+p{margin-top:10px;}
+.msg-block strong{color:var(--paper);font-weight:400;}
+.freq-note{
+  display:inline-block;margin-top:16px;
+  font-size:.58rem;color:var(--amber);
+  letter-spacing:.14em;opacity:.65;
+}
+/* LIEN */
+.sig-link{
+  display:inline-flex;flex-direction:column;
+  gap:5px;text-decoration:none;
+  margin-bottom:60px;
+}
+.sig-link .lbl{
+  font-size:.56rem;letter-spacing:.22em;
+  color:rgba(242,237,230,.25);text-transform:uppercase;
+}
+.sig-link .url{
+  font-family:'Space Mono',monospace;
+  font-size:clamp(1rem,2.8vw,1.6rem);
+  font-weight:700;letter-spacing:.06em;
+  color:var(--paper);
+  border-bottom:1.5px solid var(--amber);
+  padding-bottom:3px;
+  transition:color .2s;
+  position:relative;
+}
+.sig-link:hover .url{color:var(--amber);}
+.sig-link .url::after{
+  content:'↗';font-size:.7em;margin-left:7px;
+  color:var(--amber);transition:transform .2s;
+  display:inline-block;
+}
+.sig-link:hover .url::after{transform:translate(3px,-3px);}
+/* VU-MÈTRE */
+.vumeter{
+  display:flex;align-items:flex-end;
+  gap:3px;height:30px;
+}
+.vumeter span{
+  display:block;width:3px;border-radius:1px;
+  animation:vu var(--d,.8s) ease-in-out infinite alternate;
+  animation-delay:var(--delay,0s);
+  transform-origin:bottom;
+}
+@keyframes vu{from{transform:scaleY(.08)}to{transform:scaleY(1)}}
+/* BOTTOM BAR */
+.bottombar{
+  border-top:1px solid var(--dim);
+  padding-top:16px;
+  display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:10px;
+}
+.bottombar span{
+  font-size:.56rem;letter-spacing:.14em;
+  color:rgba(242,237,230,.18);
+}
+.bottombar .tagline{
+  font-family:var(--serif);font-style:italic;
+  letter-spacing:.04em;
+}
+@media(max-width:580px){
+  .topbar{flex-direction:column;}
+  .bottombar{flex-direction:column;align-items:flex-start;}
+}
+</style>
 </head>
 <body>
 
-<!-- ░░ ONDES CIRCULAIRES ░░ -->
-<svg class="radio-waves" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="400" cy="400"/>
-  <circle cx="400" cy="400"/>
-  <circle cx="400" cy="400"/>
-  <circle cx="400" cy="400"/>
-  <circle cx="400" cy="400"/>
-  <circle cx="400" cy="400"/>
-</svg>
+<div class="noise"></div>
+<canvas id="osc"></canvas>
 
-<!-- ░░ SINUSOÏDE 1 ░░ -->
-<div class="sine-layer sl-1">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 120" height="120" preserveAspectRatio="none">
-    <path class="sine-path s1" d="
-      M0,60 C100,10 200,110 300,60 C400,10 500,110 600,60
-      C700,10 800,110 900,60 C1000,10 1100,110 1200,60
-      C1300,10 1400,110 1500,60 C1600,10 1700,110 1800,60
-      C1900,10 2000,110 2100,60 C2200,10 2300,110 2400,60
-      C2500,10 2600,110 2700,60 C2800,10 2900,110 3000,60
-      C3100,10 3200,110 3300,60 C3400,10 3500,110 3600,60
-      C3700,10 3800,110 3900,60 C4000,10 4100,110 4200,60
-      C4300,10 4400,110 4500,60 C4600,10 4700,110 4800,60
-    "/>
-  </svg>
-</div>
+<div class="frame">
 
-<!-- ░░ SINUSOÏDE 2 ░░ -->
-<div class="sine-layer sl-2">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 160" height="160" preserveAspectRatio="none">
-    <path class="sine-path s2" d="
-      M0,80 C150,20 250,140 400,80 C550,20 650,140 800,80
-      C950,20 1050,140 1200,80 C1350,20 1450,140 1600,80
-      C1750,20 1850,140 2000,80 C2150,20 2250,140 2400,80
-      C2550,20 2650,140 2800,80 C2950,20 3050,140 3200,80
-      C3350,20 3450,140 3600,80 C3750,20 3850,140 4000,80
-      C4150,20 4250,140 4400,80 C4550,20 4650,140 4800,80
-    "/>
-  </svg>
-</div>
-
-<!-- ░░ SINUSOÏDE 3 ░░ -->
-<div class="sine-layer sl-3">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 200" height="200" preserveAspectRatio="none">
-    <path class="sine-path s3" d="
-      M0,100 C200,30 300,170 500,100 C700,30 800,170 1000,100
-      C1200,30 1300,170 1500,100 C1700,30 1800,170 2000,100
-      C2200,30 2300,170 2500,100 C2700,30 2800,170 3000,100
-      C3200,30 3300,170 3500,100 C3700,30 3800,170 4000,100
-      C4200,30 4300,170 4500,100 C4700,30 4800,170 5000,100
-    "/>
-  </svg>
-</div>
-
-<!-- ░░ CONTENU PRINCIPAL ░░ -->
-<div class="page">
-
-  <!-- Icône micro -->
-  <div class="icon-wrap">
-    <div class="icon-pulse"></div>
-    <div class="icon-pulse"></div>
-    <svg class="mic-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="35" y="12" width="30" height="48" rx="15" fill="none" stroke="#c8a96e" stroke-width="2.5"/>
-      <path d="M20 50c0 16.6 13.4 30 30 30s30-13.4 30-30" stroke="#c8a96e" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="50" y1="80" x2="50" y2="92" stroke="#c8a96e" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="36" y1="92" x2="64" y2="92" stroke="#c8a96e" stroke-width="2.5" stroke-linecap="round"/>
-      <!-- LED -->
-      <circle cx="50" cy="30" r="4" fill="#c0392b" opacity=".9">
-        <animate attributeName="opacity" values="0.9;0.2;0.9" dur="1.5s" repeatCount="indefinite"/>
-      </circle>
-    </svg>
+  <div class="topbar">
+    <div class="topbar-left">
+      <strong>LCN / LAB</strong> — SYSTÈME DE DIFFUSION<br/>
+      ENV&nbsp;: PRÉ-PRODUCTION &nbsp;·&nbsp; BUILD&nbsp;<span id="bid"></span>
+    </div>
+    <div class="topbar-right">
+      <div class="rec-dot"></div>
+      SIGNAL INACTIF
+    </div>
   </div>
 
-  <!-- Badge -->
-  <div class="badge">Pré-production — Site fermé</div>
+  <div class="center">
 
-  <!-- Titre -->
-  <h1 class="brand">
-    <span>La webradio</span>
-    Le Chat Noir
-  </h1>
+    <div class="tech-label">Laboratoire radiophonique expérimental</div>
 
-  <!-- Séparateur onde -->
-  <div class="divider" aria-hidden="true">
-    <svg viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,12 C15,4 25,20 40,12 C55,4 65,20 80,12 C95,4 105,20 120,12 C135,4 145,20 160,12 C170,6 175,16 180,12"
-            fill="none" stroke="#c8a96e" stroke-width="1.5" opacity=".6"/>
-      <circle cx="90" cy="12" r="3" fill="#c8a96e" opacity=".8"/>
-    </svg>
-  </div>
+    <h1>
+      Le Chat Noir<br/>
+      <span class="amber" data-t="Radio">Radio</span>
+    </h1>
 
-  <!-- Message -->
-  <p class="message">
-    <em>Pour écouter la webradio dès maintenant,</em><br/>
-    rendez-vous sur notre adresse officielle&nbsp;:
-  </p>
+    <p class="subtitle">Fréquences en cours d'étalonnage.</p>
 
-  <!-- CTA -->
-  <div class="cta-wrap">
-    <div class="cta-halo"></div>
-    <a class="cta" href="https://lechatnoirradio.fr" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-        <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
-        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
-      </svg>
-      lechatnoirradio.fr
+    <div class="msg-block">
+      <p>
+        Pour accéder à la diffusion <strong>en cours</strong>,<br/>
+        le signal passe par l'adresse officielle.
+      </p>
+      <span class="freq-note">// signal disponible ici ↓</span>
+    </div>
+
+    <a class="sig-link" href="https://lechatnoirradio.fr" target="_blank" rel="noopener">
+      <span class="lbl">adresse de diffusion</span>
+      <span class="url">lechatnoirradio.fr</span>
     </a>
+
+    <div class="vumeter" id="vu" aria-hidden="true"></div>
+
   </div>
 
-
+  <div class="bottombar">
+    <span>© Le Chat Noir Radio &nbsp;·&nbsp; Tous droits réservés</span>
+    <span class="tagline">la radio qui cherche encore</span>
+  </div>
 
 </div>
 
-<footer>© Le Chat Noir Radio &nbsp;·&nbsp; Tous droits réservés</footer>
+<script>
+// BUILD ID
+document.getElementById('bid').textContent =
+  Math.random().toString(16).slice(2,8).toUpperCase();
 
+// VU-MÈTRE
+const vu = document.getElementById('vu');
+const bars = [8,13,20,17,26,30,24,19,28,22,15,27,19,13,25,17,30,21,11,23,16,28,20,14];
+bars.forEach((h,i) => {
+  const s = document.createElement('span');
+  s.style.setProperty('--d', (.35 + Math.random()*.9).toFixed(2)+'s');
+  s.style.setProperty('--delay', (Math.random()*.5).toFixed(2)+'s');
+  s.style.height = h+'px';
+  const r = i/bars.length;
+  s.style.background = r>.75 ? 'var(--red)' : r>.5 ? 'var(--amber)' : 'var(--green)';
+  vu.appendChild(s);
+});
+
+// OSCILLOSCOPE
+const cv = document.getElementById('osc');
+const cx = cv.getContext('2d');
+let W,H,t=0;
+function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+resize(); window.addEventListener('resize',resize);
+
+const layers=[
+  {amp:.07, freq:2.1, speed:.007, color:'#e8a832', lw:1.2, dy:0},
+  {amp:.035,freq:4.9, speed:.012, color:'#3ddc84', lw:.7,  dy:.04},
+  {amp:.055,freq:1.4, speed:.004, color:'#f2ede6', lw:.45, dy:-.03},
+  {amp:.02, freq:8.5, speed:.019, color:'#e84040', lw:.35, dy:.02},
+];
+
+function draw(){
+  cx.clearRect(0,0,W,H);
+  t++;
+  layers.forEach(l=>{
+    cx.beginPath();
+    cx.strokeStyle=l.color;
+    cx.lineWidth=l.lw;
+    cx.globalAlpha=.9;
+    const my=H*(.5+l.dy), ap=H*l.amp;
+    for(let x=0;x<=W;x+=2){
+      const n=x/W;
+      const noise=(Math.random()-.5)*ap*.07;
+      const y=my
+        +Math.sin(n*Math.PI*2*l.freq+t*l.speed)*ap
+        +Math.sin(n*Math.PI*2*l.freq*2.4+t*l.speed*1.8)*ap*.28
+        +noise;
+      x===0?cx.moveTo(x,y):cx.lineTo(x,y);
+    }
+    cx.stroke();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
 </body>
 </html>
