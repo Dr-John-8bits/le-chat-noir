@@ -988,15 +988,13 @@
   gap: 1rem;
 }
 
-.direct-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.16fr) minmax(280px, 0.84fr);
-  gap: 1rem;
-}
-
 .direct-card {
   display: grid;
   gap: 1rem;
+}
+
+.direct-card--compact {
+  gap: 0.8rem;
 }
 
 .direct-card__head {
@@ -1015,8 +1013,8 @@
 
 .direct-card__title {
   margin: 0.15rem 0 0;
-  font-size: clamp(1.4rem, 3vw, 1.95rem);
-  line-height: 1.04;
+  font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+  line-height: 1.08;
   letter-spacing: -0.04em;
 }
 
@@ -1028,8 +1026,8 @@
 
 .direct-track-title {
   margin: 0;
-  font-size: clamp(1.08rem, 2.5vw, 1.32rem);
-  line-height: 1.15;
+  font-size: clamp(0.98rem, 2vw, 1.14rem);
+  line-height: 1.22;
   letter-spacing: -0.03em;
 }
 
@@ -1037,7 +1035,8 @@
 .direct-meta-line {
   margin: 0;
   color: var(--text-muted);
-  line-height: 1.55;
+  font-size: 0.94rem;
+  line-height: 1.48;
 }
 
 .direct-stats-grid {
@@ -1049,7 +1048,7 @@
 .direct-stat {
   display: grid;
   gap: 0.35rem;
-  padding: 0.92rem 0.95rem;
+  padding: 0.82rem 0.88rem;
   border-radius: 16px;
   background: color-mix(in srgb, var(--surface) 85%, var(--bg));
   border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
@@ -1075,7 +1074,7 @@
 }
 
 .direct-stat__value {
-  font-size: clamp(2.2rem, 6vw, 3.25rem);
+  font-size: clamp(1.8rem, 4.8vw, 2.6rem);
   line-height: 0.95;
   letter-spacing: -0.06em;
   color: var(--accent);
@@ -1087,7 +1086,7 @@
 
 .direct-stat__unit {
   color: var(--text);
-  font-size: 0.92rem;
+  font-size: 0.84rem;
   font-weight: 700;
 }
 
@@ -1102,8 +1101,7 @@
   .history-form,
   .producers-grid,
   .shows-grid,
-  .about-hero,
-  .direct-grid {
+  .about-hero {
     grid-template-columns: 1fr;
   }
 
@@ -1130,17 +1128,52 @@
     gap: 0.4rem;
   }
 
+  .direct-main {
+    padding: 1rem 0 2rem;
+  }
+
   .direct-header__inner {
     align-items: flex-start;
     flex-direction: column;
   }
 
+  .direct-card {
+    gap: 0.72rem;
+  }
+
+  .direct-card__head {
+    gap: 0.6rem;
+  }
+
+  .direct-card__title {
+    font-size: 1.08rem;
+  }
+
+  .direct-track-title {
+    font-size: 0.95rem;
+  }
+
+  .direct-track-meta,
+  .direct-meta-line {
+    font-size: 0.9rem;
+  }
+
   .direct-actions {
     grid-auto-flow: row;
+    gap: 0.55rem;
   }
 
   .direct-stats-grid {
     grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .direct-stat {
+    padding: 0.75rem 0.8rem;
+  }
+
+  .direct-stat__value {
+    font-size: 1.58rem;
   }
 
   .scroll-top-button {

@@ -43,7 +43,7 @@ const asString = APP_UTILS.asString;
 const escapeHtml = APP_UTILS.escapeHtml;
 const parseYear = APP_UTILS.parseYear;
 const firstString = APP_UTILS.firstString;
-const detectIOSPhoneDevice = APP_UTILS.detectIOSPhoneDevice;
+const shouldHideWebVolumeControl = APP_UTILS.shouldHideWebVolumeControl || APP_UTILS.detectIOSPhoneDevice;
 const parseCsvLine = APP_UTILS.parseCsvLine;
 const yieldToBrowser = APP_UTILS.yieldToBrowser;
 const getDisplayDateParts = (value) => APP_UTILS.getDisplayDateParts(value, DISPLAY_TIME_ZONE);
@@ -72,7 +72,7 @@ const state = {
   route: getRouteFromHash(),
   isPlaying: false,
   streamAvailable: false,
-  isIOSPhone: detectIOSPhoneDevice(),
+  shouldHideVolumeControl: shouldHideWebVolumeControl ? shouldHideWebVolumeControl() : false,
   volume: DEFAULT_VOLUME,
   hasUserAdjustedVolume: false,
   currentShow: {
@@ -1298,7 +1298,7 @@ function makeDomId(prefix, value) {
 }
 
 function applyPlatformAudioUi() {
-  const shouldHideVolume = state.isIOSPhone;
+  const shouldHideVolume = state.shouldHideVolumeControl;
   if (refs.volumeWrap) {
     refs.volumeWrap.hidden = shouldHideVolume;
   }

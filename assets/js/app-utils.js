@@ -28,37 +28,29 @@
     return "";
   }
 
-  function detectIOSPhoneDevice() {
+  function shouldHideWebVolumeControl() {
     var nav = window.navigator || {};
     var platform = String(nav.platform || "");
     var userAgent = String(nav.userAgent || "");
     var userAgentDataPlatform = String((nav.userAgentData && nav.userAgentData.platform) || "");
     var maxTouchPoints = Number(nav.maxTouchPoints || 0);
-    var shortestScreenEdge = Math.min(
-      Number((window.screen && window.screen.width) || 0) || Infinity,
-      Number((window.screen && window.screen.height) || 0) || Infinity
-    );
+    var explicitAppleMobileDevice =
+      /iPhone|iPod|iPad/i.test(platform) ||
+      /iPhone|iPod|iPad/i.test(userAgent) ||
+      /iPhone|iPod|iPad/i.test(userAgentDataPlatform);
 
-    var isExplicitIPhoneOrIPod =
-      /iPhone|iPod/i.test(platform) ||
-      /iPhone|iPod/i.test(userAgent) ||
-      /iPhone|iPod/i.test(userAgentDataPlatform);
+    if (explicitAppleMobileDevice) return true;
 
-    if (isExplicitIPhoneOrIPod) return true;
-
-    var audio = document.createElement("audio");
-    var initialVolume = audio.volume;
-    audio.volume = 0.37;
-    var supportsAdjustableWebVolume = Math.abs(audio.volume - 0.37) < 0.01;
-    audio.volume = initialVolume;
-
-    var isSmallAppleTouchDevice =
+    var isDisguisedIPad =
       /AppleWebKit/i.test(userAgent) &&
       /Mac/i.test(platform + " " + userAgentDataPlatform) &&
-      maxTouchPoints > 1 &&
-      shortestScreenEdge < 500;
+      maxTouchPoints > 1;
 
-    return isSmallAppleTouchDevice && !supportsAdjustableWebVolume;
+    return isDisguisedIPad;
+  }
+
+  function detectIOSPhoneDevice() {
+    return shouldHideWebVolumeControl();
   }
 
   function parseCsvLine(line) {
@@ -295,6 +287,7 @@
     escapeHtml: escapeHtml,
     parseYear: parseYear,
     firstString: firstString,
+    shouldHideWebVolumeControl: shouldHideWebVolumeControl,
     detectIOSPhoneDevice: detectIOSPhoneDevice,
     parseCsvLine: parseCsvLine,
     yieldToBrowser: yieldToBrowser,

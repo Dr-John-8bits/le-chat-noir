@@ -47,7 +47,6 @@
               <div class="section-heading">
                 <p class="section-kicker">Derniers passages</p>
                 <h1 class="section-title" id="home-title">Récemment diffusé</h1>
-                <p class="section-intro">Les derniers contenus passés à l'antenne, musique, émission ou autre forme sonore comprise.</p>
               </div>
               <ul class="recent-list">
                 ${renderRecentList()}

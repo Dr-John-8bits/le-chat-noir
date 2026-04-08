@@ -38,59 +38,43 @@
     <main class="direct-main">
       <div class="direct-shell">
         <section class="page" aria-labelledby="direct-title">
-          <article class="page-card page-card--hero">
+          <article class="page-card page-card--hero direct-card direct-card--compact">
             <span class="page-eyebrow">Direct</span>
             <h1 class="page-title" id="direct-title">État du direct</h1>
-            <p class="page-copy">
-              Show réellement diffusé, now playing et audience web du flux en temps réel. Cette page
-              reste volontairement hors navigation publique.
-            </p>
-          </article>
+            <div class="direct-card__head">
+              <div>
+                <p class="section-kicker">À l’antenne</p>
+                <h2 class="direct-card__title" id="directCurrentShow">Chargement…</h2>
+              </div>
+              <div class="direct-card__badge" id="directCurrentBadge"></div>
+            </div>
 
-          <section class="direct-grid">
-            <article class="page-card direct-card">
-              <div class="direct-card__head">
-                <div>
-                  <p class="section-kicker">À l’antenne</p>
-                  <h2 class="direct-card__title" id="directCurrentShow">Chargement…</h2>
+            <div class="direct-card__body">
+              <h3 class="direct-track-title" id="directTrackTitle">Chargement…</h3>
+              <p class="direct-track-meta" id="directTrackMeta">Les métadonnées du morceau apparaîtront ici.</p>
+            </div>
+
+            <p class="direct-meta-line" id="directCurrentSince">—</p>
+
+            <div class="direct-stats-grid">
+              <article class="direct-stat">
+                <span class="direct-stat__label">En ce moment</span>
+                <div class="direct-stat__value-row">
+                  <strong class="direct-stat__value" id="directListenersCurrent">—</strong>
+                  <span class="direct-stat__unit" id="directListenersUnit">auditeur·ices</span>
                 </div>
-                <div class="direct-card__badge" id="directCurrentBadge"></div>
-              </div>
-              <div class="direct-card__body">
-                <h3 class="direct-track-title" id="directTrackTitle">Chargement…</h3>
-                <p class="direct-track-meta" id="directTrackMeta">Les métadonnées du morceau apparaîtront ici.</p>
-              </div>
-              <p class="direct-meta-line" id="directCurrentSince">—</p>
-            </article>
-
-            <article class="page-card direct-card direct-card--stats">
-              <div class="direct-card__head">
-                <div>
-                  <p class="section-kicker">Écoute</p>
-                  <h2 class="direct-card__title">Audience web</h2>
+              </article>
+              <article class="direct-stat direct-stat--subtle">
+                <span class="direct-stat__label">Pic</span>
+                <div class="direct-stat__value-row">
+                  <strong class="direct-stat__value direct-stat__value--secondary" id="directListenersPeak">—</strong>
+                  <span class="direct-stat__unit">max</span>
                 </div>
-              </div>
-              <div class="direct-stats-grid">
-                <article class="direct-stat">
-                  <span class="direct-stat__label">En ce moment</span>
-                  <div class="direct-stat__value-row">
-                    <strong class="direct-stat__value" id="directListenersCurrent">—</strong>
-                    <span class="direct-stat__unit" id="directListenersUnit">auditeur·ices</span>
-                  </div>
-                </article>
-                <article class="direct-stat direct-stat--subtle">
-                  <span class="direct-stat__label">Pic</span>
-                  <div class="direct-stat__value-row">
-                    <strong class="direct-stat__value direct-stat__value--secondary" id="directListenersPeak">—</strong>
-                    <span class="direct-stat__unit">max</span>
-                  </div>
-                </article>
-              </div>
-              <p class="direct-meta-line" id="directListenersUpdated">—</p>
-            </article>
-          </section>
+              </article>
+            </div>
 
-          <article class="page-card direct-actions-card">
+            <p class="direct-meta-line" id="directListenersUpdated">—</p>
+
             <div class="direct-actions">
               <a class="ghost-button" href="index.html">Revenir à l’accueil</a>
               <button class="ghost-button" id="directRefreshButton" type="button">Actualiser maintenant</button>
