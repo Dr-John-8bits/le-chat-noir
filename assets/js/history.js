@@ -1,35 +1,39 @@
 (function () {
   var utils = window.LCNAppUtils || {};
 
-  var HISTORY_CSV_URL = "https://stream.lechatnoirradio.fr/history/nowplaying.csv";
+  var CSV_URL = "https://stream.lechatnoirradio.fr/history/nowplaying.csv";
   var DISPLAY_TIME_ZONE = "Europe/Paris";
-  var HISTORY_REFRESH_MS = 20000;
-  var DEFAULT_HISTORY_VISIBLE_ROWS = 30;
-  var HISTORY_LOAD_MORE_STEP = 30;
-  var HISTORY_PREVIEW_REFRESH_ROWS = 240;
-  var CSV_PARSE_CHUNK_SIZE = 180;
+  var AUTO_MS = 20000;
+  var FETCH_CACHE_MS = 15000;
+  var HISTORY_CACHE_KEY = "lcn-history-preview-v1";
+  var HISTORY_CACHE_AT_KEY = "lcn-history-preview-at";
+  var HISTORY_CACHE_MAX_ROWS = 240;
+  var HISTORY_CACHE_MAX_AGE_MS = 3 * 60 * 1000;
+  var DEFAULT_VISIBLE_ROWS = 30;
+  var LOAD_MORE_STEP = 30;
 
   var refs = {
-    timezoneLabel: document.getElementById("historyTimezoneLabel"),
-    displayLabel: document.getElementById("historyDisplayLabel"),
-    statusText: document.getElementById("historyStatusText"),
     dayInput: document.getElementById("historyDayInput"),
     timeInput: document.getElementById("historyTimeInput"),
     searchButton: document.getElementById("historySearchButton"),
     list: document.getElementById("historyList"),
     moreRow: document.getElementById("historyMoreRow"),
     moreButton: document.getElementById("historyMoreButton"),
+    modeLabel: document.getElementById("historyDisplayLabel"),
+    statusText: document.getElementById("historyStatusText"),
+    timezonePill: document.getElementById("historyTimezoneLabel"),
   };
+
+  if (!refs.dayInput || !refs.timeInput || !refs.searchButton || !refs.list || !refs.moreButton) return;
 
   var state = {
     rows: [],
-    sortedRows: [],
-    historyDay: getTodayYmd(),
-    historyTime: "",
-    historyVisibleCount: DEFAULT_HISTORY_VISIBLE_ROWS,
-    hasFullArchive: false,
-    refreshPromise: null,
-    statusText: "Chargement des archives complètes…",
+    fetchCacheRows: null,
+    fetchCacheAt: 0,
+    autoTimer: null,
+    visibleCount: DEFAULT_VISIBLE_ROWS,
+    statusText: "Chargement des dernières diffusions…",
+    timezoneLabel: getDisplayZoneLabel(),
   };
 
   function asString(value) {
@@ -55,20 +59,8 @@
     return typeof utils.parseCsvLine === "function" ? utils.parseCsvLine(line) : [line];
   }
 
-  function yieldToBrowser() {
-    return typeof utils.yieldToBrowser === "function"
-      ? utils.yieldToBrowser()
-      : new Promise(function (resolve) {
-          window.setTimeout(resolve, 0);
-        });
-  }
-
   function ensureEnrichedRow(row) {
     return typeof utils.ensureEnrichedRow === "function" ? utils.ensureEnrichedRow(row, DISPLAY_TIME_ZONE) : row;
-  }
-
-  function getSortedHistoryRows(rows) {
-    return typeof utils.getSortedHistoryRows === "function" ? utils.getSortedHistoryRows(rows, DISPLAY_TIME_ZONE) : rows || [];
   }
 
   function getDisplayZoneLabel() {
@@ -87,118 +79,88 @@
     return typeof utils.formatLocalTime === "function" ? utils.formatLocalTime(value, DISPLAY_TIME_ZONE) : "--:--";
   }
 
-  function initialize() {
-    if (refs.timezoneLabel) refs.timezoneLabel.textContent = getDisplayZoneLabel();
-    if (refs.dayInput) refs.dayInput.value = state.historyDay;
-    if (refs.timeInput) refs.timeInput.value = state.historyTime;
+  function loadPreviewRows() {
+    try {
+      var cachedAt = Number(window.localStorage.getItem(HISTORY_CACHE_AT_KEY) || 0);
+      if (!cachedAt || Date.now() - cachedAt > HISTORY_CACHE_MAX_AGE_MS) return null;
+      var raw = window.localStorage.getItem(HISTORY_CACHE_KEY);
+      if (!raw) return null;
+      var rows = JSON.parse(raw);
+      if (!Array.isArray(rows) || !rows.length) return null;
+      return rows
+        .map(function (row) {
+          return ensureEnrichedRow(row);
+        })
+        .filter(Boolean);
+    } catch (error) {
+      return null;
+    }
+  }
 
-    bindEvents();
-    render();
-    refreshHistory({ full: true });
+  function savePreviewRows(rows) {
+    try {
+      var previewRows = (rows || [])
+        .slice(0, HISTORY_CACHE_MAX_ROWS)
+        .map(function (row) {
+          return ensureEnrichedRow(row);
+        })
+        .filter(Boolean);
+      window.localStorage.setItem(HISTORY_CACHE_KEY, JSON.stringify(previewRows));
+      window.localStorage.setItem(HISTORY_CACHE_AT_KEY, String(Date.now()));
+    } catch (error) {
+      return;
+    }
+  }
 
-    window.setInterval(function () {
-      if (!document.hidden) refreshHistory({ full: false, silent: true });
-    }, HISTORY_REFRESH_MS);
+  function parseCsvRows(csvText) {
+    var normalized = String(csvText || "")
+      .replace(/\r\n?/g, "\n")
+      .trim();
+    if (!normalized) return [];
 
-    document.addEventListener("visibilitychange", function () {
-      if (!document.hidden) refreshHistory({ full: false, silent: true });
+    var lines = normalized.split("\n");
+    var parsed = [];
+
+    for (var index = 1; index < lines.length; index += 1) {
+      var line = lines[index];
+      if (!line) continue;
+      var cols = parseCsvLine(line);
+      var enriched = ensureEnrichedRow({
+        tsIso: cols[0] || "",
+        artist: cols[2] || "",
+        title: cols[3] || "",
+        album: cols[4] || "",
+        year: cols[5] || "",
+      });
+      if (enriched) parsed.push(enriched);
+    }
+
+    parsed.sort(function (left, right) {
+      return right.tsMs - left.tsMs;
     });
+
+    return parsed;
   }
 
-  function bindEvents() {
-    if (refs.dayInput) {
-      refs.dayInput.addEventListener("change", function (event) {
-        state.historyDay = event.target.value || getTodayYmd();
-        state.historyVisibleCount = DEFAULT_HISTORY_VISIBLE_ROWS;
-        render();
-      });
-    }
-
-    if (refs.timeInput) {
-      refs.timeInput.addEventListener("change", function (event) {
-        state.historyTime = event.target.value || "";
-        state.historyVisibleCount = DEFAULT_HISTORY_VISIBLE_ROWS;
-        render();
-      });
-    }
-
-    if (refs.searchButton) {
-      refs.searchButton.addEventListener("click", function () {
-        state.historyVisibleCount = DEFAULT_HISTORY_VISIBLE_ROWS;
-        if (!state.hasFullArchive) {
-          refreshHistory({ full: true });
-          return;
-        }
-        render();
-      });
-    }
-
-    if (refs.moreButton) {
-      refs.moreButton.addEventListener("click", function () {
-        state.historyVisibleCount += HISTORY_LOAD_MORE_STEP;
-        render();
-      });
-    }
+  function getTrackMeta(row) {
+    var parts = [];
+    var artist = asString(row && row.artist);
+    var album = asString(row && row.album);
+    var year = parseYear(row && row.year);
+    if (artist) parts.push(artist);
+    if (album) parts.push(album);
+    if (year) parts.push(year);
+    return parts.join(" · ");
   }
 
-  function render() {
-    var display = getHistoryDisplay();
-
-    if (refs.displayLabel) refs.displayLabel.textContent = display.label;
-    if (refs.statusText) refs.statusText.textContent = state.statusText;
-    if (refs.list) refs.list.innerHTML = renderHistoryRows(display.rows, "Aucun titre trouvé pour cette sélection.");
-
-    if (refs.moreRow) {
-      refs.moreRow.hidden = !(display.totalCount > display.rows.length);
-    }
-  }
-
-  function getHistoryDisplay() {
-    var selectedDay = state.historyDay || getTodayYmd();
-    var selectedTime = state.historyTime || "";
-    var rows = state.sortedRows;
-
-    if (!selectedTime) {
-      var dayRows = rows.filter(function (row) {
-        return row.localYmd === selectedDay;
-      });
-
-      return {
-        label: selectedDay === getTodayYmd() ? "Derniers passages du jour" : "Recherche ponctuelle : " + selectedDay,
-        rows: dayRows.slice(0, state.historyVisibleCount),
-        totalCount: dayRows.length,
-      };
+  function renderRows(rows, emptyText) {
+    if (!rows || !rows.length) {
+      refs.list.innerHTML = '<li class="history-empty">' + escapeHtml(emptyText) + "</li>";
+      if (refs.moreRow) refs.moreRow.hidden = true;
+      return;
     }
 
-    var timeParts = selectedTime.split(":");
-    var referenceMinutes = Number(timeParts[0] || 0) * 60 + Number(timeParts[1] || 0);
-    var selectedDayRows = rows.filter(function (row) {
-      return row.localYmd === selectedDay;
-    });
-    var closestRows = selectedDayRows
-      .slice()
-      .sort(function (left, right) {
-        return (
-          Math.abs((left.localMinutes == null ? 0 : left.localMinutes) - referenceMinutes) -
-            Math.abs((right.localMinutes == null ? 0 : right.localMinutes) - referenceMinutes) ||
-          right.tsMs - left.tsMs
-        );
-      })
-      .slice(0, state.historyVisibleCount);
-
-    return {
-      label: "Recherche ponctuelle : titres les plus proches de " + selectedTime,
-      rows: closestRows,
-      totalCount: selectedDayRows.length,
-    };
-  }
-
-  function renderHistoryRows(rows, emptyText) {
-    if (!rows.length) {
-      return '<li class="history-empty">' + escapeHtml(emptyText) + "</li>";
-    }
-
-    return rows
+    refs.list.innerHTML = rows
       .map(function (row) {
         var title = asString(row.title) || "(sans titre)";
         var artist = asString(row.artist) || "—";
@@ -257,128 +219,168 @@
       .join("");
   }
 
-  async function refreshHistory(options) {
-    if (state.refreshPromise) return state.refreshPromise;
+  function getDisplayRows() {
+    var selectedDay = refs.dayInput.value || getTodayYmd();
+    var selectedTime = refs.timeInput.value || "";
 
-    var config = options || {};
-    var shouldLoadFullArchive = Boolean(config.full) || !state.hasFullArchive;
-
-    if (!config.silent) {
-      state.statusText = shouldLoadFullArchive ? "Chargement des archives complètes…" : "Historique de diffusion actualisé";
-      render();
-    }
-
-    state.refreshPromise = (async function () {
-      try {
-        var rows = await fetchHistoryRows({ full: shouldLoadFullArchive });
-        var nextRows =
-          state.hasFullArchive && !shouldLoadFullArchive
-            ? mergeHistoryRows(state.rows, rows)
-            : rows;
-        setHistoryRows(nextRows, { full: state.hasFullArchive || shouldLoadFullArchive });
-        state.statusText = shouldLoadFullArchive ? "Archives complètes chargées" : "Historique de diffusion actualisé";
-        render();
-      } catch (error) {
-        state.statusText = "Impossible de charger l'historique pour le moment";
-        render();
-      } finally {
-        state.refreshPromise = null;
-      }
-    })();
-
-    return state.refreshPromise;
-  }
-
-  async function fetchHistoryRows(options) {
-    var response = await fetch(HISTORY_CSV_URL + "?t=" + Date.now(), {
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      throw new Error("HTTP " + response.status);
-    }
-
-    return parseCsvRowsAsync(await response.text(), {
-      limitFromEnd: options && options.full ? 0 : HISTORY_PREVIEW_REFRESH_ROWS,
-    });
-  }
-
-  async function parseCsvRowsAsync(csvText, options) {
-    var normalized = String(csvText || "").replace(/\r\n?/g, "\n").trim();
-    if (!normalized) return [];
-
-    var lines = normalized.split("\n");
-    var rows = [];
-    var config = options || {};
-    var startIndex =
-      Number.isFinite(config.limitFromEnd) && config.limitFromEnd > 0
-        ? Math.max(1, lines.length - config.limitFromEnd)
-        : 1;
-    var linesSinceYield = 0;
-
-    for (var index = startIndex; index < lines.length; index += 1) {
-      var line = lines[index];
-      if (!line) continue;
-
-      var cols = parseCsvLine(line);
-      var enriched = ensureEnrichedRow({
-        tsIso: cols[0] || "",
-        artist: cols[2] || "",
-        title: cols[3] || "",
-        album: cols[4] || "",
-        year: cols[5] || "",
+    if (!selectedTime) {
+      var latestRows = state.rows.filter(function (row) {
+        return row && row.localYmd === selectedDay;
       });
 
-      if (enriched) rows.push(enriched);
-
-      linesSinceYield += 1;
-      if (linesSinceYield >= CSV_PARSE_CHUNK_SIZE) {
-        linesSinceYield = 0;
-        await yieldToBrowser();
-      }
+      return {
+        label: selectedDay === getTodayYmd() ? "Derniers passages du jour" : "Recherche ponctuelle : " + selectedDay,
+        rows: latestRows.slice(0, state.visibleCount),
+        totalCount: latestRows.length,
+      };
     }
 
+    var filtered = state.rows.filter(function (row) {
+      return row.localYmd === selectedDay;
+    });
+    var tokens = selectedTime.split(":");
+    var referenceMinutes = Number(tokens[0] || 0) * 60 + Number(tokens[1] || 0);
+
+    filtered.sort(function (left, right) {
+      return (
+        Math.abs((left.localMinutes == null ? 0 : left.localMinutes) - referenceMinutes) -
+          Math.abs((right.localMinutes == null ? 0 : right.localMinutes) - referenceMinutes) ||
+        right.tsMs - left.tsMs
+      );
+    });
+
+    return {
+      label: "Recherche ponctuelle : titres les plus proches de " + selectedTime,
+      rows: filtered.slice(0, state.visibleCount),
+      totalCount: filtered.length,
+    };
+  }
+
+  function renderView(emptyText) {
+    var display = getDisplayRows();
+
+    if (refs.modeLabel) refs.modeLabel.textContent = display.label;
+    if (refs.statusText) refs.statusText.textContent = state.statusText;
+    if (refs.timezonePill) refs.timezonePill.textContent = state.timezoneLabel;
+
+    renderRows(display.rows, emptyText || "Aucun titre trouvé pour cette sélection.");
+
+    if (refs.moreRow) {
+      refs.moreRow.hidden = !display.totalCount || display.rows.length >= display.totalCount;
+    }
+  }
+
+  async function fetchRows() {
+    var now = Date.now();
+
+    if (state.fetchCacheRows && now - state.fetchCacheAt < FETCH_CACHE_MS) {
+      return state.fetchCacheRows;
+    }
+
+    var response = await fetch(CSV_URL + "?t=" + now, { cache: "no-store" });
+    if (!response.ok) throw new Error(String(response.status));
+
+    var rows = parseCsvRows(await response.text());
+    state.fetchCacheRows = rows;
+    state.fetchCacheAt = now;
+    savePreviewRows(rows);
     return rows;
   }
 
-  function getHistoryRowKey(row) {
-    return [row.tsIso, row.artist, row.title, row.album, row.year]
-      .map(function (value) {
-        return asString(value);
-      })
-      .join("::");
+  async function refreshHistory() {
+    try {
+      var rows = await fetchRows();
+      state.rows = rows;
+      state.statusText = "Historique de diffusion actualisé";
+      renderView();
+    } catch (error) {
+      state.statusText = "Impossible de charger l'historique pour le moment";
+      renderView("Impossible de charger les dernières diffusions.");
+    }
   }
 
-  function mergeHistoryRows(existingRows, incomingRows) {
-    var mergedMap = new Map();
+  function stopAutoTimer() {
+    if (!state.autoTimer) return;
+    window.clearInterval(state.autoTimer);
+    state.autoTimer = null;
+  }
 
-    existingRows.concat(incomingRows).forEach(function (row) {
-      var enriched = ensureEnrichedRow(row);
-      if (!enriched) return;
-      var key = getHistoryRowKey(enriched);
-      if (!mergedMap.has(key)) {
-        mergedMap.set(key, enriched);
+  function startAutoTimer() {
+    stopAutoTimer();
+    state.autoTimer = window.setInterval(function () {
+      if (!document.hidden) refreshHistory();
+    }, AUTO_MS);
+  }
+
+  function scheduleInitialRefresh() {
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(
+        function () {
+          refreshHistory();
+        },
+        { timeout: 240 }
+      );
+      return;
+    }
+
+    window.requestAnimationFrame(function () {
+      window.setTimeout(function () {
+        refreshHistory();
+      }, 120);
+    });
+  }
+
+  function handleSearch() {
+    state.visibleCount = DEFAULT_VISIBLE_ROWS;
+    if (!state.rows.length) {
+      state.statusText = "Chargement des dernières diffusions…";
+      renderView("Chargement des dernières diffusions…");
+      refreshHistory();
+      return;
+    }
+    renderView();
+  }
+
+  function initialize() {
+    refs.dayInput.value = getTodayYmd();
+    refs.timeInput.value = "";
+    state.timezoneLabel = getDisplayZoneLabel();
+    if (refs.timezonePill) refs.timezonePill.textContent = state.timezoneLabel;
+
+    var previewRows = loadPreviewRows();
+    if (previewRows && previewRows.length) {
+      state.rows = previewRows;
+      state.statusText = "Affichage rapide depuis le cache local…";
+      renderView();
+    } else {
+      renderRows([], "Chargement des dernières diffusions…");
+    }
+
+    refs.searchButton.addEventListener("click", handleSearch);
+    refs.moreButton.addEventListener("click", function () {
+      state.visibleCount += LOAD_MORE_STEP;
+      renderView();
+    });
+
+    refs.dayInput.addEventListener("change", function () {
+      handleSearch();
+    });
+
+    refs.timeInput.addEventListener("change", function () {
+      handleSearch();
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        stopAutoTimer();
+        return;
       }
+      refreshHistory();
+      startAutoTimer();
     });
 
-    return Array.from(mergedMap.values()).sort(function (left, right) {
-      return right.tsMs - left.tsMs;
-    });
-  }
-
-  function setHistoryRows(rows, options) {
-    var nextRows = (rows || [])
-      .filter(function (row) {
-        return row && row.tsIso;
-      })
-      .map(function (row) {
-        return ensureEnrichedRow(row);
-      })
-      .filter(Boolean);
-
-    state.rows = nextRows;
-    state.sortedRows = getSortedHistoryRows(nextRows);
-    state.hasFullArchive = Boolean(options && options.full);
+    scheduleInitialRefresh();
+    startAutoTimer();
   }
 
   initialize();
