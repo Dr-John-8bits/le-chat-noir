@@ -15,6 +15,70 @@ async function openMobileNavIfNeeded(page) {
   await toggle.click();
 }
 
+async function mockWednesdayCurrentShow(page, options = {}) {
+  const nowIso = options.nowIso || "2026-04-08T16:05:00.000Z";
+  const sinceIso = options.sinceIso || "2026-04-08T15:50:00.000Z";
+
+  await page.addInitScript(({ fixedNow }) => {
+    const RealDate = Date;
+
+    class MockDate extends RealDate {
+      constructor(...args) {
+        if (args.length === 0) {
+          super(fixedNow);
+          return;
+        }
+        super(...args);
+      }
+
+      static now() {
+        return new RealDate(fixedNow).getTime();
+      }
+    }
+
+    MockDate.parse = RealDate.parse.bind(RealDate);
+    MockDate.UTC = RealDate.UTC.bind(RealDate);
+    window.Date = MockDate;
+  }, { fixedNow: nowIso });
+
+  await page.route("**/current-show.json*", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        show: "Les chats sauvages",
+        kind: "editorial_window",
+        is_live: false,
+        since: Math.floor(new Date(sinceIso).getTime() / 1000),
+      }),
+    });
+  });
+
+  await page.route("**/nowplaying.json*", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        artist: "Test Artist",
+        title: "Test Track",
+        album: "Test Album",
+        year: "2026",
+      }),
+    });
+  });
+
+  await page.route("**/history/nowplaying.csv*", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "text/csv",
+      body: [
+        "ts,unused,artist,title,album,year",
+        "2026-04-08T15:58:00.000Z,,Test Artist,Test Track,Test Album,2026",
+      ].join("\n"),
+    });
+  });
+}
+
 test("keeps one active nav item and preserves the shared audio element across route changes", async ({ page }) => {
   await page.evaluate(() => {
     window.__audioRef = document.getElementById("radioAudio");
@@ -101,4 +165,33 @@ test("direct page stays out of the main menu and loads its monitoring shell", as
   await expect(page.locator(".main-nav")).toHaveCount(0);
   await expect(page.locator("#directCurrentShow")).toBeVisible();
   await expect(page.locator("#directListenersCurrent")).toBeVisible();
+});
+
+test("home keeps the earlier duplicate show block active until the current-show source actually changes", async ({ page }) => {
+  await mockWednesdayCurrentShow(page, {
+    nowIso: "2026-04-08T16:05:00.000Z",
+    sinceIso: "2026-04-08T15:50:00.000Z",
+  });
+
+  await page.goto("/");
+
+  const focusTitles = page.locator(".today-focus__title");
+  await expect(focusTitles).toHaveCount(4);
+  await expect(focusTitles.nth(0)).toHaveText("Les chats sauvages");
+  await expect(focusTitles.nth(1)).toHaveText("Documents de terrain");
+  await expect(focusTitles.nth(2)).toHaveText("Les chats sauvages");
+});
+
+test("home can resolve the later duplicate show block once it has actually resumed", async ({ page }) => {
+  await mockWednesdayCurrentShow(page, {
+    nowIso: "2026-04-08T17:10:00.000Z",
+    sinceIso: "2026-04-08T16:40:00.000Z",
+  });
+
+  await page.goto("/");
+
+  const focusTitles = page.locator(".today-focus__title");
+  await expect(focusTitles).toHaveCount(2);
+  await expect(focusTitles.nth(0)).toHaveText("Les chats sauvages");
+  await expect(focusTitles.nth(1)).toHaveText("Les Ondes du Chat Noir");
 });

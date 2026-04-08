@@ -106,6 +106,7 @@ const state = {
     : "Chargement des dernières diffusions…",
   historyTimezoneLabel: getDisplayZoneLabel(),
   isMobileNavOpen: false,
+  currentShowSlotResolution: null,
 };
 
 const refs = {
@@ -557,6 +558,121 @@ function getCurrentDayId() {
   return weekdayMap[new Date().getDay()] || "mon";
 }
 
+function getDayIdForDate(value) {
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+
+  try {
+    const weekday = new Intl.DateTimeFormat("en-US", {
+      timeZone: DISPLAY_TIME_ZONE,
+      weekday: "short",
+    })
+      .format(date)
+      .slice(0, 3)
+      .toLowerCase();
+    const weekdayMap = {
+      sun: "sun",
+      mon: "mon",
+      tue: "tue",
+      wed: "wed",
+      thu: "thu",
+      fri: "fri",
+      sat: "sat",
+    };
+    return weekdayMap[weekday] || "";
+  } catch (error) {
+    const weekdayMap = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+    return weekdayMap[date.getDay()] || "";
+  }
+}
+
+function normalizeShowName(value) {
+  if (COMMON.normalizeShowName) return COMMON.normalizeShowName(value);
+  return asString(value).toLowerCase();
+}
+
+function getScheduleMatchesByShow(day, showName) {
+  const normalizedShow = normalizeShowName(showName);
+  if (!normalizedShow || !day || !Array.isArray(day.slots)) {
+    return {
+      normalizedShow,
+      matches: [],
+    };
+  }
+
+  const parseScheduleTimeLabel = COMMON.parseScheduleTimeLabel;
+  let lastExplicitMinutes = null;
+  const matches = [];
+
+  day.slots.forEach((slot, index) => {
+    const explicitMinutes = parseScheduleTimeLabel ? parseScheduleTimeLabel(slot && slot.time) : null;
+    if (explicitMinutes != null) {
+      lastExplicitMinutes = explicitMinutes;
+    }
+
+    if (normalizeShowName(slot && slot.title) !== normalizedShow) return;
+    matches.push({
+      slot,
+      index,
+      startMinutes: lastExplicitMinutes,
+    });
+  });
+
+  return {
+    normalizedShow,
+    matches,
+  };
+}
+
+function pickScheduleMatch(matches, referenceMinutes) {
+  if (!Array.isArray(matches) || !matches.length) return null;
+
+  const eligibleMatches =
+    typeof referenceMinutes === "number"
+      ? matches.filter((match) => typeof match.startMinutes !== "number" || match.startMinutes <= referenceMinutes)
+      : matches.slice();
+
+  if (!eligibleMatches.length) return matches[0];
+
+  eligibleMatches.sort((left, right) => {
+    const leftMinutes = typeof left.startMinutes === "number" ? left.startMinutes : -1;
+    const rightMinutes = typeof right.startMinutes === "number" ? right.startMinutes : -1;
+    if (rightMinutes !== leftMinutes) return rightMinutes - leftMinutes;
+    return right.index - left.index;
+  });
+
+  return eligibleMatches[0];
+}
+
+function getCurrentShowSinceMinutes(day) {
+  const sinceSeconds = Number(state.currentShow && state.currentShow.since);
+  if (!Number.isFinite(sinceSeconds) || sinceSeconds <= 0) return null;
+
+  const sinceDate = new Date(sinceSeconds * 1000);
+  if (getDayIdForDate(sinceDate) !== day.id) return null;
+
+  const parts = getDisplayDateParts(sinceDate);
+  if (!parts) return null;
+
+  return Number(parts.hour || 0) * 60 + Number(parts.minute || 0);
+}
+
+function getCachedCurrentShowMatch(day, normalizedShow, matches) {
+  const cached = state.currentShowSlotResolution;
+  if (!cached) return null;
+  if (cached.dayId !== day.id || cached.normalizedShow !== normalizedShow) return null;
+  return matches.find((match) => match.index === cached.index) || null;
+}
+
+function cacheCurrentShowMatch(day, normalizedShow, match) {
+  if (!match) return;
+  state.currentShowSlotResolution = {
+    dayId: day.id,
+    normalizedShow,
+    index: match.index,
+  };
+}
+
 function getCurrentScheduleSlot(day) {
   if (COMMON.findCurrentScheduleSlot) {
     return COMMON.findCurrentScheduleSlot(day);
@@ -565,10 +681,42 @@ function getCurrentScheduleSlot(day) {
 }
 
 function getCurrentShowSlot(day) {
-  if (!state.currentShowLoaded || !state.currentShow.show || !COMMON.findScheduleSlotByShow) {
+  if (!state.currentShowLoaded || !state.currentShow.show) {
     return null;
   }
-  return COMMON.findScheduleSlotByShow(day, state.currentShow.show);
+
+  const { normalizedShow, matches } = getScheduleMatchesByShow(day, state.currentShow.show);
+  if (!matches.length) return null;
+
+  if (matches.length === 1) {
+    cacheCurrentShowMatch(day, normalizedShow, matches[0]);
+    return matches[0].slot;
+  }
+
+  const sinceMinutes = getCurrentShowSinceMinutes(day);
+  const sinceMatch = pickScheduleMatch(matches, sinceMinutes);
+  if (sinceMatch) {
+    cacheCurrentShowMatch(day, normalizedShow, sinceMatch);
+    return sinceMatch.slot;
+  }
+
+  const cachedMatch = getCachedCurrentShowMatch(day, normalizedShow, matches);
+  if (cachedMatch) {
+    return cachedMatch.slot;
+  }
+
+  const currentMinutes = COMMON.getCurrentLocalMinutes ? COMMON.getCurrentLocalMinutes() : null;
+  const currentMatch = pickScheduleMatch(matches, currentMinutes);
+  if (currentMatch) {
+    cacheCurrentShowMatch(day, normalizedShow, currentMatch);
+    return currentMatch.slot;
+  }
+
+  if (COMMON.findScheduleSlotByShow) {
+    return COMMON.findScheduleSlotByShow(day, state.currentShow.show);
+  }
+
+  return null;
 }
 
 function getCurrentShowDescription(currentShow) {
