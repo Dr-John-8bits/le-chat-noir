@@ -84,20 +84,20 @@ test("keeps one active nav item and preserves the shared audio element across ro
     window.__audioRef = document.getElementById("radioAudio");
   });
 
+  await expect(page.getByRole("button", { name: "Historique", exact: true })).toHaveCount(0);
   await expect(page.locator(".main-nav__button.is-active")).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Récemment diffusé" })).toBeVisible();
 
   await openMobileNavIfNeeded(page);
-  await getNavButton(page, "Historique").click();
+  await getNavButton(page, "Grille").click();
   await expect(page.locator(".main-nav__button.is-active")).toHaveCount(1);
-  await expect(page.getByRole("heading", { name: "Historique de diffusion" })).toBeVisible();
-  await expect(page.locator(".history-hero .history-form")).toBeVisible();
-  await expect(page.locator(".history-toolbar")).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "La semaine en clair" })).toBeVisible();
+  await expect(page.locator("#schedule-panel")).toBeVisible();
 
   const mobileToggle = page.locator("#mobileNavToggle");
   if (await mobileToggle.isVisible()) {
     await expect(mobileToggle).toHaveAttribute("aria-expanded", "false");
-    await expect(page.locator("#mobileNavCurrentLabel")).toHaveText("Historique");
+    await expect(page.locator("#mobileNavCurrentLabel")).toHaveText("Grille");
   }
 
   const sameAudioNode = await page.evaluate(() => window.__audioRef === document.getElementById("radioAudio"));
@@ -165,6 +165,29 @@ test("direct page stays out of the main menu and loads its monitoring shell", as
   await expect(page.locator(".main-nav")).toHaveCount(0);
   await expect(page.locator("#directCurrentShow")).toBeVisible();
   await expect(page.locator("#directListenersCurrent")).toBeVisible();
+});
+
+test("home history CTA opens the dedicated history page in a new tab", async ({ page, context }) => {
+  await context.route("**/history/nowplaying.csv*", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "text/csv",
+      body: [
+        "ts,unused,artist,title,album,year",
+        "2026-04-08T18:00:00.000Z,,Test Artist,Test Track,Test Album,2026",
+      ].join("\n"),
+    });
+  });
+
+  const popupPromise = page.waitForEvent("popup");
+  await page.getByRole("link", { name: "Afficher l'historique de diffusion" }).click();
+  const popup = await popupPromise;
+
+  await expect(popup).toHaveURL(/history\.html$/);
+  await expect(popup.getByRole("heading", { name: "Historique de diffusion" })).toBeVisible();
+  await expect(popup.locator(".main-nav")).toHaveCount(0);
+  await expect(popup.locator("#radioAudio")).toHaveCount(0);
+  await expect(popup.locator("#historyList .history-row")).toHaveCount(1);
 });
 
 test("home keeps the earlier duplicate show block active until the current-show source actually changes", async ({ page }) => {

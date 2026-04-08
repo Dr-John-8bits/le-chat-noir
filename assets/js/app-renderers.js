@@ -51,7 +51,7 @@
               <ul class="recent-list">
                 ${renderRecentList()}
               </ul>
-              <button class="ghost-button home-cta" type="button" data-route-jump="historique">Afficher l'historique de diffusion</button>
+              <a class="ghost-button home-cta" href="history.html" target="_blank" rel="noopener noreferrer">Afficher l'historique de diffusion</a>
             </article>
 
             <article class="page-card">
