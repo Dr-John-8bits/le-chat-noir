@@ -24,9 +24,9 @@ const APP_ICON_512_URL = new URL("icon-512.png", window.location.href).href;
 
 const ICONS = {
   play:
-    '<svg class="player-strip__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5c0-.86.93-1.41 1.68-.98l8.98 5.18a1.14 1.14 0 0 1 0 1.98l-8.98 5.18A1.13 1.13 0 0 1 8 15.88z"></path></svg>',
+    '<svg class="player-strip__icon player-strip__icon--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5c0-.86.93-1.41 1.68-.98l8.98 5.18a1.14 1.14 0 0 1 0 1.98l-8.98 5.18A1.13 1.13 0 0 1 8 15.88z"></path></svg>',
   pause:
-    '<svg class="player-strip__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5.6A1.6 1.6 0 0 1 8.6 4h.8A1.6 1.6 0 0 1 11 5.6v12.8A1.6 1.6 0 0 1 9.4 20h-.8A1.6 1.6 0 0 1 7 18.4zm6 0A1.6 1.6 0 0 1 14.6 4h.8A1.6 1.6 0 0 1 17 5.6v12.8a1.6 1.6 0 0 1-1.6 1.6h-.8a1.6 1.6 0 0 1-1.6-1.6z"></path></svg>',
+    '<svg class="player-strip__icon player-strip__icon--pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5.6A1.6 1.6 0 0 1 8.6 4h.8A1.6 1.6 0 0 1 11 5.6v12.8A1.6 1.6 0 0 1 9.4 20h-.8A1.6 1.6 0 0 1 7 18.4zm6 0A1.6 1.6 0 0 1 14.6 4h.8A1.6 1.6 0 0 1 17 5.6v12.8a1.6 1.6 0 0 1-1.6 1.6h-.8a1.6 1.6 0 0 1-1.6-1.6z"></path></svg>',
 };
 
 const COMMON = typeof window.LCNPageCommon === "object" ? window.LCNPageCommon : {};
@@ -42,7 +42,6 @@ let historyRefreshPromise = null;
 let historyRefreshScheduled = false;
 let historyRefreshTimeoutId = 0;
 let historyRefreshIdleId = 0;
-
 const state = {
   route: getRouteFromHash(),
   isPlaying: false,
@@ -124,7 +123,11 @@ function init() {
   }, LIVE_REFRESH_MS);
   window.setInterval(() => {
     if (!document.hidden && (state.route === "accueil" || state.route === "historique")) {
-      scheduleHistoryRefresh({ silent: true, immediate: true, full: state.route === "historique" });
+      scheduleHistoryRefresh({
+        silent: true,
+        immediate: true,
+        full: state.route === "historique" && !state.historyHasFullArchive,
+      });
     }
   }, HISTORY_REFRESH_MS);
 }
@@ -209,7 +212,11 @@ function bindEvents() {
     if (!document.hidden) {
       refreshLiveData();
       if (state.route === "accueil" || state.route === "historique") {
-        scheduleHistoryRefresh({ silent: true, immediate: true, full: state.route === "historique" });
+        scheduleHistoryRefresh({
+          silent: true,
+          immediate: true,
+          full: state.route === "historique" && !state.historyHasFullArchive,
+        });
       }
     }
   });
@@ -1131,6 +1138,7 @@ function updatePlayerButton() {
   refs.playerToggle.setAttribute("aria-pressed", state.isPlaying ? "true" : "false");
   refs.playerToggle.setAttribute("aria-label", state.isPlaying ? "Mettre en pause le direct" : "Lancer le direct");
   refs.playerToggleIcon.innerHTML = state.isPlaying ? ICONS.pause : ICONS.play;
+  refs.playerToggle.classList.toggle("is-idle-cta", !state.isPlaying);
   updateMediaSessionPlaybackState();
 }
 
@@ -1314,8 +1322,7 @@ function syncRecentHistoryFromNowPlaying(track) {
 
 async function refreshHistory(options = {}) {
   if (historyRefreshPromise) return historyRefreshPromise;
-  const shouldLoadFullArchive =
-    Boolean(options.full) || state.route === "historique" || state.historyHasFullArchive;
+  const shouldLoadFullArchive = Boolean(options.full) || (state.route === "historique" && !state.historyHasFullArchive);
 
   if (!options.silent) {
     state.historyStatusText = shouldLoadFullArchive
@@ -1327,11 +1334,13 @@ async function refreshHistory(options = {}) {
   historyRefreshPromise = (async () => {
     try {
       const rows = await fetchHistoryRows({ full: shouldLoadFullArchive });
-      setHistoryRows(rows, { full: shouldLoadFullArchive });
+      const nextRows =
+        state.historyHasFullArchive && !shouldLoadFullArchive ? mergeHistoryRows(state.historyRows, rows) : rows;
+      setHistoryRows(nextRows, { full: state.historyHasFullArchive || shouldLoadFullArchive });
       state.historyStatusText = shouldLoadFullArchive
         ? "Archives complètes chargées"
         : "Historique de diffusion actualisé";
-      savePreviewRows(rows);
+      savePreviewRows(nextRows);
 
       if (state.route === "accueil" || state.route === "historique") {
         renderRoute();
@@ -1405,7 +1414,9 @@ async function fetchHistoryRows(options = {}) {
     return state.historyFetchCacheRows;
   }
 
-  const response = await fetch(`${HISTORY_CSV_URL}?t=${now}`, { cache: "no-store" });
+  const response = await fetch(`${HISTORY_CSV_URL}?t=${now}`, {
+    cache: "no-store",
+  });
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}`);
   }
@@ -1595,6 +1606,25 @@ function getSortedHistoryRows(rows) {
     .map((row) => ensureEnrichedRow(row))
     .filter(Boolean)
     .sort((left, right) => right.tsMs - left.tsMs);
+}
+
+function getHistoryRowKey(row) {
+  return [row.tsIso, row.artist, row.title, row.album, row.year].map((value) => asString(value)).join("::");
+}
+
+function mergeHistoryRows(existingRows, incomingRows) {
+  const mergedMap = new Map();
+
+  existingRows.concat(incomingRows).forEach((row) => {
+    const enriched = ensureEnrichedRow(row);
+    if (!enriched) return;
+    const key = getHistoryRowKey(enriched);
+    if (!mergedMap.has(key)) {
+      mergedMap.set(key, enriched);
+    }
+  });
+
+  return Array.from(mergedMap.values()).sort((left, right) => right.tsMs - left.tsMs);
 }
 
 function setHistoryRows(rows, options = {}) {
