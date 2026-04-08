@@ -14,6 +14,7 @@
   --content-width: min(1160px, calc(100vw - 1.25rem));
   --header-gutter: clamp(0.9rem, 2.2vw, 1.8rem);
   --shell-height: 148px;
+  --safe-area-top: env(safe-area-inset-top, 0px);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -89,6 +90,7 @@ a {
   position: fixed;
   inset: 0 0 auto;
   z-index: 50;
+  padding-top: var(--safe-area-top);
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
