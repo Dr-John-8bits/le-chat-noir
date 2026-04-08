@@ -86,7 +86,22 @@
           </div>
         </section>
 
-        <nav class="main-nav" aria-label="Rubriques principales">
+        <button
+          class="mobile-nav-toggle"
+          id="mobileNavToggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mainNav"
+          aria-label="Ouvrir le menu des rubriques"
+        >
+          <span class="mobile-nav-toggle__eyebrow">Rubriques</span>
+          <span class="mobile-nav-toggle__row">
+            <span class="mobile-nav-toggle__label" id="mobileNavCurrentLabel">Accueil</span>
+            <span class="mobile-nav-toggle__chevron" aria-hidden="true"></span>
+          </span>
+        </button>
+
+        <nav class="main-nav" id="mainNav" aria-label="Rubriques principales">
           <button class="pill-button pill-button--nav main-nav__button" type="button" data-route="accueil">Accueil</button>
           <button class="pill-button pill-button--nav main-nav__button" type="button" data-route="actualites">Actualités</button>
           <button class="pill-button pill-button--nav main-nav__button" type="button" data-route="grille">Grille</button>

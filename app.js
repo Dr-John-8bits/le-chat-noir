@@ -105,6 +105,7 @@ const state = {
     ? "Affichage rapide depuis le cache local…"
     : "Chargement des dernières diffusions…",
   historyTimezoneLabel: getDisplayZoneLabel(),
+  isMobileNavOpen: false,
 };
 
 const refs = {
@@ -120,6 +121,9 @@ const refs = {
   nowPlayingTickerTrack: document.getElementById("nowPlayingTickerTrack"),
   nowPlayingTickerText: document.getElementById("nowPlayingTickerText"),
   nowPlayingTickerTextClone: document.getElementById("nowPlayingTickerTextClone"),
+  mainNav: document.getElementById("mainNav"),
+  mobileNavToggle: document.getElementById("mobileNavToggle"),
+  mobileNavCurrentLabel: document.getElementById("mobileNavCurrentLabel"),
   navButtons: Array.from(document.querySelectorAll(".main-nav__button")),
   pageView: document.getElementById("pageView"),
   scrollTopButton: document.getElementById("scrollTopButton"),
@@ -163,6 +167,7 @@ function init() {
   bindEvents();
   renderRoute();
   syncShellHeight();
+  updateMobileNavUi();
   updatePlayerButton();
   updateSignalIndicator();
   updateHeaderLiveFields();
@@ -192,8 +197,17 @@ function bindEvents() {
     refs.playerToggle.addEventListener("click", togglePlayback);
   }
 
+  if (refs.mobileNavToggle) {
+    refs.mobileNavToggle.addEventListener("click", () => {
+      setMobileNavOpen(!state.isMobileNavOpen);
+    });
+  }
+
   refs.navButtons.forEach((button) => {
-    button.addEventListener("click", () => setRoute(button.dataset.route));
+    button.addEventListener("click", () => {
+      setRoute(button.dataset.route);
+      closeMobileNav();
+    });
   });
 
   if (refs.volumeRange) {
@@ -258,11 +272,18 @@ function bindEvents() {
   });
 
   window.addEventListener("resize", () => {
+    updateMobileNavUi();
     syncShellHeight();
     refreshNowPlayingTicker();
   });
 
   window.addEventListener("scroll", updateScrollTopButton, { passive: true });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !state.isMobileNavOpen) return;
+    closeMobileNav();
+    if (refs.mobileNavToggle) refs.mobileNavToggle.focus();
+  });
 
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) {
@@ -287,10 +308,21 @@ function bindEvents() {
 }
 
 function handleDocumentClick(event) {
+  if (
+    state.isMobileNavOpen &&
+    refs.mainNav &&
+    refs.mobileNavToggle &&
+    !event.target.closest("#mainNav") &&
+    !event.target.closest("#mobileNavToggle")
+  ) {
+    closeMobileNav();
+  }
+
   const routeLink = event.target.closest("[data-route-link]");
   if (!routeLink) return;
   event.preventDefault();
   setRoute(routeLink.getAttribute("data-route-link"));
+  closeMobileNav();
 }
 
 function handlePageClick(event) {
@@ -410,6 +442,8 @@ function renderRoute(options = {}) {
     }
   });
 
+  updateMobileNavUi();
+
   refs.pageView.innerHTML = renderPage(state.route);
 
   if (options.scrollToTop) {
@@ -428,6 +462,57 @@ function renderPage(route) {
     return renderers.renderPage(route);
   }
   return "";
+}
+
+function getRouteLabel(route) {
+  const activeButton = refs.navButtons.find((button) => button.dataset.route === route);
+  return activeButton ? asString(activeButton.textContent) || "Accueil" : "Accueil";
+}
+
+function isMobileNavigationViewport() {
+  return typeof window.matchMedia === "function"
+    ? window.matchMedia("(max-width: 680px)").matches
+    : window.innerWidth <= 680;
+}
+
+function setMobileNavOpen(nextValue) {
+  state.isMobileNavOpen = Boolean(nextValue) && isMobileNavigationViewport();
+  updateMobileNavUi();
+  syncShellHeight();
+}
+
+function closeMobileNav() {
+  if (!state.isMobileNavOpen) return;
+  setMobileNavOpen(false);
+}
+
+function updateMobileNavUi() {
+  const isMobile = isMobileNavigationViewport();
+  const isExpanded = isMobile && state.isMobileNavOpen;
+  const currentLabel = getRouteLabel(state.route);
+
+  if (refs.mobileNavCurrentLabel) {
+    refs.mobileNavCurrentLabel.textContent = currentLabel;
+  }
+
+  if (refs.mobileNavToggle) {
+    refs.mobileNavToggle.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+    refs.mobileNavToggle.setAttribute(
+      "aria-label",
+      `${isExpanded ? "Fermer" : "Ouvrir"} le menu des rubriques, page active ${currentLabel}`
+    );
+    refs.mobileNavToggle.classList.toggle("is-open", isExpanded);
+  }
+
+  if (refs.mainNav) {
+    refs.mainNav.classList.toggle("is-open", isExpanded);
+    refs.mainNav.setAttribute("aria-hidden", isMobile && !isExpanded ? "true" : "false");
+    refs.mainNav.inert = Boolean(isMobile && !isExpanded);
+  }
+
+  if (!isMobile && state.isMobileNavOpen) {
+    state.isMobileNavOpen = false;
+  }
 }
 
 function getNewsYears() {
