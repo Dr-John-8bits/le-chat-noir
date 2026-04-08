@@ -103,6 +103,7 @@ state.selectedNewsYear = getNewsYears()[0] || "";
 
 function init() {
   refs.audio.src = STREAM_URL;
+  refs.audio.preload = "none";
   applyPlatformAudioUi();
   bindEvents();
   renderRoute();
@@ -114,7 +115,6 @@ function init() {
   syncVolumeInput();
   setVolume(state.volume, { preserveUserState: true });
   ensurePlaybackVolumeReady();
-  refs.audio.load();
   updateScrollTopButton();
   refreshLiveData();
   scheduleHistoryRefresh({ silent: Boolean(state.historyRows.length) });
@@ -1239,6 +1239,10 @@ async function refreshLiveData() {
     fetchJson(CURRENT_SHOW_URL).then(extractCurrentShowMeta).catch(() => null),
     fetchJson(NOW_PLAYING_URL).then(extractNowPlayingMeta).catch(() => null),
   ]);
+
+  if (currentShowMeta || currentTrackMeta) {
+    setStreamAvailability(true);
+  }
 
   applyCurrentShow(currentShowMeta);
   if (currentTrackMeta && (currentTrackMeta.artist || currentTrackMeta.title || currentTrackMeta.album)) {
