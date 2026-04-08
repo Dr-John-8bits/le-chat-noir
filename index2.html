@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Le Chat Noir</title>
+    <title>Le Chat Noir — Variante player natif</title>
     <meta
       name="description"
-      content="Prototype minimal du futur site Le Chat Noir avec bandeau fixe, menu simple et navigation interne."
+      content="Variante du prototype Le Chat Noir avec player audio natif HTML5 pour comparaison."
     />
     <meta name="theme-color" content="#05070c" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -36,28 +36,18 @@
             </div>
           </a>
 
-          <section class="player-strip" aria-label="Lecteur audio">
-            <div class="player-strip__controls">
-              <button class="player-strip__toggle" id="playerToggle" type="button" aria-pressed="false" aria-label="Lancer le direct">
-                <span id="playerToggleIcon" aria-hidden="true"></span>
-              </button>
-
-              <div class="player-strip__meta">
-                <span class="player-strip__label">Direct</span>
-                <div class="player-strip__volume">
-                  <label class="player-strip__volume-label" for="volumeRange">Volume</label>
-                  <input
-                    class="player-strip__volume-range"
-                    id="volumeRange"
-                    type="range"
-                    min="0"
-                    max="100"
-                    step="1"
-                    value="100"
-                    aria-label="Régler le volume du direct"
-                  />
-                </div>
-              </div>
+          <section class="player-strip player-strip--native" aria-label="Lecteur audio">
+            <div class="player-strip__native-wrap">
+              <span class="player-strip__label">Direct</span>
+              <audio
+                class="player-strip__native-audio"
+                id="radioAudio"
+                controls
+                preload="none"
+                crossorigin="anonymous"
+                playsinline
+                aria-label="Lecteur audio natif HTML5 du direct"
+              ></audio>
             </div>
 
             <div class="player-strip__ticker" id="nowPlayingTicker" aria-live="polite" aria-label="Now playing">
@@ -110,7 +100,6 @@
         </nav>
       </div>
 
-      <audio id="radioAudio" preload="none" crossorigin="anonymous"></audio>
     </header>
 
     <main class="site-main">
