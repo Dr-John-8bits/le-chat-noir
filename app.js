@@ -407,7 +407,7 @@ function renderNewsPage() {
           ${years
             .map((year) => {
               const active = year === state.selectedNewsYear ? " is-active" : "";
-              return `<button class="day-chip${active}" type="button" data-news-year="${escapeHtml(year)}">${escapeHtml(year)}</button>`;
+              return `<button class="pill-button pill-button--filter day-chip${active}" type="button" data-news-year="${escapeHtml(year)}">${escapeHtml(year)}</button>`;
             })
             .join("")}
         </div>
@@ -439,7 +439,7 @@ function renderSchedulePage() {
           ${SCHEDULE_DAYS.map((day) => {
             const active = day.id === state.selectedScheduleDay ? " is-active" : "";
             return `
-              <button class="day-chip${active}" type="button" data-schedule-day="${escapeHtml(day.id)}">
+              <button class="pill-button pill-button--filter day-chip${active}" type="button" data-schedule-day="${escapeHtml(day.id)}">
                 ${renderFaIcon(day.icon, "day-chip__icon")}
                 <span>${escapeHtml(day.shortName)}</span>
               </button>
