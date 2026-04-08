@@ -3,7 +3,7 @@ const NOW_PLAYING_URL = "https://stream.lechatnoirradio.fr/nowplaying.json";
 const CURRENT_SHOW_URL = "https://stream.lechatnoirradio.fr/current-show.json";
 const HISTORY_CSV_URL = "https://stream.lechatnoirradio.fr/history/nowplaying.csv";
 const DISPLAY_TIME_ZONE = "Europe/Paris";
-const ROUTES = ["accueil", "actualites", "grille", "historique", "voix", "apropos"];
+const ROUTES = ["accueil", "actualites", "grille", "voix", "apropos"];
 const DEFAULT_VOLUME = 1;
 const LIVE_REFRESH_MS = 12000;
 const LIVE_REFRESH_MIN_INTERVAL_MS = 2500;
@@ -183,11 +183,10 @@ function init() {
     if (!document.hidden) refreshLiveData();
   }, LIVE_REFRESH_MS);
   window.setInterval(() => {
-    if (!document.hidden && (state.route === "accueil" || state.route === "historique")) {
+    if (!document.hidden && state.route === "accueil") {
       scheduleHistoryRefresh({
         silent: true,
         immediate: true,
-        full: state.route === "historique" && !state.historyHasFullArchive,
       });
     }
   }, HISTORY_REFRESH_MS);
@@ -289,11 +288,10 @@ function bindEvents() {
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) {
       refreshLiveData({ force: true });
-      if (state.route === "accueil" || state.route === "historique") {
+      if (state.route === "accueil") {
         scheduleHistoryRefresh({
           silent: true,
           immediate: true,
-          full: state.route === "historique" && !state.historyHasFullArchive,
         });
       }
     }
@@ -451,9 +449,7 @@ function renderRoute(options = {}) {
     scrollRouteToTop();
   }
 
-  if (state.route === "historique" && !state.historyHasFullArchive) {
-    scheduleHistoryRefresh({ silent: true, full: true, immediate: true });
-  } else if (state.route === "accueil" && !state.historyRows.length) {
+  if (state.route === "accueil" && !state.historyRows.length) {
     scheduleHistoryRefresh({ silent: true });
   }
 }
@@ -1069,20 +1065,20 @@ function syncRecentHistoryFromNowPlaying(track) {
   setHistoryRows(nextRows, { full: state.historyHasFullArchive });
   savePreviewRows(nextRows);
 
-  if (state.route === "accueil" || state.route === "historique") {
+  if (state.route === "accueil") {
     renderRoute();
   }
 }
 
 async function refreshHistory(options = {}) {
   if (historyRefreshPromise) return historyRefreshPromise;
-  const shouldLoadFullArchive = Boolean(options.full) || (state.route === "historique" && !state.historyHasFullArchive);
+  const shouldLoadFullArchive = Boolean(options.full);
 
   if (!options.silent) {
     state.historyStatusText = shouldLoadFullArchive
       ? "Chargement des archives complètes…"
       : "Chargement des dernières diffusions…";
-    if (state.route === "historique") renderRoute();
+    if (state.route === "accueil") renderRoute();
   }
 
   historyRefreshPromise = (async () => {
@@ -1100,12 +1096,12 @@ async function refreshHistory(options = {}) {
         : "Historique de diffusion actualisé";
       savePreviewRows(nextRows);
 
-      if (state.route === "accueil" || state.route === "historique") {
+      if (state.route === "accueil") {
         renderRoute();
       }
     } catch (error) {
       state.historyStatusText = "Impossible de charger l'historique pour le moment";
-      if (state.route === "historique") {
+      if (state.route === "accueil") {
         renderRoute();
       }
     } finally {

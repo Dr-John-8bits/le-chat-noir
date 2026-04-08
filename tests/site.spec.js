@@ -84,8 +84,10 @@ test("keeps one active nav item and preserves the shared audio element across ro
     window.__audioRef = document.getElementById("radioAudio");
   });
 
+  const homeNavButton = page.locator('.main-nav__button[data-route="accueil"]').first();
   await expect(page.getByRole("button", { name: "Historique", exact: true })).toHaveCount(0);
-  await expect(page.locator(".main-nav__button.is-active")).toHaveCount(0);
+  await expect(page.locator(".main-nav__button.is-active")).toHaveCount(1);
+  await expect(homeNavButton).toHaveClass(/is-active/);
   await expect(page.getByRole("heading", { name: "Récemment diffusé" })).toBeVisible();
 
   await openMobileNavIfNeeded(page);
@@ -104,7 +106,8 @@ test("keeps one active nav item and preserves the shared audio element across ro
   expect(sameAudioNode).toBe(true);
 
   await page.locator(".brand__home").click();
-  await expect(page.locator(".main-nav__button.is-active")).toHaveCount(0);
+  await expect(page.locator(".main-nav__button.is-active")).toHaveCount(1);
+  await expect(homeNavButton).toHaveClass(/is-active/);
   await expect(page.getByRole("heading", { name: "Récemment diffusé" })).toBeVisible();
 });
 
