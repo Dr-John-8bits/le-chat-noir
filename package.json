@@ -1,0 +1,27 @@
+{
+  "name": "lcn-preprod",
+  "version": "1.0.0",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "serve:test": "python3 -m http.server 48290",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dr-John-8bits/lechatnoirradio-preprod.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dr-John-8bits/lechatnoirradio-preprod/issues"
+  },
+  "homepage": "https://github.com/Dr-John-8bits/lechatnoirradio-preprod#readme",
+  "description": "Pre-production prototype for Le Chat Noir radio",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}
