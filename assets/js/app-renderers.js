@@ -464,29 +464,31 @@
           const artist = asString(row.artist) || "—";
           const album = asString(row.album) || "—";
           const year = parseYear(row.year) || "—";
+          const mobileMeta = [artist, album, year].filter((value) => value && value !== "—").join(" · ") || "—";
           return `
             <li class="history-row">
-              <span class="history-cell" data-label="Date">
+              <span class="history-cell history-cell--date" data-label="Date">
                 <span class="history-cell__label">Date</span>
                 <span class="history-cell__value">${escapeHtml(row.localDate || formatLocalDate(row.tsIso))}</span>
               </span>
-              <span class="history-cell" data-label="Heure">
+              <span class="history-cell history-cell--time" data-label="Heure">
                 <span class="history-cell__label">Heure</span>
                 <span class="history-cell__value">${escapeHtml(row.localTime || formatLocalTime(row.tsIso))}</span>
               </span>
-              <span class="history-cell" data-label="Titre">
+              <span class="history-cell history-cell--title" data-label="Titre">
                 <span class="history-cell__label">Titre</span>
                 <strong class="history-cell__value history-cell__value--strong">${escapeHtml(title)}</strong>
+                <span class="history-cell__meta">${escapeHtml(mobileMeta)}</span>
               </span>
-              <span class="history-cell" data-label="Artiste">
+              <span class="history-cell history-cell--artist" data-label="Artiste">
                 <span class="history-cell__label">Artiste</span>
                 <span class="history-cell__value">${escapeHtml(artist)}</span>
               </span>
-              <span class="history-cell" data-label="Album">
+              <span class="history-cell history-cell--album" data-label="Album">
                 <span class="history-cell__label">Album</span>
                 <span class="history-cell__value">${escapeHtml(album)}</span>
               </span>
-              <span class="history-cell" data-label="Année">
+              <span class="history-cell history-cell--year" data-label="Année">
                 <span class="history-cell__label">Année</span>
                 <span class="history-cell__value">${escapeHtml(year)}</span>
               </span>
