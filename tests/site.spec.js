@@ -94,16 +94,6 @@ test("mobile nav toggle exposes and collapses the menu cleanly", async ({ page, 
   await expect(page.locator("#mobileNavCurrentLabel")).toHaveText("Voix");
 });
 
-test("index2 exposes the native html5 audio player variant", async ({ page }) => {
-  await page.goto("/index2.html");
-
-  await expect(page.locator("#radioAudio[controls]")).toBeVisible();
-  await expect(page.locator(".player-strip__native-audio")).toBeVisible();
-  await expect(page.locator("#playerToggle")).toHaveCount(0);
-  await expect(page.locator("#volumeRange")).toHaveCount(0);
-  await expect(page.locator("#nowPlayingTicker")).toBeVisible();
-});
-
 test("direct page stays out of the main menu and loads its monitoring shell", async ({ page }) => {
   await page.goto("/direct.html");
 

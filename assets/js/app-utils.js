@@ -28,29 +28,30 @@
     return "";
   }
 
-  function shouldHideWebVolumeControl() {
+  function shouldDisableWebVolumeControl() {
     var nav = window.navigator || {};
     var platform = String(nav.platform || "");
     var userAgent = String(nav.userAgent || "");
     var userAgentDataPlatform = String((nav.userAgentData && nav.userAgentData.platform) || "");
     var maxTouchPoints = Number(nav.maxTouchPoints || 0);
-    var explicitAppleMobileDevice =
-      /iPhone|iPod|iPad/i.test(platform) ||
-      /iPhone|iPod|iPad/i.test(userAgent) ||
-      /iPhone|iPod|iPad/i.test(userAgentDataPlatform);
+    var shortestScreenEdge = Math.min(
+      Number((window.screen && window.screen.width) || 0) || Infinity,
+      Number((window.screen && window.screen.height) || 0) || Infinity
+    );
+    var explicitIPhoneOrIPod =
+      /iPhone|iPod/i.test(platform) ||
+      /iPhone|iPod/i.test(userAgent) ||
+      /iPhone|iPod/i.test(userAgentDataPlatform);
 
-    if (explicitAppleMobileDevice) return true;
+    if (explicitIPhoneOrIPod) return true;
 
-    var isDisguisedIPad =
+    var isDisguisedIPhone =
       /AppleWebKit/i.test(userAgent) &&
       /Mac/i.test(platform + " " + userAgentDataPlatform) &&
-      maxTouchPoints > 1;
+      maxTouchPoints > 1 &&
+      shortestScreenEdge < 500;
 
-    return isDisguisedIPad;
-  }
-
-  function detectIOSPhoneDevice() {
-    return shouldHideWebVolumeControl();
+    return isDisguisedIPhone;
   }
 
   function parseCsvLine(line) {
@@ -287,8 +288,7 @@
     escapeHtml: escapeHtml,
     parseYear: parseYear,
     firstString: firstString,
-    shouldHideWebVolumeControl: shouldHideWebVolumeControl,
-    detectIOSPhoneDevice: detectIOSPhoneDevice,
+    shouldDisableWebVolumeControl: shouldDisableWebVolumeControl,
     parseCsvLine: parseCsvLine,
     yieldToBrowser: yieldToBrowser,
     getDisplayDateParts: getDisplayDateParts,

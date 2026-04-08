@@ -43,7 +43,7 @@ const asString = APP_UTILS.asString;
 const escapeHtml = APP_UTILS.escapeHtml;
 const parseYear = APP_UTILS.parseYear;
 const firstString = APP_UTILS.firstString;
-const shouldHideWebVolumeControl = APP_UTILS.shouldHideWebVolumeControl || APP_UTILS.detectIOSPhoneDevice;
+const shouldDisableWebVolumeControl = APP_UTILS.shouldDisableWebVolumeControl;
 const parseCsvLine = APP_UTILS.parseCsvLine;
 const yieldToBrowser = APP_UTILS.yieldToBrowser;
 const getDisplayDateParts = (value) => APP_UTILS.getDisplayDateParts(value, DISPLAY_TIME_ZONE);
@@ -72,7 +72,7 @@ const state = {
   route: getRouteFromHash(),
   isPlaying: false,
   streamAvailable: false,
-  shouldHideVolumeControl: shouldHideWebVolumeControl ? shouldHideWebVolumeControl() : false,
+  shouldDisableVolumeControl: shouldDisableWebVolumeControl ? shouldDisableWebVolumeControl() : false,
   volume: DEFAULT_VOLUME,
   hasUserAdjustedVolume: false,
   currentShow: {
@@ -1298,13 +1298,14 @@ function makeDomId(prefix, value) {
 }
 
 function applyPlatformAudioUi() {
-  const shouldHideVolume = state.shouldHideVolumeControl;
+  const shouldDisableVolume = state.shouldDisableVolumeControl;
   if (refs.volumeWrap) {
-    refs.volumeWrap.hidden = shouldHideVolume;
+    refs.volumeWrap.classList.toggle("is-disabled", shouldDisableVolume);
+    refs.volumeWrap.setAttribute("aria-disabled", shouldDisableVolume ? "true" : "false");
   }
   if (refs.volumeRange) {
-    refs.volumeRange.disabled = shouldHideVolume;
-    refs.volumeRange.tabIndex = shouldHideVolume ? -1 : 0;
+    refs.volumeRange.disabled = shouldDisableVolume;
+    refs.volumeRange.tabIndex = shouldDisableVolume ? -1 : 0;
   }
 }
 
