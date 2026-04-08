@@ -8,6 +8,7 @@
   --accent: #1f4fd1;
   --accent-soft: rgba(31, 79, 209, 0.08);
   --live: #18b566;
+  --direct: #ff8a3d;
   --danger: #cf3746;
   --shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
   --content-width: min(1160px, calc(100vw - 1.25rem));
@@ -414,6 +415,19 @@ a {
 .signal-indicator.is-live .signal-indicator__wave {
   border-color: rgba(24, 181, 102, 0.34);
   animation: signal-wave 1.8s ease-out infinite;
+}
+
+.signal-indicator.is-direct .signal-indicator__dot {
+  background: var(--direct);
+}
+
+.signal-indicator.is-direct .signal-indicator__wave {
+  border-color: color-mix(in srgb, var(--direct) 42%, transparent);
+  animation: signal-wave 1.35s ease-out infinite;
+}
+
+.signal-indicator.is-direct .signal-indicator__wave--late {
+  animation-delay: 0.68s;
 }
 
 .signal-indicator.is-live .signal-indicator__wave--late {

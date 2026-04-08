@@ -5,7 +5,8 @@ const HISTORY_CSV_URL = "https://stream.lechatnoirradio.fr/history/nowplaying.cs
 const DISPLAY_TIME_ZONE = "Europe/Paris";
 const ROUTES = ["accueil", "actualites", "grille", "historique", "voix", "apropos"];
 const DEFAULT_VOLUME = 1;
-const LIVE_REFRESH_MS = 30000;
+const LIVE_REFRESH_MS = 12000;
+const LIVE_REFRESH_MIN_INTERVAL_MS = 2500;
 const HISTORY_REFRESH_MS = 20000;
 const FETCH_CACHE_MS = 15000;
 const HISTORY_CACHE_KEY = "lcn-history-preview-v1";
@@ -42,6 +43,8 @@ let historyRefreshPromise = null;
 let historyRefreshScheduled = false;
 let historyRefreshTimeoutId = 0;
 let historyRefreshIdleId = 0;
+let liveRefreshPromise = null;
+let liveRefreshAt = 0;
 const state = {
   route: getRouteFromHash(),
   isPlaying: false,
@@ -116,7 +119,7 @@ function init() {
   setVolume(state.volume, { preserveUserState: true });
   ensurePlaybackVolumeReady();
   updateScrollTopButton();
-  refreshLiveData();
+  refreshLiveData({ force: true });
   scheduleHistoryRefresh({ silent: Boolean(state.historyRows.length) });
   window.setInterval(() => {
     if (!document.hidden) refreshLiveData();
@@ -210,7 +213,7 @@ function bindEvents() {
 
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) {
-      refreshLiveData();
+      refreshLiveData({ force: true });
       if (state.route === "accueil" || state.route === "historique") {
         scheduleHistoryRefresh({
           silent: true,
@@ -1120,6 +1123,7 @@ async function togglePlayback() {
   }
 
   try {
+    refreshLiveData({ force: true });
     ensurePlaybackVolumeReady();
     refs.audio.load();
     await refs.audio.play();
@@ -1149,9 +1153,20 @@ function setStreamAvailability(nextValue) {
 }
 
 function updateSignalIndicator() {
-  refs.signalIndicator.classList.toggle("is-live", state.streamAvailable);
+  const isDirect = state.streamAvailable && Boolean(state.isLive);
+  const isLive = state.streamAvailable && !isDirect;
+
+  refs.signalIndicator.classList.toggle("is-live", isLive);
+  refs.signalIndicator.classList.toggle("is-direct", isDirect);
   refs.signalIndicator.classList.toggle("is-offline", !state.streamAvailable);
-  refs.signalIndicator.setAttribute("aria-label", state.streamAvailable ? "Flux audio disponible" : "Flux audio indisponible");
+
+  const label = !state.streamAvailable
+    ? "Flux audio indisponible"
+    : isDirect
+      ? "Direct en cours, flux audio disponible"
+      : "Flux audio disponible";
+
+  refs.signalIndicator.setAttribute("aria-label", label);
 }
 
 function updateHeaderLiveFields() {
@@ -1234,23 +1249,41 @@ function refreshNowPlayingTicker() {
   });
 }
 
-async function refreshLiveData() {
-  const [currentShowMeta, currentTrackMeta] = await Promise.all([
-    fetchJson(CURRENT_SHOW_URL).then(extractCurrentShowMeta).catch(() => null),
-    fetchJson(NOW_PLAYING_URL).then(extractNowPlayingMeta).catch(() => null),
-  ]);
+async function refreshLiveData(options = {}) {
+  if (liveRefreshPromise) return liveRefreshPromise;
 
-  if (currentShowMeta || currentTrackMeta) {
-    setStreamAvailability(true);
+  const now = Date.now();
+  if (!options.force && liveRefreshAt && now - liveRefreshAt < LIVE_REFRESH_MIN_INTERVAL_MS) {
+    return null;
   }
 
-  applyCurrentShow(currentShowMeta);
-  if (currentTrackMeta && (currentTrackMeta.artist || currentTrackMeta.title || currentTrackMeta.album)) {
-    applyCurrentTrack(currentTrackMeta);
-  } else if (state.historyRows.length) {
-    const fallbackMeta = buildMetaFromHistoryRows(state.historyRows);
-    if (fallbackMeta) applyCurrentTrack(fallbackMeta);
+  liveRefreshPromise = (async () => {
+    const [currentShowMeta, currentTrackMeta] = await Promise.all([
+      fetchJson(CURRENT_SHOW_URL).then(extractCurrentShowMeta).catch(() => null),
+      fetchJson(NOW_PLAYING_URL).then(extractNowPlayingMeta).catch(() => null),
+    ]);
+
+    if (currentShowMeta || currentTrackMeta) {
+      setStreamAvailability(true);
+    }
+
+    applyCurrentShow(currentShowMeta);
+    if (currentTrackMeta && (currentTrackMeta.artist || currentTrackMeta.title || currentTrackMeta.album)) {
+      applyCurrentTrack(currentTrackMeta);
+    } else if (state.historyRows.length) {
+      const fallbackMeta = buildMetaFromHistoryRows(state.historyRows);
+      if (fallbackMeta) applyCurrentTrack(fallbackMeta);
+    }
+  })();
+
+  try {
+    await liveRefreshPromise;
+  } finally {
+    liveRefreshAt = Date.now();
+    liveRefreshPromise = null;
   }
+
+  return null;
 }
 
 function applyCurrentShow(showMeta) {
@@ -1339,7 +1372,11 @@ async function refreshHistory(options = {}) {
     try {
       const rows = await fetchHistoryRows({ full: shouldLoadFullArchive });
       const nextRows =
-        state.historyHasFullArchive && !shouldLoadFullArchive ? mergeHistoryRows(state.historyRows, rows) : rows;
+        state.historyHasFullArchive && !shouldLoadFullArchive
+          ? mergeHistoryRows(state.historyRows, rows)
+          : shouldLoadFullArchive
+            ? rows
+            : alignPreviewHistoryRowsWithCurrentTrack(rows);
       setHistoryRows(nextRows, { full: state.historyHasFullArchive || shouldLoadFullArchive });
       state.historyStatusText = shouldLoadFullArchive
         ? "Archives complètes chargées"
@@ -1610,6 +1647,41 @@ function getSortedHistoryRows(rows) {
     .map((row) => ensureEnrichedRow(row))
     .filter(Boolean)
     .sort((left, right) => right.tsMs - left.tsMs);
+}
+
+function buildSyntheticCurrentTrackRow() {
+  const signature = getTrackSignature(state.currentTrack);
+  if (!signature) return null;
+
+  return ensureEnrichedRow({
+    tsIso: new Date().toISOString(),
+    artist: asString(state.currentTrack.artist),
+    title: asString(state.currentTrack.title),
+    album: asString(state.currentTrack.album),
+    year: asString(state.currentTrack.year),
+  });
+}
+
+function alignPreviewHistoryRowsWithCurrentTrack(rows) {
+  const sortedRows = getSortedHistoryRows(rows);
+  const currentSignature = getTrackSignature(state.currentTrack);
+  if (!currentSignature) {
+    return sortedRows.slice(0, HISTORY_CACHE_MAX_ROWS);
+  }
+
+  const currentIndex = sortedRows.findIndex((row) => getTrackSignature(row) === currentSignature);
+  if (currentIndex === 0) {
+    return sortedRows.slice(0, HISTORY_CACHE_MAX_ROWS);
+  }
+
+  const syntheticRow = buildSyntheticCurrentTrackRow();
+  if (!syntheticRow) {
+    return sortedRows.slice(0, HISTORY_CACHE_MAX_ROWS);
+  }
+
+  return [syntheticRow]
+    .concat(sortedRows.filter((row, index) => index !== currentIndex))
+    .slice(0, HISTORY_CACHE_MAX_ROWS);
 }
 
 function getHistoryRowKey(row) {
