@@ -18,6 +18,9 @@ const DEFAULT_HISTORY_VISIBLE_ROWS = 30;
 const HISTORY_LOAD_MORE_STEP = 30;
 const HISTORY_INITIAL_DELAY_MS = 900;
 const CSV_PARSE_CHUNK_SIZE = 180;
+const APP_ICON_180_URL = new URL("apple-touch-icon.png", window.location.href).href;
+const APP_ICON_192_URL = new URL("icon-192.png", window.location.href).href;
+const APP_ICON_512_URL = new URL("icon-512.png", window.location.href).href;
 
 const ICONS = {
   play:
@@ -44,6 +47,7 @@ const state = {
   route: getRouteFromHash(),
   isPlaying: false,
   streamAvailable: false,
+  isIOSPhone: detectIOSPhoneDevice(),
   volume: DEFAULT_VOLUME,
   hasUserAdjustedVolume: false,
   currentShow: {
@@ -83,6 +87,7 @@ const refs = {
   audio: document.getElementById("radioAudio"),
   playerToggle: document.getElementById("playerToggle"),
   playerToggleIcon: document.getElementById("playerToggleIcon"),
+  volumeWrap: document.querySelector(".player-strip__volume"),
   volumeRange: document.getElementById("volumeRange"),
   signalIndicator: document.getElementById("signalIndicator"),
   currentShowText: document.getElementById("currentShowText"),
@@ -99,12 +104,14 @@ state.selectedNewsYear = getNewsYears()[0] || "";
 
 function init() {
   refs.audio.src = STREAM_URL;
+  applyPlatformAudioUi();
   bindEvents();
   renderRoute();
   syncShellHeight();
   updatePlayerButton();
   updateSignalIndicator();
   updateHeaderLiveFields();
+  updateMediaSession();
   syncVolumeInput();
   setVolume(state.volume, { preserveUserState: true });
   ensurePlaybackVolumeReady();
@@ -1101,7 +1108,7 @@ function syncVolumeInput() {
 
 async function togglePlayback() {
   if (state.isPlaying) {
-    refs.audio.pause();
+    pausePlayback();
     return;
   }
 
@@ -1115,11 +1122,16 @@ async function togglePlayback() {
   }
 }
 
+function pausePlayback() {
+  refs.audio.pause();
+}
+
 function updatePlayerButton() {
   if (!refs.playerToggle || !refs.playerToggleIcon) return;
   refs.playerToggle.setAttribute("aria-pressed", state.isPlaying ? "true" : "false");
   refs.playerToggle.setAttribute("aria-label", state.isPlaying ? "Mettre en pause le direct" : "Lancer le direct");
   refs.playerToggleIcon.innerHTML = state.isPlaying ? ICONS.pause : ICONS.play;
+  updateMediaSessionPlaybackState();
 }
 
 function setStreamAvailability(nextValue) {
@@ -1140,6 +1152,50 @@ function updateHeaderLiveFields() {
     (state.currentShowLoaded ? "Programmation en cours" : "Chargement...");
   refs.currentShowText.textContent = currentShowText;
   updateNowPlayingTicker();
+  updateMediaSession();
+}
+
+function updateMediaSession() {
+  if (!("mediaSession" in navigator) || typeof window.MediaMetadata !== "function") return;
+
+  try {
+    navigator.mediaSession.metadata = new window.MediaMetadata({
+      title: asString(state.currentTrack.title) || "Le Chat Noir",
+      artist: asString(state.currentTrack.artist) || "Le Chat Noir",
+      album: asString(state.currentTrack.album) || "Laboratoire radiophonique indépendant",
+      artwork: [
+        {
+          src: APP_ICON_180_URL,
+          sizes: "180x180",
+          type: "image/png",
+        },
+        {
+          src: APP_ICON_192_URL,
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: APP_ICON_512_URL,
+          sizes: "512x512",
+          type: "image/png",
+        },
+      ],
+    });
+    navigator.mediaSession.setActionHandler("play", togglePlayback);
+    navigator.mediaSession.setActionHandler("pause", pausePlayback);
+  } catch (error) {
+    return;
+  }
+}
+
+function updateMediaSessionPlaybackState() {
+  if (!("mediaSession" in navigator)) return;
+
+  try {
+    navigator.mediaSession.playbackState = state.isPlaying ? "playing" : "paused";
+  } catch (error) {
+    return;
+  }
 }
 
 function updateNowPlayingTicker() {
@@ -1775,6 +1831,17 @@ function buildMailtoHref(subject, body) {
   return `mailto:radio@lechatnoirradio.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
+function applyPlatformAudioUi() {
+  const shouldHideVolume = state.isIOSPhone;
+  if (refs.volumeWrap) {
+    refs.volumeWrap.hidden = shouldHideVolume;
+  }
+  if (refs.volumeRange) {
+    refs.volumeRange.disabled = shouldHideVolume;
+    refs.volumeRange.tabIndex = shouldHideVolume ? -1 : 0;
+  }
+}
+
 async function fetchJson(url) {
   const response = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
   if (!response.ok) {
@@ -1810,6 +1877,12 @@ function firstString(source, keys) {
     if (value) return value;
   }
   return "";
+}
+
+function detectIOSPhoneDevice() {
+  const userAgent = String((window.navigator && window.navigator.userAgent) || "");
+  const platform = String((window.navigator && window.navigator.platform) || "");
+  return /iPhone|iPod/i.test(userAgent) || /iPhone|iPod/i.test(platform);
 }
 
 function parseYear(rawValue) {
