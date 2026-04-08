@@ -51,7 +51,7 @@
       meta: "Fiction sonore",
       title: "Le Pseudodocumentaire de l'espace",
       image: "assets/media/shows/pseudocumentaire.webp",
-      text: "Archives déplacées, faux-semblants et dépression verte pour un laboratoire d'anticipation.",
+      text: "Fiction d'anticipation autour de la solastalgie, entre archives déplacées et faux-semblants.",
       href: "https://audioblog.arteradio.com/blog/194586/pseudocumentaire-de-l-espace",
       actionLabelLines: ["Écouter", "le podcast"],
     },
