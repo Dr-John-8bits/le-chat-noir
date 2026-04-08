@@ -85,7 +85,7 @@ test("keeps one active nav item and preserves the shared audio element across ro
   });
 
   const homeNavButton = page.locator('.main-nav__button[data-route="accueil"]').first();
-  await expect(page.getByRole("button", { name: "Historique", exact: true })).toHaveCount(0);
+  await expect(page.locator('.main-nav a[href="history.html"]')).toHaveCount(1);
   await expect(page.locator(".main-nav__button.is-active")).toHaveCount(1);
   await expect(homeNavButton).toHaveClass(/is-active/);
   await expect(page.getByRole("heading", { name: "Récemment diffusé" })).toBeVisible();

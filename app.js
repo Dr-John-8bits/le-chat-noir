@@ -317,6 +317,12 @@ function handleDocumentClick(event) {
     closeMobileNav();
   }
 
+  const externalHistoryLink = event.target.closest('.main-nav a[href="history.html"]');
+  if (externalHistoryLink) {
+    closeMobileNav();
+    return;
+  }
+
   const routeLink = event.target.closest("[data-route-link]");
   if (!routeLink) return;
   event.preventDefault();
