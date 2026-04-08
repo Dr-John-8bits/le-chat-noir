@@ -1,0 +1,148 @@
+.history-hero {
+  display: grid;
+  gap: 1rem;
+}
+
+.history-toolbar__copy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.history-toolbar__label,
+.history-toolbar__status {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.history-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  align-items: end;
+}
+
+.field-group {
+  display: grid;
+  gap: 0.45rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.field-group input {
+  min-height: 2.8rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.field-group input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.history-search-button {
+  width: 100%;
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.history-table {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.history-table__head,
+.history-row {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.85fr) minmax(72px, 0.55fr) minmax(180px, 1.3fr) minmax(140px, 1fr) minmax(150px, 1fr) minmax(72px, 0.45fr);
+  gap: 0.8rem;
+  align-items: start;
+}
+
+.history-table__head {
+  padding: 0 1rem;
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.history-list--table {
+  gap: 0.75rem;
+}
+
+.history-row {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface) 97%, var(--bg));
+}
+
+.history-cell {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.history-cell__label {
+  display: none;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.history-cell__value {
+  color: var(--text-muted);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.history-cell__value--strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.history-empty {
+  padding: 1rem 0;
+  color: var(--text-muted);
+}
+
+.history-more-row {
+  margin-top: 1rem;
+}
+
+@media (max-width: 900px) {
+  .history-form {
+    grid-template-columns: 1fr;
+  }
+
+  .history-table__head {
+    display: none;
+  }
+
+  .history-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .history-cell__label {
+    display: block;
+  }
+}
+
+@media (max-width: 680px) {
+  .history-row {
+    grid-template-columns: 1fr;
+  }
+}

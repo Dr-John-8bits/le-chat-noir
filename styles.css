@@ -1,2 +1,9 @@
 @import url("./assets/css/shell.css");
-@import url("./assets/css/pages.css");
+@import url("./assets/css/pages-base.css");
+@import url("./assets/css/page-home.css");
+@import url("./assets/css/page-news.css");
+@import url("./assets/css/page-programs.css");
+@import url("./assets/css/page-history.css");
+@import url("./assets/css/page-voices.css");
+@import url("./assets/css/page-about.css");
+@import url("./assets/css/page-direct.css");
