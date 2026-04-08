@@ -458,7 +458,7 @@ function renderHistoryPage() {
 
   return `
     <section class="page" aria-labelledby="page-title">
-      <article class="page-card page-card--hero">
+      <article class="page-card page-card--hero history-hero">
         <span class="page-eyebrow">Les archives de la radio</span>
         <h1 class="page-title" id="page-title">Historique de diffusion</h1>
         <p class="page-copy">Un titre t'a échappé pendant l'écoute ? Les dernières diffusions, en lecture chronologique, avec actualisation automatique et recherche par date et heure.</p>
@@ -466,9 +466,6 @@ function renderHistoryPage() {
           <span class="meta-pill">Mise à jour toutes les 20 s</span>
           <span class="meta-pill">${escapeHtml(state.historyTimezoneLabel)}</span>
         </div>
-      </article>
-
-      <article class="page-card history-toolbar">
         <div class="history-toolbar__copy">
           <p class="history-toolbar__label">${escapeHtml(display.label)}</p>
           <p class="history-toolbar__status">${escapeHtml(state.historyStatusText)}</p>

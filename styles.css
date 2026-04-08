@@ -449,6 +449,18 @@ a {
   display: none;
 }
 
+:is(.main-nav__button, .day-chip) {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+:is(.main-nav__button, .day-chip) * {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .main-nav__button {
   position: relative;
   flex: 0 0 auto;
@@ -472,14 +484,12 @@ a {
   transition: background-color 0.2s ease;
 }
 
-.main-nav__button:hover,
 .main-nav__button.is-active {
   color: var(--text);
   transform: translateY(-1px);
   opacity: 1;
 }
 
-.main-nav__button:hover::before,
 .main-nav__button.is-active::before {
   background: var(--accent-soft);
 }
@@ -495,17 +505,44 @@ a {
   transition: background 0.2s ease;
 }
 
-.main-nav__button:hover::after {
-  background: color-mix(in srgb, var(--accent) 45%, transparent);
-}
-
 .main-nav__button.is-active::after {
   background: var(--accent);
+}
+
+.main-nav__button:active {
+  color: var(--text);
+}
+
+.main-nav__button:active::before {
+  background: var(--accent-soft);
 }
 
 .main-nav__button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .main-nav__button:hover {
+    color: var(--text);
+    transform: translateY(-1px);
+    opacity: 1;
+  }
+
+  .main-nav__button:hover::before {
+    background: var(--accent-soft);
+  }
+
+  .main-nav__button:hover::after {
+    background: color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+
+  .day-chip:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    transform: translateY(-1px);
+  }
 }
 
 .site-main {
@@ -897,12 +934,17 @@ a {
   opacity: 0.82;
 }
 
-.day-chip.is-active,
-.day-chip:hover {
+.day-chip.is-active {
   color: var(--text);
   border-color: var(--accent);
   background: var(--accent-soft);
   transform: translateY(-1px);
+}
+
+.day-chip:active {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .recent-list,
@@ -1086,7 +1128,7 @@ a {
 }
 
 .schedule-card,
-.history-toolbar {
+.history-hero {
   display: grid;
   gap: 1rem;
 }
