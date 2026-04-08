@@ -110,7 +110,6 @@ const state = {
 
 const refs = {
   topShell: document.getElementById("topShell"),
-  brand: document.querySelector(".brand"),
   audio: document.getElementById("radioAudio"),
   playerToggle: document.getElementById("playerToggle"),
   playerToggleIcon: document.getElementById("playerToggleIcon"),
@@ -433,8 +432,6 @@ function setRoute(route, options = {}) {
 }
 
 function renderRoute(options = {}) {
-  const isHomeRoute = state.route === "accueil";
-
   refs.navButtons.forEach((button) => {
     const isActive = button.dataset.route === state.route;
     button.classList.toggle("is-active", isActive);
@@ -444,15 +441,6 @@ function renderRoute(options = {}) {
       button.removeAttribute("aria-current");
     }
   });
-
-  if (refs.brand) {
-    refs.brand.classList.toggle("is-home-active", isHomeRoute);
-    if (isHomeRoute) {
-      refs.brand.setAttribute("aria-current", "page");
-    } else {
-      refs.brand.removeAttribute("aria-current");
-    }
-  }
 
   updateMobileNavUi();
 

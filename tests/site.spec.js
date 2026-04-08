@@ -21,13 +21,11 @@ test("keeps one active nav item and preserves the shared audio element across ro
   });
 
   await expect(page.locator(".main-nav__button.is-active")).toHaveCount(0);
-  await expect(page.locator(".brand")).toHaveAttribute("aria-current", "page");
   await expect(page.getByRole("heading", { name: "Récemment diffusé" })).toBeVisible();
 
   await openMobileNavIfNeeded(page);
   await getNavButton(page, "Historique").click();
   await expect(page.locator(".main-nav__button.is-active")).toHaveCount(1);
-  await expect(page.locator(".brand")).not.toHaveAttribute("aria-current", "page");
   await expect(page.getByRole("heading", { name: "Historique de diffusion" })).toBeVisible();
   await expect(page.locator(".history-hero .history-form")).toBeVisible();
   await expect(page.locator(".history-toolbar")).toHaveCount(0);
@@ -41,9 +39,8 @@ test("keeps one active nav item and preserves the shared audio element across ro
   const sameAudioNode = await page.evaluate(() => window.__audioRef === document.getElementById("radioAudio"));
   expect(sameAudioNode).toBe(true);
 
-  await page.locator(".brand").click();
+  await page.locator(".brand__home").click();
   await expect(page.locator(".main-nav__button.is-active")).toHaveCount(0);
-  await expect(page.locator(".brand")).toHaveAttribute("aria-current", "page");
   await expect(page.getByRole("heading", { name: "Récemment diffusé" })).toBeVisible();
 });
 

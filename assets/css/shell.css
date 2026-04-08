@@ -114,11 +114,15 @@ a {
   gap: 0.9rem;
   align-items: center;
   min-width: 0;
-  border-radius: 18px;
-  padding: 0.3rem 0.45rem 0.3rem 0.25rem;
-  margin-left: -0.25rem;
-  transition: background-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.brand__home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
   -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
 }
 
 .brand__logo {
@@ -145,20 +149,15 @@ a {
   line-height: 1.4;
 }
 
-.brand.is-home-active {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 92%);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
-}
-
-.brand:focus-visible {
+.brand__home:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .brand:hover {
-    background: color-mix(in srgb, var(--accent) 5%, transparent);
+  .brand__home:hover {
     transform: translateY(-1px);
+    opacity: 0.92;
   }
 }
 
