@@ -114,6 +114,12 @@
   font-weight: 700;
 }
 
+.history-cell__meta {
+  display: none;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
 .history-empty {
   padding: 1rem 0;
   color: var(--text-muted);
@@ -133,16 +139,60 @@
   }
 
   .history-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(58px, 68px) minmax(0, 1fr);
+    grid-template-areas: "time title";
+    gap: 0.7rem 0.95rem;
+    padding: 0.95rem;
+  }
+
+  .history-cell--date,
+  .history-cell--artist,
+  .history-cell--album,
+  .history-cell--year {
+    display: none;
+  }
+
+  .history-cell {
+    min-width: 0;
+  }
+
+  .history-cell--time {
+    grid-area: time;
+    align-content: start;
+    gap: 0;
+  }
+
+  .history-cell--title {
+    grid-area: title;
+    align-content: start;
+    gap: 0.28rem;
   }
 
   .history-cell__label {
+    display: none;
+  }
+
+  .history-cell--time .history-cell__value {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .history-cell--title .history-cell__value--strong {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .history-cell__meta {
     display: block;
+    font-size: 0.96rem;
   }
 }
 
 @media (max-width: 680px) {
   .history-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(54px, 62px) minmax(0, 1fr);
+    gap: 0.6rem 0.8rem;
   }
 }
