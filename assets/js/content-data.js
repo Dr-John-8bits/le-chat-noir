@@ -200,7 +200,7 @@
         { time: "14h00", title: "Les Transmissions du Dr. John", desc: "Archive aléatoire des Transmissions du Dr. John." },
         { time: "Puis", title: "Les chats sauvages", desc: "Le jour des enfants, c'est musique aléatoire !", meta: true, highlight: true },
         { time: "18h00", title: "Documents de terrain", desc: "Captations monophoniques et stéréophoniques de terrain.", highlight: true },
-        { time: "Vers 19h", title: "Les chats sauvages", desc: "Retour au grand bazar musical du mercredi jusqu'aux Ondes du Chat Noir.", meta: true, highlight: true },
+        { time: "Puis", title: "Les chats sauvages", desc: "Retour au grand bazar musical du mercredi jusqu'aux Ondes du Chat Noir.", meta: true, highlight: true },
         { time: "22h00", title: "Les Ondes du Chat Noir", desc: "Émissions, fictions, transmissions et formes radiophoniques choisies au hasard." },
       ],
     },
