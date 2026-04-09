@@ -41,6 +41,13 @@
   aspect-ratio: 1;
 }
 
+.show-cover--contain {
+  object-fit: contain;
+  object-position: center;
+  padding: 0.45rem;
+  background: #fff;
+}
+
 .producer-role,
 .show-meta {
   margin: 0;

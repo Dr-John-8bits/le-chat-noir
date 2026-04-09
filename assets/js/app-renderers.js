@@ -526,7 +526,7 @@
 
       return `
         <article class="show-card">
-          <img class="show-cover" src="${escapeHtml(show.image)}" alt="${escapeHtml(`Visuel ${show.title}`)}" loading="lazy" />
+          <img class="show-cover${show.imageFit === "contain" ? " show-cover--contain" : ""}" src="${escapeHtml(show.image)}" alt="${escapeHtml(`Visuel ${show.title}`)}" loading="lazy" />
           <div class="show-body">
             <p class="show-meta">${escapeHtml(show.meta)}</p>
             <h3 class="show-title">${escapeHtml(show.title)}</h3>
