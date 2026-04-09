@@ -97,6 +97,7 @@
       meta: "Mixtapes",
       title: "blocSonic - mixtapes",
       image: "assets/media/shows/blocsonic.png",
+      imageFit: "contain",
       text: "Mixtapes hip-hop, downtempo et indie du label américain blocSonic.",
       href: "https://blocsonic.com/",
       actionLabel: "Visiter le site",
