@@ -251,7 +251,7 @@
       id: "sat",
       shortName: "Sam",
       name: "Samedi",
-      summary: "Antenne ouverte, Console-toi, synthèse analogique et focus When Day Chokes a Radio.",
+      summary: "Antenne ouverte, Console-toi, synthèse analogique, Beats & Flow et focus When Day Chokes a Radio.",
       slots: [
         { time: "00h00", title: "La Grande Nuit", desc: "Paysages sonores étendus, pièces immersives." },
         { time: "07h00", title: "Les chats dans la courée", desc: "Le grand bazar du chat : surprises, bizarreries et sérendipité totale." },
@@ -259,7 +259,8 @@
         { time: "11h45", title: "Je ne sais pas jouer du synthé", desc: "On traverse la synthèse analogique par l'essai-erreur." },
         { time: "12h00", title: "La table du chat", desc: "Chanson, electro douce, ambient léger." },
         { time: "14h00", title: "L'instinct mode", desc: "Chronique du vestiaire by Lady Em." },
-        { time: "Puis", title: "Les chats dans la courée", desc: "Le grand bazar du chat : surprises, bizarreries et sérendipité totale.", meta: true },
+        { time: "Puis", title: "Beats & Flow", desc: "Hip-hop, trip-hop, downtempo, beats et grooves pour faire basculer doucement le samedi après-midi.", meta: true, highlight: true },
+        { time: "16h00", title: "Les chats dans la courée", desc: "Le grand bazar du chat : surprises, bizarreries et sérendipité totale.", meta: true },
         { time: "18h00", title: "When Day Chokes a Radio", desc: "Focus Intégrale When Day Chokes The Night", highlight: true },
         { time: "23h40", title: "Le Pseudodocumentaire de l'espace", desc: "Fiction sonore (20 min)." },
       ],
