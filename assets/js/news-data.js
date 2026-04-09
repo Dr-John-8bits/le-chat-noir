@@ -1,5 +1,14 @@
 window.LCN_NEWS_ITEMS = [
   {
+    sortKey: "2026-04-09",
+    dateLabel: "9 avril 2026",
+    title: "blocSonic rejoint la grille",
+    lead:
+      "Chaque lundi de 18h à 19h, une nouvelle fenêtre s'ouvre dans la programmation : blocSonic.",
+    bodyHtml:
+      "Label indépendant engagé dans la diffusion de musiques libres, <a href=\"https://blocsonic.com/\" target=\"_blank\" rel=\"noopener noreferrer\">blocSonic</a> entre dans la grille du Chat Noir avec une heure de mixtapes entre hip-hop, downtempo et formes plus hybrides. Une curation directe, sans filtre, pour parcourir un catalogue ouvert, exigeant et généreux.",
+  },
+  {
     sortKey: "2026-04-08",
     dateLabel: "8 avril 2026",
     title: "Documents de terrain entre dans la grille",
