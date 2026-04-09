@@ -2,6 +2,8 @@
   var CONTACT_EMAIL = "radio@lechatnoirradio.fr";
   var DISPLAY_TIME_ZONE = "Europe/Paris";
   var SHOW_NAME_ALIASES = {
+    blocsonic: "blocsonic",
+    "blocsonic mixtapes": "blocsonic",
     "instinct mode": "l instinct mode",
     "l instinct mode": "l instinct mode",
     "autre nuit": "l autre nuit",

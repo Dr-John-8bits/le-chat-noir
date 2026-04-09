@@ -29,9 +29,11 @@ async function openMobileNavIfNeeded(page) {
   await toggle.click();
 }
 
-async function mockWednesdayCurrentShow(page, options = {}) {
+async function mockHomeCurrentShow(page, options = {}) {
   const nowIso = options.nowIso || "2026-04-08T16:05:00.000Z";
   const sinceIso = options.sinceIso || "2026-04-08T15:50:00.000Z";
+  const show = options.show || "Les chats sauvages";
+  const trackTsIso = options.trackTsIso || "2026-04-08T15:58:00.000Z";
 
   await page.addInitScript(({ fixedNow }) => {
     const RealDate = Date;
@@ -60,13 +62,13 @@ async function mockWednesdayCurrentShow(page, options = {}) {
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({
-        show: "Les chats sauvages",
+        show,
         kind: "editorial_window",
         is_live: false,
         since: Math.floor(new Date(sinceIso).getTime() / 1000),
       }),
     });
-  });
+  }, { times: 100 });
 
   await page.route("**/nowplaying.json*", async (route) => {
     await route.fulfill({
@@ -87,9 +89,18 @@ async function mockWednesdayCurrentShow(page, options = {}) {
       contentType: "text/csv",
       body: [
         "ts,unused,artist,title,album,year",
-        "2026-04-08T15:58:00.000Z,,Test Artist,Test Track,Test Album,2026",
+        `${trackTsIso},,Test Artist,Test Track,Test Album,2026`,
       ].join("\n"),
     });
+  }, { times: 100 });
+}
+
+async function mockWednesdayCurrentShow(page, options = {}) {
+  await mockHomeCurrentShow(page, {
+    nowIso: options.nowIso || "2026-04-08T16:05:00.000Z",
+    sinceIso: options.sinceIso || "2026-04-08T15:50:00.000Z",
+    show: "Les chats sauvages",
+    trackTsIso: "2026-04-08T15:58:00.000Z",
   });
 }
 
@@ -235,4 +246,21 @@ test("home can resolve the later duplicate show block once it has actually resum
   await expect(focusTitles).toHaveCount(2);
   await expect(focusTitles.nth(0)).toHaveText("Les chats sauvages");
   await expect(focusTitles.nth(1)).toHaveText("Les Ondes du Chat Noir");
+});
+
+test("home can map blocSonic current-show metadata to the blocSonic - mixtapes schedule slot", async ({ page }) => {
+  await mockHomeCurrentShow(page, {
+    nowIso: "2026-04-13T16:10:00.000Z",
+    sinceIso: "2026-04-13T16:00:00.000Z",
+    show: "blocSonic",
+    trackTsIso: "2026-04-13T16:05:00.000Z",
+  });
+
+  await page.goto("/");
+
+  const focusTitles = page.locator(".today-focus__title");
+  await expect(focusTitles).toHaveCount(3);
+  await expect(focusTitles.nth(0)).toHaveText("blocSonic - mixtapes");
+  await expect(focusTitles.nth(1)).toHaveText("Rock de l'aprème");
+  await expect(focusTitles.nth(2)).toHaveText("L'Autre Nuit");
 });
