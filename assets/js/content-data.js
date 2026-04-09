@@ -93,6 +93,14 @@
       href: "https://www.camembertelectrique.com/",
       actionLabel: "Visiter le label",
     },
+    {
+      meta: "Mixtapes",
+      title: "blocSonic - mixtapes",
+      image: "assets/media/shows/blocsonic.png",
+      text: "Mixtapes hip-hop, downtempo et indie du label américain blocSonic.",
+      href: "https://blocsonic.com/",
+      actionLabel: "Visiter le site",
+    },
   ];
 
   var ABOUT_CHIPS = [
@@ -159,7 +167,7 @@
       id: "mon",
       shortName: "Lun",
       name: "Lundi",
-      summary: "Le Migou, fragments matinaux, rock de l'aprème et retour de L'Autre Nuit.",
+      summary: "Le Migou, fragments matinaux, rock de l'aprème, blocSonic et retour de L'Autre Nuit.",
       slots: [
         { time: "00h00", title: "La Grande Nuit", desc: "Paysages sonores étendus, pièces immersives." },
         { time: "07h00", title: "Le Migou", desc: "Réveil café." },
@@ -167,6 +175,8 @@
         { time: "12h00", title: "La table du chat", desc: "Chanson, electro douce, ambient léger." },
         { time: "14h00", title: "L'instinct mode", desc: "Chronique du vestiaire by Lady Em." },
         { time: "Puis", title: "Rock de l'aprème", desc: "On réchauffe le rock'n'roll :D", meta: true, highlight: true },
+        { time: "18h00", title: "blocSonic - mixtapes", desc: "Mixtapes hip-hop, downtempo et indie du label américain blocSonic.", highlight: true },
+        { time: "Puis", title: "Rock de l'aprème", desc: "Retour au bloc rock du lundi jusqu'au rendez-vous de 23h40.", meta: true, highlight: true },
         { time: "23h40", title: "L'Autre Nuit", desc: "Lectures sans centre et machines hésitantes." },
       ],
     },

@@ -4,6 +4,20 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
 });
 
+function getParisTodayIsoDate() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Paris",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+
+  const year = parts.find((part) => part.type === "year")?.value || "1970";
+  const month = parts.find((part) => part.type === "month")?.value || "01";
+  const day = parts.find((part) => part.type === "day")?.value || "01";
+  return `${year}-${month}-${day}`;
+}
+
 function getNavButton(page, name) {
   return page.locator(".main-nav").getByRole("button", { name, exact: true });
 }
@@ -171,13 +185,14 @@ test("direct page stays out of the main menu and loads its monitoring shell", as
 });
 
 test("home history CTA opens the dedicated history page in a new tab", async ({ page, context }) => {
+  const todayIsoDate = getParisTodayIsoDate();
   await context.route("**/history/nowplaying.csv*", async (route) => {
     await route.fulfill({
       status: 200,
       contentType: "text/csv",
       body: [
         "ts,unused,artist,title,album,year",
-        "2026-04-08T18:00:00.000Z,,Test Artist,Test Track,Test Album,2026",
+        `${todayIsoDate}T18:00:00.000Z,,Test Artist,Test Track,Test Album,2026`,
       ].join("\n"),
     });
   });
