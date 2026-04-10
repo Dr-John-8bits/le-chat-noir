@@ -34,7 +34,7 @@
       role: "Curateur",
       name: "Resting Bell",
       image: "assets/media/producers/restingbell.webp",
-      bio: "Sélection de musiques méditatives, expérimentales, électriques et paisibles issues du netlabel Resting Bell.",
+      bio: "Diffuse des musiques méditatives, expérimentales, électriques et paisibles issues du netlabel Resting Bell.",
     },
     {
       role: "Curateur",
