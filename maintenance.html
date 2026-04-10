@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Le Chat Noir — Maintenance</title>
+    <meta
+      name="description"
+      content="Le site du Chat Noir est momentanément en maintenance. L’antenne reste consultable et le flux peut toujours être écouté."
+    />
+    <meta name="theme-color" content="#1f4fd1" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Le Chat Noir" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="assets/js/page-common.js"></script>
+    <script defer src="assets/js/app-utils.js"></script>
+    <script defer src="assets/js/maintenance.js"></script>
+  </head>
+  <body class="maintenance-body">
+    <main class="maintenance-shell">
+      <header class="maintenance-hero">
+        <img class="maintenance-hero__logo" src="assets/media/brand/logo.png" alt="Logo Le Chat Noir" />
+        <div class="maintenance-hero__copy">
+          <p class="maintenance-hero__eyebrow">Maintenance</p>
+          <h1 class="maintenance-hero__title">Le Chat Noir</h1>
+          <p class="maintenance-hero__lead">Le site est actuellement en maintenance.</p>
+        </div>
+      </header>
+
+      <section class="maintenance-card" aria-labelledby="maintenance-status-title">
+        <div class="maintenance-card__status">
+          <span class="maintenance-badge">
+            <span class="maintenance-badge__dot" aria-hidden="true"></span>
+            <span>Maintenance en cours</span>
+          </span>
+        </div>
+
+        <article class="maintenance-panel">
+          <p class="maintenance-panel__label">À l’antenne</p>
+          <h2 class="maintenance-panel__title" id="maintenanceCurrentShow">Chargement…</h2>
+          <p class="maintenance-panel__meta" id="maintenanceCurrentSince">—</p>
+          <h3 class="maintenance-panel__track" id="maintenanceTrackTitle">Chargement…</h3>
+          <p class="maintenance-panel__meta" id="maintenanceTrackMeta">Les métadonnées du morceau apparaîtront ici.</p>
+        </article>
+
+        <div class="maintenance-audio">
+          <audio class="maintenance-audio__player" controls preload="none">
+            <source src="https://stream.lechatnoirradio.fr/stream.mp3" type="audio/mpeg" />
+          </audio>
+        </div>
+
+        <p class="maintenance-card__note" id="maintenanceUpdatedAt">Mise à jour continue.</p>
+      </section>
+    </main>
+  </body>
+</html>

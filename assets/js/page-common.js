@@ -167,21 +167,6 @@
     );
   }
 
-  function renderShowActionLabel(show) {
-    if (show && Array.isArray(show.actionLabelLines) && show.actionLabelLines.length) {
-      return (
-        '<span class="show-action-label">' +
-        show.actionLabelLines
-          .map(function (line) {
-            return "<span>" + escapeHtml(line) + "</span>";
-          })
-          .join("") +
-        "</span>"
-      );
-    }
-    return "<span>" + escapeHtml(show && show.actionLabel ? show.actionLabel : "") + "</span>";
-  }
-
   function getCurrentDayId() {
     try {
       var weekday = new Intl.DateTimeFormat("en-US", {
@@ -391,7 +376,6 @@
     fillIconSlots: fillIconSlots,
     markActiveNav: markActiveNav,
     buildMailtoHref: buildMailtoHref,
-    renderShowActionLabel: renderShowActionLabel,
     getCurrentDayId: getCurrentDayId,
     parseScheduleTimeLabel: parseScheduleTimeLabel,
     getCurrentLocalMinutes: getCurrentLocalMinutes,

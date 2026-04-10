@@ -512,41 +512,22 @@
     }
 
     function renderShowCard(show) {
-      let actionHtml = "";
-
-      if (show.href) {
-        actionHtml = `
-          <a class="show-action" href="${escapeHtml(show.href)}" target="_blank" rel="noopener">
-            ${renderShowActionLabel(show)}
-          </a>
-        `;
-      } else if (show.actionLabel || (Array.isArray(show.actionLabelLines) && show.actionLabelLines.length)) {
-        actionHtml = `<p class="show-action show-action--static">${renderShowActionLabel(show)}</p>`;
-      }
+      const coverClass = `show-cover${show.imageFit === "contain" ? " show-cover--contain" : ""}`;
+      const coverImage = `<img class="${coverClass}" src="${escapeHtml(show.image)}" alt="${escapeHtml(`Visuel ${show.title}`)}" loading="lazy" />`;
+      const coverHtml = show.href
+        ? `<a class="show-cover-link" href="${escapeHtml(show.href)}" target="_blank" rel="noopener" aria-label="${escapeHtml(`Ouvrir ${show.title}`)}">${coverImage}</a>`
+        : coverImage;
 
       return `
         <article class="show-card">
-          <img class="show-cover${show.imageFit === "contain" ? " show-cover--contain" : ""}" src="${escapeHtml(show.image)}" alt="${escapeHtml(`Visuel ${show.title}`)}" loading="lazy" />
+          ${coverHtml}
           <div class="show-body">
             <p class="show-meta">${escapeHtml(show.meta)}</p>
             <h3 class="show-title">${escapeHtml(show.title)}</h3>
             <p class="card-text">${escapeHtml(show.text)}</p>
-            ${actionHtml}
           </div>
         </article>
       `;
-    }
-
-    function renderShowActionLabel(show) {
-      if (COMMON.renderShowActionLabel) {
-        return COMMON.renderShowActionLabel(show);
-      }
-
-      if (Array.isArray(show.actionLabelLines) && show.actionLabelLines.length) {
-        return show.actionLabelLines.map((line) => `<span>${escapeHtml(line)}</span>`).join("");
-      }
-
-      return `<span>${escapeHtml(show.actionLabel || "")}</span>`;
     }
 
     function renderAboutLine(iconClass, htmlText) {
