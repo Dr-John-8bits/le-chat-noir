@@ -1,5 +1,23 @@
 window.LCN_NEWS_ITEMS = [
   {
+    sortKey: "2026-04-11",
+    dateLabel: "11 avril 2026",
+    title: "Resting Bell rejoint les présences à l’antenne",
+    leadHtml:
+      "<a href=\"https://www.restingbell.net/\" target=\"_blank\" rel=\"noopener noreferrer\">Resting Bell</a> rejoint désormais les présences à l’antenne du Chat Noir.",
+    bodyHtml:
+      "Fondé à Berlin par Christian Roth, <a href=\"https://www.restingbell.net/\" target=\"_blank\" rel=\"noopener noreferrer\">Resting Bell</a> défend depuis des années des musiques méditatives, expérimentales, électriques ou paisibles. Une présence discrète et précieuse, en affinité profonde avec les écoutes lentes du Chat Noir.",
+  },
+  {
+    sortKey: "2026-04-10",
+    dateLabel: "10 avril 2026",
+    title: "Tha Bloc Report rejoint le lundi soir",
+    leadHtml:
+      "Après <a href=\"https://blocsonic.com/\" target=\"_blank\" rel=\"noopener noreferrer\">blocSonic</a>, le lundi soir accueille désormais <a href=\"https://blocsonic.com/bloccasts/tha-bloc-report/\" target=\"_blank\" rel=\"noopener noreferrer\">Tha Bloc Report</a> à partir de 19h.",
+    bodyHtml:
+      "Chaque semaine, cette nouvelle case prolonge la fenêtre blocSonic avec un rendez-vous plus resserré : nouveautés du label, pépites d’archives et sélection maison. Une émission hebdomadaire pour faire circuler les sorties récentes, les trouvailles enfouies et les affinités du moment.",
+  },
+  {
     sortKey: "2026-04-09",
     dateLabel: "9 avril 2026",
     title: "blocSonic rejoint la grille",

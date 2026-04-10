@@ -19,7 +19,7 @@
       bio: "Démonte les mythes du vestiaire moderne sur fond de velvet tips.",
     },
     {
-      role: "CONCERTS",
+      role: "Concerts",
       name: "Naki et Guillaume",
       image: "assets/media/producers/NakietGuillaume.webp",
       bio: "Rediffusent ici les concerts qu’ils accueillent et enregistrent pour MFE sur RCV99.",
@@ -29,6 +29,18 @@
       name: "Yann",
       image: "assets/media/producers/yann.webp",
       bio: "Compose une curation fine, patiemment choisie dans les sorties du label Camembert électrique.",
+    },
+    {
+      role: "Curateur",
+      name: "Resting Bell",
+      image: "assets/media/producers/restingbell.webp",
+      bio: "Sélection de musiques méditatives, expérimentales, électriques et paisibles issues du netlabel Resting Bell.",
+    },
+    {
+      role: "Curateur",
+      name: "Tha Bloc Report",
+      image: "assets/media/producers/thablocreport.webp",
+      bio: "Fait circuler chaque semaine les nouveautés blocSonic, les pépites d’archives et quelques affinités bien choisies.",
     },
     {
       role: "Jingles",
@@ -168,7 +180,7 @@
       id: "mon",
       shortName: "Lun",
       name: "Lundi",
-      summary: "Le Migou, fragments matinaux, rock de l'aprème, blocSonic et retour de L'Autre Nuit.",
+      summary: "Le Migou, fragments matinaux, rock de l'aprème, blocSonic, Tha Bloc Report et retour de L'Autre Nuit.",
       slots: [
         { time: "00h00", title: "La Grande Nuit", desc: "Paysages sonores étendus, pièces immersives." },
         { time: "07h00", title: "Le Migou", desc: "Réveil café." },
@@ -177,6 +189,7 @@
         { time: "14h00", title: "L'instinct mode", desc: "Chronique du vestiaire by Lady Em." },
         { time: "Puis", title: "Rock de l'aprème", desc: "On réchauffe le rock'n'roll :D", meta: true, highlight: true },
         { time: "18h00", title: "blocSonic - mixtapes", desc: "Mixtapes hip-hop, downtempo et indie du label américain blocSonic.", highlight: true },
+        { time: "19h00", title: "Tha Bloc Report", desc: "Nouveautés blocSonic, pépites d’archives et sélection maison.", highlight: true },
         { time: "Puis", title: "Rock de l'aprème", desc: "Retour au bloc rock du lundi jusqu'au rendez-vous de 23h40.", meta: true, highlight: true },
         { time: "23h40", title: "L'Autre Nuit", desc: "Lectures sans centre et machines hésitantes." },
       ],

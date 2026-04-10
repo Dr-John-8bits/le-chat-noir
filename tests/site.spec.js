@@ -259,8 +259,9 @@ test("home can map blocSonic current-show metadata to the blocSonic - mixtapes s
   await page.goto("/");
 
   const focusTitles = page.locator(".today-focus__title");
-  await expect(focusTitles).toHaveCount(3);
+  await expect(focusTitles).toHaveCount(4);
   await expect(focusTitles.nth(0)).toHaveText("blocSonic - mixtapes");
-  await expect(focusTitles.nth(1)).toHaveText("Rock de l'aprème");
-  await expect(focusTitles.nth(2)).toHaveText("L'Autre Nuit");
+  await expect(focusTitles.nth(1)).toHaveText("Tha Bloc Report");
+  await expect(focusTitles.nth(2)).toHaveText("Rock de l'aprème");
+  await expect(focusTitles.nth(3)).toHaveText("L'Autre Nuit");
 });
