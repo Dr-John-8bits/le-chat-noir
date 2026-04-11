@@ -274,7 +274,7 @@
         { time: "12h00", title: "La table du chat", desc: "Chanson, electro douce, ambient léger." },
         { time: "14h00", title: "L'instinct mode", desc: "Chronique du vestiaire by Lady Em." },
         { time: "Puis", title: "Beats & Flow", desc: "Hip-hop, trip-hop, downtempo, beats et grooves pour faire basculer doucement le samedi après-midi.", meta: true, highlight: true },
-        { time: "16h00", title: "Doucement", desc: "Dream pop, post-rock, lo-fi, ambiant et écoutes lentes pour laisser retomber l’après-midi avant le grand soir.", highlight: true },
+        { time: "16h00", title: "Doucement", desc: "Dream pop, post-rock, lo-fi et écoutes lentes pour laisser retomber l’après-midi avant le grand soir.", highlight: true },
         { time: "18h00", title: "When Day Chokes a Radio", desc: "Focus Intégrale When Day Chokes The Night", highlight: true },
         { time: "23h40", title: "Le Pseudodocumentaire de l'espace", desc: "Fiction sonore (20 min)." },
       ],
