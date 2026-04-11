@@ -1,5 +1,14 @@
 window.LCN_NEWS_ITEMS = [
   {
+    sortKey: "2026-04-11-c",
+    dateLabel: "11 avril 2026",
+    title: "La grille affine ses reliefs",
+    lead:
+      "Le lundi, le mardi, le mercredi et le samedi évoluent avec de nouvelles fenêtres, des soirées plus nettes et des enchaînements plus lisibles.",
+    body:
+      "Rock du soir, Noise du soir, Entre chien et loup, Matin félin, Doucement : la grille gagne en précision sans perdre sa souplesse. Les matinées et les après-midis se découpent plus clairement, le samedi devient un véritable parcours entre Console-toi, Documents de terrain, synthèse analogique et Beats & Flow, et les fins de journée prennent désormais une couleur plus affirmée.",
+  },
+  {
     sortKey: "2026-04-11-b",
     dateLabel: "11 avril 2026",
     title: "La Grande Nuit étire ses durées",
