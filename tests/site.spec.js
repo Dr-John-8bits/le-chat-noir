@@ -99,8 +99,8 @@ async function mockWednesdayCurrentShow(page, options = {}) {
   await mockHomeCurrentShow(page, {
     nowIso: options.nowIso || "2026-04-08T16:05:00.000Z",
     sinceIso: options.sinceIso || "2026-04-08T15:50:00.000Z",
-    show: "Les chats sauvages",
-    trackTsIso: "2026-04-08T15:58:00.000Z",
+    show: options.show || "Les chats sauvages",
+    trackTsIso: options.trackTsIso || "2026-04-08T15:58:00.000Z",
   });
 }
 
@@ -219,7 +219,7 @@ test("home history CTA opens the dedicated history page in a new tab", async ({ 
   await expect(popup.locator("#historyList .history-row")).toHaveCount(1);
 });
 
-test("home keeps the earlier duplicate show block active until the current-show source actually changes", async ({ page }) => {
+test("home keeps Les chats sauvages active on Wednesday until Documents de terrain begins", async ({ page }) => {
   await mockWednesdayCurrentShow(page, {
     nowIso: "2026-04-08T16:05:00.000Z",
     sinceIso: "2026-04-08T15:50:00.000Z",
@@ -231,20 +231,23 @@ test("home keeps the earlier duplicate show block active until the current-show 
   await expect(focusTitles).toHaveCount(4);
   await expect(focusTitles.nth(0)).toHaveText("Les chats sauvages");
   await expect(focusTitles.nth(1)).toHaveText("Documents de terrain");
-  await expect(focusTitles.nth(2)).toHaveText("Les chats sauvages");
+  await expect(focusTitles.nth(2)).toHaveText("Entre chien et loup");
+  await expect(focusTitles.nth(3)).toHaveText("Les Ondes du Chat Noir");
 });
 
-test("home can resolve the later duplicate show block once it has actually resumed", async ({ page }) => {
+test("home switches to Entre chien et loup once the Wednesday evening block starts", async ({ page }) => {
   await mockWednesdayCurrentShow(page, {
     nowIso: "2026-04-08T17:10:00.000Z",
-    sinceIso: "2026-04-08T16:40:00.000Z",
+    sinceIso: "2026-04-08T17:00:00.000Z",
+    show: "Entre chien et loup",
+    trackTsIso: "2026-04-08T17:04:00.000Z",
   });
 
   await page.goto("/");
 
   const focusTitles = page.locator(".today-focus__title");
   await expect(focusTitles).toHaveCount(2);
-  await expect(focusTitles.nth(0)).toHaveText("Les chats sauvages");
+  await expect(focusTitles.nth(0)).toHaveText("Entre chien et loup");
   await expect(focusTitles.nth(1)).toHaveText("Les Ondes du Chat Noir");
 });
 
@@ -260,17 +263,17 @@ test("home can map blocSonic current-show metadata to the blocSonic - mixtapes s
 
   const focusTitles = page.locator(".today-focus__title");
   await expect(focusTitles).toHaveCount(4);
-  await expect(focusTitles.nth(0)).toHaveText("blocSonic - mixtapes");
+  await expect(focusTitles.nth(0)).toHaveText("blocSonic");
   await expect(focusTitles.nth(1)).toHaveText("Tha Bloc Report");
-  await expect(focusTitles.nth(2)).toHaveText("Rock de l'aprème");
+  await expect(focusTitles.nth(2)).toHaveText("Rock du soir");
   await expect(focusTitles.nth(3)).toHaveText("L'Autre Nuit");
 });
 
-test("home can resolve the returned saturday chats block after Console-toi", async ({ page }) => {
+test("home can resolve the saturday Documents de terrain window after Console-toi", async ({ page }) => {
   await mockHomeCurrentShow(page, {
     nowIso: "2026-04-11T09:19:00.000Z",
     sinceIso: "2026-04-11T08:42:00.000Z",
-    show: "Les chats dans la courée",
+    show: "Documents de terrain",
     trackTsIso: "2026-04-11T09:12:00.000Z",
   });
 
@@ -278,17 +281,17 @@ test("home can resolve the returned saturday chats block after Console-toi", asy
 
   const focusTitles = page.locator(".today-focus__title");
   await expect(focusTitles).toHaveCount(4);
-  await expect(focusTitles.nth(0)).toHaveText("Les chats dans la courée");
+  await expect(focusTitles.nth(0)).toHaveText("Documents de terrain");
   await expect(focusTitles.nth(1)).toHaveText("Je ne sais pas jouer du synthé");
   await expect(focusTitles.nth(2)).toHaveText("La table du chat");
   await expect(focusTitles.nth(3)).toHaveText("L'instinct mode");
 });
 
-test("schedule marks the returned saturday chats block as on air between Console-toi and the synth slot", async ({ page }) => {
+test("schedule marks the saturday Documents de terrain window as on air between Console-toi and the synth slot", async ({ page }) => {
   await mockHomeCurrentShow(page, {
     nowIso: "2026-04-11T09:19:00.000Z",
     sinceIso: "2026-04-11T08:42:00.000Z",
-    show: "Les chats dans la courée",
+    show: "Documents de terrain",
     trackTsIso: "2026-04-11T09:12:00.000Z",
   });
 
@@ -296,6 +299,6 @@ test("schedule marks the returned saturday chats block as on air between Console
   await getNavButton(page, "Grille").click();
   await page.locator('[data-schedule-day="sat"]').click();
 
-  await expect(page.locator(".schedule-item.is-current-slot .schedule-item__title")).toHaveText("Les chats dans la courée");
+  await expect(page.locator(".schedule-item.is-current-slot .schedule-item__title")).toHaveText("Documents de terrain");
   await expect(page.locator(".schedule-item.is-current-slot .schedule-item__time")).toHaveText("Puis");
 });
