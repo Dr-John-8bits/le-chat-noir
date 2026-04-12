@@ -236,7 +236,7 @@
       slots: [
         { time: "00h00", title: "La Grande Nuit", desc: "Paysages sonores étendus, pièces immersives." },
         { time: "07h00", title: "Le Migou", desc: "Réveil café." },
-        { time: "Puis", title: "Matinée : Traversées", desc: "Dérives musicales de morceaux de 5 à 10 minutes.", meta: true },
+        { time: "Puis", title: "Matinée : Traversées", desc: "Dérives musicales de morceaux de moins de 10 minutes.", meta: true },
         { time: "12h00", title: "La table du chat", desc: "Chanson, electro douce, ambient léger." },
         { time: "14h00", title: "L'instinct mode", desc: "Chronique du vestiaire by Lady Em." },
         { time: "Puis", title: "Cinéma pour les oreilles", desc: "Bandes-son, paysages projetés, musiques d'images et dérives cinématiques.", meta: true, highlight: true },
