@@ -302,3 +302,35 @@ test("schedule marks the saturday Documents de terrain window as on air between 
   await expect(page.locator(".schedule-item.is-current-slot .schedule-item__title")).toHaveText("Documents de terrain");
   await expect(page.locator(".schedule-item.is-current-slot .schedule-item__time")).toHaveText("Puis");
 });
+
+test("home can resolve Citron at the start of the new Sunday evening sequence", async ({ page }) => {
+  await mockHomeCurrentShow(page, {
+    nowIso: "2026-04-19T16:35:00.000Z",
+    sinceIso: "2026-04-19T16:03:00.000Z",
+    show: "Citron",
+    trackTsIso: "2026-04-19T16:20:00.000Z",
+  });
+
+  await page.goto("/");
+
+  const focusTitles = page.locator(".today-focus__title");
+  await expect(focusTitles).toHaveCount(3);
+  await expect(focusTitles.nth(0)).toHaveText("Citron");
+  await expect(focusTitles.nth(1)).toHaveText("Messe Noire");
+  await expect(focusTitles.nth(2)).toHaveText("Documents de terrain");
+});
+
+test("home can resolve Documents de terrain late on Sunday night", async ({ page }) => {
+  await mockHomeCurrentShow(page, {
+    nowIso: "2026-04-19T20:30:00.000Z",
+    sinceIso: "2026-04-19T20:01:00.000Z",
+    show: "Documents de terrain",
+    trackTsIso: "2026-04-19T20:18:00.000Z",
+  });
+
+  await page.goto("/");
+
+  const focusTitles = page.locator(".today-focus__title");
+  await expect(focusTitles).toHaveCount(1);
+  await expect(focusTitles.nth(0)).toHaveText("Documents de terrain");
+});

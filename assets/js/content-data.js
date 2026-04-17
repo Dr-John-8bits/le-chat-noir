@@ -283,14 +283,16 @@
       id: "sun",
       shortName: "Dim",
       name: "Dimanche",
-      summary: "Réveil lent, Ondes du Chat Noir, siestes du chat et Messe Noire.",
+      summary: "Réveil lent, Ondes du Chat Noir, siestes du chat, Citron, Messe Noire et Documents de terrain.",
       slots: [
         { time: "00h00", title: "La Grande Nuit", desc: "Paysages sonores étendus, pièces immersives." },
         { time: "07h00", title: "Le réveil lent du chat", desc: "Musiques calmes, flottantes et encore ensommeillées pour entrer doucement dans le jour." },
         { time: "12h00", title: "La table du chat", desc: "Chanson, electro douce, ambient léger." },
         { time: "14h00", title: "Les Ondes du Chat Noir", desc: "Émissions, fictions, transmissions et formes radiophoniques choisies au hasard." },
         { time: "15h00", title: "Les siestes du chat", desc: "Dream pop, lo-fi, ambient doux et formes suspendues pour laisser le dimanche s'étirer." },
-        { time: "18h00", title: "Messe Noire", desc: "Rituel. Écho aux « messes » du dimanche matin : musiques dures, sombres, expérimentales, radicales.", highlight: true },
+        { time: "18h00", title: "Citron", desc: "Acid, 8-bits, Atari Punk Noise, breakcore et machines mutantes pour faire basculer le dimanche soir.", highlight: true },
+        { time: "20h00", title: "Messe Noire", desc: "Rituel noir vespéral : metal, doom, dark, coldwave, industrial et autres formes lourdes, froides ou sombres.", highlight: true },
+        { time: "22h00", title: "Documents de terrain", desc: "Captations de terrain monophoniques et stéréophoniques, paysages sonores, écoutes situées, pour apaiser la soirée avant La Grande Nuit.", highlight: true },
       ],
     },
   ];
