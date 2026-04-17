@@ -203,26 +203,18 @@
       return `
         <section class="page" aria-labelledby="page-title">
           <article class="page-card page-card--hero">
-            <span class="page-eyebrow">Voix et formats</span>
+            <span class="page-eyebrow">Voix & présences à l'antenne</span>
             <h1 class="page-title" id="page-title">Les voix qui fabriquent la radio</h1>
             <p class="page-copy">Production, chroniques, émissions, captations et projets qui donnent une forme au territoire radiophonique du Chat Noir.</p>
           </article>
 
           <section class="page-section">
-            <div class="section-heading">
-              <p class="section-kicker">Voix</p>
-              <h2 class="section-title">Présences à l'antenne</h2>
-            </div>
             <div class="producers-grid">
               ${PRODUCERS.map(renderProducerCard).join("")}
             </div>
           </section>
 
           <section class="page-section">
-            <div class="section-heading">
-              <p class="section-kicker">Formats</p>
-              <h2 class="section-title">Univers en rotation sur la radio</h2>
-            </div>
             <div class="shows-grid">
               ${SHOWS.map(renderShowCard).join("")}
             </div>

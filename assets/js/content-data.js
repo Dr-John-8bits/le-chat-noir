@@ -26,15 +26,15 @@
     },
     {
       role: "Curateur",
-      name: "Yann",
-      image: "assets/media/producers/yann.webp",
-      bio: "Compose une curation fine, patiemment choisie dans les sorties du label Camembert électrique.",
-    },
-    {
-      role: "Curateur",
       name: "Resting Bell",
       image: "assets/media/producers/restingbell.webp",
       bio: "Diffuse des musiques méditatives, expérimentales, électriques et paisibles issues du netlabel Resting Bell.",
+    },
+    {
+      role: "Curateur",
+      name: "Institute For Alien Research",
+      image: "assets/media/shows/ifar.jpg",
+      bio: "Compose une curation fine et choisie dans le catalogue de l'Institute For Alien Research.",
     },
     {
       role: "Curateur",
@@ -101,7 +101,7 @@
       meta: "Mixtapes",
       title: "Camembert électrique",
       image: "assets/media/shows/camembert.webp",
-      text: "Le label y déroule chaque semaine une sélection de musique expérimentale, minutieusement construite à partir de ses propres sorties.",
+      text: "Le label y déroule chaque semaine une sélection de musique expérimentale issue de son propre catalogue.",
       href: "https://www.camembertelectrique.com/",
       actionLabel: "Visiter le label",
     },
