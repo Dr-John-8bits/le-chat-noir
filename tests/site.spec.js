@@ -232,7 +232,7 @@ test("home keeps Les chats sauvages active on Wednesday until Documents de terra
   await expect(focusTitles.nth(0)).toHaveText("Les chats sauvages");
   await expect(focusTitles.nth(1)).toHaveText("Documents de terrain");
   await expect(focusTitles.nth(2)).toHaveText("Entre chien et loup");
-  await expect(focusTitles.nth(3)).toHaveText("Les Ondes du Chat Noir");
+  await expect(focusTitles.nth(3)).toHaveText("Rapport d’exobiologie");
 });
 
 test("home switches to Entre chien et loup once the Wednesday evening block starts", async ({ page }) => {
@@ -246,8 +246,25 @@ test("home switches to Entre chien et loup once the Wednesday evening block star
   await page.goto("/");
 
   const focusTitles = page.locator(".today-focus__title");
-  await expect(focusTitles).toHaveCount(2);
+  await expect(focusTitles).toHaveCount(3);
   await expect(focusTitles.nth(0)).toHaveText("Entre chien et loup");
+  await expect(focusTitles.nth(1)).toHaveText("Rapport d’exobiologie");
+  await expect(focusTitles.nth(2)).toHaveText("Les Ondes du Chat Noir");
+});
+
+test("home switches to Rapport d’exobiologie once the Wednesday 21h block starts", async ({ page }) => {
+  await mockWednesdayCurrentShow(page, {
+    nowIso: "2026-04-08T19:20:00.000Z",
+    sinceIso: "2026-04-08T19:00:00.000Z",
+    show: "Rapport d’exobiologie",
+    trackTsIso: "2026-04-08T19:11:00.000Z",
+  });
+
+  await page.goto("/");
+
+  const focusTitles = page.locator(".today-focus__title");
+  await expect(focusTitles).toHaveCount(2);
+  await expect(focusTitles.nth(0)).toHaveText("Rapport d’exobiologie");
   await expect(focusTitles.nth(1)).toHaveText("Les Ondes du Chat Noir");
 });
 
