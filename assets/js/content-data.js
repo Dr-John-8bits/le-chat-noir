@@ -215,7 +215,7 @@
       id: "wed",
       shortName: "Mer",
       name: "Mercredi",
-      summary: "Immersion, Transmissions, chats sauvages, Documents de terrain, Entre chien et loup et Ondes du Chat Noir.",
+      summary: "Immersion, Transmissions, chats sauvages, Documents de terrain, Entre chien et loup, Rapport d’exobiologie et Ondes du Chat Noir.",
       slots: [
         { time: "00h00", title: "La Grande Nuit", desc: "Paysages sonores étendus, pièces immersives." },
         { time: "07h00", title: "Le Migou", desc: "Réveil café ! 1 morceau de moins de 10 minutes." },
@@ -225,6 +225,7 @@
         { time: "Puis", title: "Les chats sauvages", desc: "Le jour des enfants, c'est musique aléatoire !", meta: true, highlight: true },
         { time: "18h00", title: "Documents de terrain", desc: "Captations de terrain monophoniques et stéréophoniques, paysages sonores, écoutes situées.", highlight: true },
         { time: "19h00", title: "Entre chien et loup", desc: "Electronic oblique, jazz libre, krautrock, dérives psychés et formes expérimentales pour faire glisser le mercredi vers la nuit radiophonique.", highlight: true },
+        { time: "21h00", title: "Rapport d’exobiologie", desc: "Musique concrète, collages sonores et formes expérimentales venues d’Institute For Alien Research.", highlight: true },
         { time: "22h00", title: "Les Ondes du Chat Noir", desc: "Émissions, fictions, transmissions et formes radiophoniques choisies au hasard." },
       ],
     },
