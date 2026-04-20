@@ -265,7 +265,7 @@
       id: "sat",
       shortName: "Sam",
       name: "Samedi",
-      summary: "Matin félin, Console-toi, Documents de terrain, synthèse analogique, Beats & Flow, Doucement et grand soir.",
+      summary: "Matin félin, Console-toi, Documents de terrain, synthèse analogique, Beats & Flow, Doucement, Camembert électrique et grand soir.",
       slots: [
         { time: "00h00", title: "La Grande Nuit", desc: "Paysages sonores étendus, pièces immersives." },
         { time: "07h00", title: "Matin félin", desc: "Machines souples, électronique joueuse, grooves discrets et étrangetés félines pour ouvrir le samedi." },
@@ -276,7 +276,8 @@
         { time: "14h00", title: "L'instinct mode", desc: "Chronique du vestiaire by Lady Em." },
         { time: "Puis", title: "Beats & Flow", desc: "Hip-hop, trip-hop, downtempo, beats et grooves pour faire basculer doucement le samedi après-midi.", meta: true, highlight: true },
         { time: "16h00", title: "Doucement", desc: "Dream pop, post-rock, lo-fi et écoutes lentes pour laisser retomber l’après-midi avant le grand soir.", highlight: true },
-        { time: "18h00", title: "When Day Chokes a Radio", desc: "Focus Intégrale When Day Chokes The Night", highlight: true },
+        { time: "18h00", title: "Camembert électrique", desc: "Une heure hebdomadaire dédiée aux explorations expérimentales du label Camembert Électrique.", highlight: true },
+        { time: "19h00", title: "When Day Chokes a Radio", desc: "Focus Intégrale When Day Chokes The Night", highlight: true },
         { time: "23h40", title: "Le Pseudodocumentaire de l'espace", desc: "Fiction sonore (20 min)." },
       ],
     },
