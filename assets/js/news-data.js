@@ -1,5 +1,14 @@
 window.LCN_NEWS_ITEMS = [
   {
+    sortKey: "2026-04-20",
+    dateLabel: "20 avril 2026",
+    title: "Camembert Électrique arrive sur les ondes du samedi",
+    leadHtml:
+      "<a href=\"https://www.camembertelectrique.com/story\" target=\"_blank\" rel=\"noopener noreferrer\">Camembert Électrique</a> rejoint désormais la grille du samedi soir avec une nouvelle fenêtre dédiée à ses explorations.",
+    bodyHtml:
+      "Né au début des années 1990 avant de bifurquer vers les musiques expérimentales, électroniques et libres, <a href=\"https://www.camembertelectrique.com/story\" target=\"_blank\" rel=\"noopener noreferrer\">Camembert Électrique</a> trace depuis longtemps des routes autonomes et singulières. Chaque samedi à 18h, Le Chat Noir ouvre désormais une heure pour laisser circuler ses archives, ses curiosités et ses détours sonores, juste avant When Day Chokes a Radio.",
+  },
+  {
     sortKey: "2026-04-17-b",
     dateLabel: "17 avril 2026",
     title: "Le mercredi soir ouvre son dossier extraterrestre",
