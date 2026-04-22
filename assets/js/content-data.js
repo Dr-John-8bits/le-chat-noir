@@ -17,6 +17,7 @@
       name: "Lady Em",
       image: "assets/media/producers/ladyem.webp",
       bio: "Démonte les mythes du vestiaire moderne sur fond de velvet tips.",
+      href: "https://audioblog.arteradio.com/blog/263269/le-chat-noir",
     },
     {
       role: "Concerts",

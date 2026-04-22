@@ -491,9 +491,14 @@
     }
 
     function renderProducerCard(producer) {
+      const producerImage = `<img class="producer-photo" src="${escapeHtml(producer.image)}" alt="${escapeHtml(`Portrait de ${producer.name}`)}" loading="lazy" />`;
+      const producerPhotoHtml = producer.href
+        ? `<a class="producer-photo-link" href="${escapeHtml(producer.href)}" target="_blank" rel="noopener" aria-label="${escapeHtml(`Ouvrir la page de ${producer.name}`)}">${producerImage}</a>`
+        : producerImage;
+
       return `
         <article class="producer-card">
-          <img class="producer-photo" src="${escapeHtml(producer.image)}" alt="${escapeHtml(`Portrait de ${producer.name}`)}" loading="lazy" />
+          ${producerPhotoHtml}
           <div>
             <p class="producer-role">${escapeHtml(producer.role)}</p>
             <h3 class="producer-name">${escapeHtml(producer.name)}</h3>
