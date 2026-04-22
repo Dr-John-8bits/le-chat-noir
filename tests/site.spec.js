@@ -154,6 +154,14 @@ test("news year tabs expose a single active tab and support keyboard navigation"
   await expect(tabPanel).toHaveAttribute("aria-labelledby", secondActiveId || "");
 });
 
+test("news permalinks reopen the correct year and targeted article", async ({ page }) => {
+  await page.goto("/#actualites/naissance-de-la-station");
+
+  await expect(page.getByRole("heading", { name: "Chronologie de la station" })).toBeVisible();
+  await expect(page.locator("#news-naissance-de-la-station")).toHaveClass(/is-targeted/);
+  await expect(page.locator('.day-switcher [role="tab"][aria-selected="true"]')).toHaveText("2025");
+});
+
 test("schedule day tabs expose a single active tab on touch navigation", async ({ page }) => {
   await openMobileNavIfNeeded(page);
   await getNavButton(page, "Grille").click();
@@ -313,6 +321,7 @@ test("schedule marks the saturday Documents de terrain window as on air between 
   });
 
   await page.goto("/");
+  await openMobileNavIfNeeded(page);
   await getNavButton(page, "Grille").click();
   await page.locator('[data-schedule-day="sat"]').click();
 

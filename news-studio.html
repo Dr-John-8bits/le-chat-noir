@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Le Chat Noir — Studio Actualités</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="assets/css/page-news-studio.css" />
+  </head>
+  <body class="news-studio-page">
+    <main class="studio-shell">
+      <section class="studio-grid">
+        <article class="page-card page-card--hero">
+          <span class="page-eyebrow">Studio actualités</span>
+          <h1 class="page-title">Préparer un billet pour Le Chat Noir</h1>
+          <p class="page-copy">
+            Cette page locale sert à rédiger une actualité au bon format Markdown, générer son fichier, le télécharger ou le copier,
+            puis régénérer le site et le flux RSS avec <code>npm run build:news</code>.
+          </p>
+        </article>
+
+        <article class="page-card">
+          <div class="section-heading">
+            <p class="section-kicker">Rédaction</p>
+            <h2 class="section-title">Nouvelle actualité</h2>
+            <p class="section-intro">Le premier paragraphe devient le chapeau. Les suivants forment le corps du billet.</p>
+          </div>
+
+          <form class="studio-form" id="newsStudioForm">
+            <label class="field-group">
+              <span>Titre</span>
+              <input id="newsTitleInput" name="title" type="text" placeholder="Titre de l’actualité" />
+            </label>
+
+            <div class="studio-form__row">
+              <label class="field-group">
+                <span>Date</span>
+                <input id="newsDateInput" name="publishedOn" type="date" />
+              </label>
+
+              <label class="field-group">
+                <span>Ordre du jour</span>
+                <input id="newsOrderInput" name="order" type="number" min="1" step="1" value="1" />
+              </label>
+            </div>
+
+            <label class="field-group">
+              <span>Chapeau</span>
+              <textarea id="newsLeadInput" name="lead" rows="4" placeholder="Premier paragraphe de l’actualité."></textarea>
+            </label>
+
+            <label class="field-group">
+              <span>Corps</span>
+              <textarea
+                id="newsBodyInput"
+                name="body"
+                rows="10"
+                placeholder="Un paragraphe par bloc, séparé par une ligne vide. Les liens Markdown sont acceptés."
+              ></textarea>
+            </label>
+          </form>
+        </article>
+
+        <article class="page-card">
+          <div class="section-heading">
+            <p class="section-kicker">Génération</p>
+            <h2 class="section-title">Fichier Markdown</h2>
+          </div>
+
+          <div class="studio-meta">
+            <p><strong>Slug :</strong> <span id="newsSlugPreview">—</span></p>
+            <p><strong>Fichier :</strong> <span id="newsFilePreview">—</span></p>
+          </div>
+
+          <label class="field-group">
+            <span>Markdown généré</span>
+            <textarea id="newsMarkdownOutput" rows="18" readonly></textarea>
+          </label>
+
+          <div class="studio-actions">
+            <button class="ghost-button" id="copyMarkdownButton" type="button">Copier le Markdown</button>
+            <button class="ghost-button" id="downloadMarkdownButton" type="button">Télécharger le fichier</button>
+            <button class="ghost-button" id="copyBuildCommandButton" type="button">Copier la commande de build</button>
+          </div>
+
+          <div class="studio-note">
+            <p>Étapes ensuite :</p>
+            <ol>
+              <li>placer le fichier dans <code>content/news/</code></li>
+              <li>lancer <code>npm run build:news</code></li>
+              <li>vérifier le rendu du site et du <code>feed.xml</code></li>
+            </ol>
+            <p class="studio-note__aside">Le navigateur ne peut pas exécuter directement <code>npm run build:news</code> depuis cette page statique. En revanche, on peut te copier la commande en un clic.</p>
+          </div>
+        </article>
+
+        <article class="page-card">
+          <div class="section-heading">
+            <p class="section-kicker">Aperçu</p>
+            <h2 class="section-title">Dernières actualités connues</h2>
+          </div>
+          <div class="studio-recent" id="newsStudioRecent"></div>
+        </article>
+      </section>
+    </main>
+
+    <script src="assets/js/news-studio.js"></script>
+  </body>
+</html>

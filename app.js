@@ -22,6 +22,7 @@ const CSV_PARSE_CHUNK_SIZE = 180;
 const APP_ICON_180_URL = new URL("apple-touch-icon.png", window.location.href).href;
 const APP_ICON_192_URL = new URL("icon-192.png", window.location.href).href;
 const APP_ICON_512_URL = new URL("icon-512.png", window.location.href).href;
+const initialHashState = parseHashState();
 
 const ICONS = {
   play:
@@ -69,7 +70,7 @@ let historyRefreshIdleId = 0;
 let liveRefreshPromise = null;
 let liveRefreshAt = 0;
 const state = {
-  route: getRouteFromHash(),
+  route: initialHashState.route,
   isPlaying: false,
   streamAvailable: false,
   shouldDisableVolumeControl: shouldDisableWebVolumeControl ? shouldDisableWebVolumeControl() : false,
@@ -107,6 +108,7 @@ const state = {
   historyTimezoneLabel: getDisplayZoneLabel(),
   isMobileNavOpen: false,
   currentShowSlotResolution: null,
+  focusedNewsSlug: initialHashState.newsSlug,
 };
 
 const refs = {
@@ -130,7 +132,7 @@ const refs = {
   scrollTopButton: document.getElementById("scrollTopButton"),
 };
 
-state.selectedNewsYear = getNewsYears()[0] || "";
+initializeNewsState();
 
 const renderers = RENDERERS_FACTORY
   ? RENDERERS_FACTORY({
@@ -264,10 +266,12 @@ function bindEvents() {
   refs.pageView.addEventListener("keydown", handlePageKeydown);
 
   window.addEventListener("hashchange", () => {
-    const nextRoute = getRouteFromHash();
-    if (nextRoute !== state.route) {
-      state.route = nextRoute;
-      renderRoute({ scrollToTop: true });
+    const nextHashState = parseHashState();
+    if (nextHashState.route !== state.route || nextHashState.newsSlug !== state.focusedNewsSlug) {
+      state.route = nextHashState.route;
+      state.focusedNewsSlug = nextHashState.newsSlug;
+      initializeNewsState();
+      renderRoute({ scrollToTop: !(state.route === "actualites" && state.focusedNewsSlug) });
     }
   });
 
@@ -342,12 +346,14 @@ function handlePageClick(event) {
   if (newsYearTrigger) {
     state.selectedNewsYear = newsYearTrigger.getAttribute("data-news-year") || state.selectedNewsYear;
     state.newsVisibleCount = INITIAL_NEWS_VISIBLE_COUNT;
+    clearNewsPermalinkState();
     renderRoute();
     return;
   }
 
   if (event.target.closest("[data-news-more]")) {
     state.newsVisibleCount += INITIAL_NEWS_VISIBLE_COUNT;
+    clearNewsPermalinkState();
     renderRoute();
     return;
   }
@@ -422,18 +428,42 @@ function handlePageKeydown(event) {
   if (nextTab !== tab) nextTab.click();
 }
 
-function getRouteFromHash() {
-  const route = window.location.hash.replace(/^#/, "").trim().toLowerCase();
-  return ROUTES.includes(route) ? route : "accueil";
+function parseHashState(hashValue = window.location.hash) {
+  const rawHash = String(hashValue || "").replace(/^#/, "").trim();
+  if (!rawHash) {
+    return { route: "accueil", newsSlug: "" };
+  }
+
+  const [routePart, ...rest] = rawHash.split("/");
+  const route = ROUTES.includes(routePart.toLowerCase()) ? routePart.toLowerCase() : "accueil";
+  const newsSlug =
+    route === "actualites" && rest.length
+      ? decodeURIComponent(rest.join("/"))
+          .trim()
+          .toLowerCase()
+      : "";
+
+  return { route, newsSlug };
 }
 
 function setRoute(route, options = {}) {
   if (!ROUTES.includes(route)) return;
+
   state.route = route;
-  if (window.location.hash !== `#${route}`) {
-    window.location.hash = route;
+  state.focusedNewsSlug = route === "actualites" ? String(options.newsSlug || "").trim().toLowerCase() : "";
+
+  if (route === "actualites") {
+    initializeNewsState();
   }
-  renderRoute({ scrollToTop: options.scrollToTop !== false });
+
+  const nextHash = state.focusedNewsSlug ? `#actualites/${encodeURIComponent(state.focusedNewsSlug)}` : `#${route}`;
+  if (window.location.hash !== nextHash) {
+    window.location.hash = nextHash;
+  }
+
+  renderRoute({
+    scrollToTop: options.scrollToTop !== false && !(route === "actualites" && state.focusedNewsSlug),
+  });
 }
 
 function renderRoute(options = {}) {
@@ -455,8 +485,55 @@ function renderRoute(options = {}) {
     scrollRouteToTop();
   }
 
+  if (state.route === "actualites" && state.focusedNewsSlug) {
+    queueNewsItemFocus(state.focusedNewsSlug);
+  }
+
   if (state.route === "accueil" && !state.historyRows.length) {
     scheduleHistoryRefresh({ silent: true });
+  }
+}
+
+function getNewsItemBySlug(slug) {
+  const wantedSlug = String(slug || "").trim().toLowerCase();
+  if (!wantedSlug) return null;
+  return NEWS_ITEMS.find((item) => String(item.slug || "").trim().toLowerCase() === wantedSlug) || null;
+}
+
+function initializeNewsState() {
+  const targetedItem = getNewsItemBySlug(state.focusedNewsSlug);
+  if (targetedItem) {
+    const targetYear = String(targetedItem.publishedOn || "").slice(0, 4);
+    if (targetYear) {
+      state.selectedNewsYear = targetYear;
+      const yearItems = getNewsItemsForYear(targetYear);
+      const targetIndex = yearItems.findIndex((item) => item.slug === targetedItem.slug);
+      if (targetIndex >= 0) {
+        state.newsVisibleCount = Math.max(INITIAL_NEWS_VISIBLE_COUNT, targetIndex + 1);
+      }
+    }
+    return;
+  }
+
+  if (!state.selectedNewsYear) {
+    state.selectedNewsYear = getNewsYears()[0] || "";
+  }
+}
+
+function queueNewsItemFocus(slug) {
+  const anchorId = `news-${String(slug || "").trim().toLowerCase()}`;
+  window.requestAnimationFrame(() => {
+    const target = document.getElementById(anchorId);
+    if (!target) return;
+    target.scrollIntoView({ block: "start", behavior: "smooth" });
+  });
+}
+
+function clearNewsPermalinkState() {
+  if (!state.focusedNewsSlug) return;
+  state.focusedNewsSlug = "";
+  if (state.route === "actualites") {
+    window.history.replaceState(null, "", "#actualites");
   }
 }
 
