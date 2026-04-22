@@ -77,6 +77,14 @@
       actionLabelLines: ["Écouter", "le podcast"],
     },
     {
+      meta: "Émission",
+      title: "Conquérant",
+      image: "assets/media/shows/conquerant.webp",
+      text: "Une conquérante et un conquérant désœuvrés, sans époque ni royaume, en chemin vers des mondes inutiles.",
+      href: "https://audioblog.arteradio.com/blog/263269/le-chat-noir",
+      actionLabelLines: ["Écouter", "le podcast"],
+    },
+    {
       meta: "Labo Expé",
       title: "MS-20 Interférences",
       image: "assets/media/shows/ms20.webp",
