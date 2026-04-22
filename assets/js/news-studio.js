@@ -106,7 +106,7 @@
   }
 
   async function copyBuildCommand() {
-    const command = "npm run build:news";
+    const command = 'cd "/Users/jdebaeck/Documents/Le Chat Noir/LCN-Website"\nnpm run build:news';
     try {
       await navigator.clipboard.writeText(command);
       refs.copyBuildCommand.textContent = "Commande copiée";
