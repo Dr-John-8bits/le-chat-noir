@@ -85,6 +85,12 @@
             <span class="page-eyebrow">Actualités</span>
             <h1 class="page-title" id="page-title">Chronologie de la station</h1>
             <p class="page-copy">Naissance du flux, mises en route, bascules techniques, voix nouvelles, lives et accidents : les étapes qui façonnent encore Le Chat Noir.</p>
+            <div class="news-hero-actions">
+              <a class="ghost-button news-rss-button" href="feed.xml" target="_blank" rel="noopener noreferrer">
+                ${renderFaIcon("fa-solid fa-rss", "news-rss-button__icon")}
+                <span>S’abonner au flux RSS</span>
+              </a>
+            </div>
           </article>
 
           <article class="page-card">
@@ -381,8 +387,10 @@
     }
 
     function renderNewsItem(item) {
+      const slug = escapeHtml(item.slug || "");
+      const isFocused = item.slug === state.focusedNewsSlug;
       return `
-        <article class="news-card">
+        <article class="news-card${isFocused ? " is-targeted" : ""}" id="news-${slug}">
           <p class="news-date">${escapeHtml(item.dateLabel || item.date || "")}</p>
           <div class="news-copy">
             <h2 class="news-title">${escapeHtml(item.title || "")}</h2>

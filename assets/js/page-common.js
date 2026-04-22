@@ -70,6 +70,8 @@
     "fa-moon": '<path d="M19.5 14.6A8.5 8.5 0 1 1 9.4 4.5a6.8 6.8 0 1 0 10.1 10.1z"></path>',
     "fa-pen-nib":
       '<path d="m12 4 6 6-6 10L6 10z"></path><path d="M12 4v7"></path><path d="M9 14h6"></path><circle cx="12" cy="11" r="1" fill="currentColor" stroke="none"></circle>',
+    "fa-rss":
+      '<path d="M6 17.5a1.5 1.5 0 1 0 0 .01z" fill="currentColor" stroke="none"></path><path d="M5.8 11.2a6.9 6.9 0 0 1 7 7"></path><path d="M5.8 6a12.1 12.1 0 0 1 12.2 12.2"></path>',
     "fa-rocket":
       '<path d="M14.8 4.5c2.6 0 4.7 2.1 4.7 4.7 0 4.2-4.9 8-7.2 9.5-1.5-2.3-5.3-7.1-5.3-9.2 0-2.8 3-5 7.8-5z"></path><path d="m8.6 14.6-3.1 3.1"></path><path d="m8 10.1-3.5-.8 2.3-2.3 1.2 3.1"></path><circle cx="14.6" cy="9.4" r="1.2"></circle>',
     "fa-shield-heart":
