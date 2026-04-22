@@ -33,6 +33,14 @@
   object-fit: cover;
 }
 
+.producer-photo-link,
+.show-cover-link {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
 .producer-photo {
   aspect-ratio: 1;
 }
@@ -41,19 +49,15 @@
   aspect-ratio: 1;
 }
 
-.show-cover-link {
-  display: block;
-  width: 100%;
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
+.producer-photo-link:hover,
+.producer-photo-link:focus-visible,
 .show-cover-link:hover,
 .show-cover-link:focus-visible {
   transform: translateY(-1px);
   box-shadow: var(--shadow);
 }
 
+.producer-photo-link:focus-visible,
 .show-cover-link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
