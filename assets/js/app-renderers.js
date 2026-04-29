@@ -327,12 +327,12 @@
               <h2 class="section-title">Cadre de diffusion</h2>
             </div>
             <div class="about-copy mentions-flat">
-              ${renderAboutLine("fa-solid fa-pen-nib", '<strong class="mentions-label">Éditeur du site.</strong> Le site Le Chat Noir Radio est édité et maintenu par un particulier, hébergé à titre non commercial sur un serveur personnel.')}
-              ${renderAboutLine("fa-solid fa-wave-square", '<strong class="mentions-label">Contenu et diffusion.</strong> Tous les morceaux diffusés sont des œuvres libres de droits ou créées par leurs auteur·ices respectif·ves, dans le respect de leurs choix de diffusion. Si tu constates une erreur ou une diffusion non souhaitée, signale-la par le bouton de contact.')}
-              ${renderAboutLine("fa-solid fa-user-shield", '<strong class="mentions-label">Données personnelles.</strong> Le site ne trace pas les visiteurs. Les seules données collectées sont celles que tu fournis volontairement pour nous écrire ; elles servent uniquement à répondre à ta demande et ne sont ni stockées ni partagées. Les statistiques d’écoute sont agrégées et anonymes.')}
-              ${renderAboutLine("fa-solid fa-code-branch", '<strong class="mentions-label">Open source.</strong> L’intégralité de la webradio repose sur des outils open source comme Ubuntu, Icecast et Liquidsoap, et nous encourageons chaleureusement le soutien à cette communauté qui rend cette aventure possible.')}
-              ${renderAboutLine("fa-solid fa-camera-retro", '<strong class="mentions-label">Crédit photo.</strong> La photo utilisée pour le logo du Chat Noir a été prise par Yirmi June.')}
-              ${renderAboutLine("fa-solid fa-circle-info", '<strong class="mentions-label">Responsabilité.</strong> L’éditeur ne saurait être tenu responsable d’une interruption temporaire du flux, ni de tout dommage indirect lié à l’usage du site ou à la diffusion en ligne.')}
+              ${renderMentionLine('<strong class="mentions-label">Éditeur du site.</strong> Le site Le Chat Noir Radio est édité et maintenu par un particulier, hébergé à titre non commercial sur un serveur personnel.')}
+              ${renderMentionLine('<strong class="mentions-label">Contenu et diffusion.</strong> Tous les morceaux diffusés sont des œuvres libres de droits ou créées par leurs auteur·ices respectif·ves, dans le respect de leurs choix de diffusion. Si tu constates une erreur ou une diffusion non souhaitée, signale-la par le bouton de contact.')}
+              ${renderMentionLine('<strong class="mentions-label">Données personnelles.</strong> Le site ne trace pas les visiteurs. Les seules données collectées sont celles que tu fournis volontairement pour nous écrire ; elles servent uniquement à répondre à ta demande et ne sont ni stockées ni partagées. Les statistiques d’écoute sont agrégées et anonymes.')}
+              ${renderMentionLine('<strong class="mentions-label">Open source.</strong> L’intégralité de la webradio repose sur des outils open source comme Ubuntu, Icecast et Liquidsoap, et nous encourageons chaleureusement le soutien à cette communauté qui rend cette aventure possible.')}
+              ${renderMentionLine('<strong class="mentions-label">Crédit photo.</strong> La photo utilisée pour le logo du Chat Noir a été prise par Yirmi June.')}
+              ${renderMentionLine('<strong class="mentions-label">Responsabilité.</strong> L’éditeur ne saurait être tenu responsable d’une interruption temporaire du flux, ni de tout dommage indirect lié à l’usage du site ou à la diffusion en ligne.')}
             </div>
           </article>
 
@@ -543,6 +543,10 @@
           <span>${htmlText}</span>
         </p>
       `;
+    }
+
+    function renderMentionLine(htmlText) {
+      return `<p class="about-line about-line--plain"><span>${htmlText}</span></p>`;
     }
 
     function renderNewsField(item, fieldName) {
