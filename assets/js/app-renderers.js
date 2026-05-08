@@ -27,6 +27,8 @@
       isLiveTrack,
     } = deps;
 
+    const REPLAY_AUDIOBLOG_URL = "https://audioblog.arteradio.com/blog/263269/le-chat-noir";
+
     function renderPage(route) {
       if (route === "accueil") return renderHomePage();
       if (route === "actualites") return renderNewsPage();
@@ -504,14 +506,16 @@
       const producerPhotoHtml = producer.href
         ? `<a class="producer-photo-link" href="${escapeHtml(producer.href)}" target="_blank" rel="noopener" aria-label="${escapeHtml(`Ouvrir la page de ${producer.name}`)}">${producerImage}</a>`
         : producerImage;
+      const replayButton = renderReplayButton(producer.href, producer.name);
 
       return `
         <article class="producer-card">
           ${producerPhotoHtml}
-          <div>
+          <div class="producer-body">
             <p class="producer-role">${escapeHtml(producer.role)}</p>
             <h3 class="producer-name">${escapeHtml(producer.name)}</h3>
             <p class="producer-bio">${escapeHtml(producer.bio)}</p>
+            ${replayButton}
           </div>
         </article>
       `;
@@ -523,6 +527,7 @@
       const coverHtml = show.href
         ? `<a class="show-cover-link" href="${escapeHtml(show.href)}" target="_blank" rel="noopener" aria-label="${escapeHtml(`Ouvrir ${show.title}`)}">${coverImage}</a>`
         : coverImage;
+      const replayButton = renderReplayButton(show.href, show.title);
 
       return `
         <article class="show-card">
@@ -531,8 +536,18 @@
             <p class="show-meta">${escapeHtml(show.meta)}</p>
             <h3 class="show-title">${escapeHtml(show.title)}</h3>
             <p class="card-text">${escapeHtml(show.text)}</p>
+            ${replayButton}
           </div>
         </article>
+      `;
+    }
+
+    function renderReplayButton(href, label) {
+      if (href !== REPLAY_AUDIOBLOG_URL) return "";
+      return `
+        <a class="voice-replay-button" href="${escapeHtml(href)}" target="_blank" rel="noopener" aria-label="${escapeHtml(`Écouter le replay de ${label}`)}">
+          Replay
+        </a>
       `;
     }
 
