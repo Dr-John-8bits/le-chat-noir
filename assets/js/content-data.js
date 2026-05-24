@@ -92,6 +92,20 @@
       actionLabel: "En rotation sur la radio",
     },
     {
+      meta: "Labo Expé",
+      title: "2600 Modulations",
+      image: "assets/media/shows/2600-modulations.webp",
+      text: "Voyage modulaire dans les circuits du Behringer 2600, là où les modulations prennent le dessus.",
+      actionLabel: "En rotation sur la radio",
+    },
+    {
+      meta: "Labo Expé",
+      title: "Fantomatik",
+      image: "assets/media/shows/FANTOMATOK.webp",
+      text: "Musique acide et répétitive, lignes obstinées et séquences qui creusent leur propre tunnel.",
+      actionLabel: "En rotation sur la radio",
+    },
+    {
       meta: "Captations",
       title: "Home Taping is Killing Music",
       image: "assets/media/shows/hometaping.webp",

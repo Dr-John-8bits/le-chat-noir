@@ -1,21 +1,21 @@
 // Generated from content/news by scripts/build-news.js. Do not edit by hand.
 window.LCN_NEWS_ITEMS = [
   {
-    "id": "le-chat-noir-lance-officiellement-sa-radio-avec-un-direct-le-30-mai",
-    "slug": "le-chat-noir-lance-officiellement-sa-radio-avec-un-direct-le-30-mai",
-    "title": "Le Chat Noir lance officiellement sa radio avec un direct le 30 mai",
-    "publishedOn": "2026-04-23",
-    "publishedAt": "2026-04-23T12:01:00.000Z",
+    "id": "deux-nouveaux-labos-expe-rejoignent-les-voix",
+    "slug": "deux-nouveaux-labos-expe-rejoignent-les-voix",
+    "title": "Deux nouveaux labos expé rejoignent les Voix",
+    "publishedOn": "2026-05-24",
+    "publishedAt": "2026-05-24T12:01:00.000Z",
     "order": 1,
-    "sortKey": "2026-04-23-001",
-    "dateLabel": "23 avril 2026",
-    "lead": "Le Chat Noir lance officiellement sa webradio. Pour l’occasion, un direct aura lieu le samedi 30 mai, de 14h à 18h : un après-midi de radio vivante, bricolée et libre, où des formes sonores apparaîtront et disparaîtront à l’antenne.",
-    "leadHtml": "Le Chat Noir lance officiellement sa webradio. Pour l’occasion, un direct aura lieu le samedi 30 mai, de 14h à 18h : un après-midi de radio vivante, bricolée et libre, où des formes sonores apparaîtront et disparaîtront à l’antenne.",
-    "leadHtmlForFeed": "Le Chat Noir lance officiellement sa webradio. Pour l’occasion, un direct aura lieu le samedi 30 mai, de 14h à 18h : un après-midi de radio vivante, bricolée et libre, où des formes sonores apparaîtront et disparaîtront à l’antenne.",
-    "body": "À écouter en ligne sur lechatnoirradio.fr, ce lancement en direct ouvrira quelques heures de radio plus fragile, plus mouvante, plus présente : créations sonores, bifurcations, prises d’antenne, fragments et accidents heureux.\n\nLe Chat Noir est un laboratoire radiophonique indépendant, artisanal, autogéré, dédié aux créations sonores et musicales. La radio diffuse en continu des paysages sonores, field recordings, expérimentations radiophoniques, émissions et musiques de tous horizons, sans cloisonnement rigide.\n\nIci, pas d’algorithme de recommandation ni d’IA pour orienter l’écoute : seulement une curation humaine, patiente et sensible, des essais, des intuitions, et du temps passé à chercher. Tout est fait maison, hébergé, programmé et maintenu localement. Une radio de proximité cosmique, née dans un coin de la tête, tournée vers l’espace.",
-    "bodyHtml": "À écouter en ligne sur <a href=\"https://lechatnoirradio.fr\" target=\"_blank\" rel=\"noopener noreferrer\">lechatnoirradio.fr</a>, ce lancement en direct ouvrira quelques heures de radio plus fragile, plus mouvante, plus présente : créations sonores, bifurcations, prises d’antenne, fragments et accidents heureux.<br /><br />Le Chat Noir est un laboratoire radiophonique indépendant, artisanal, autogéré, dédié aux créations sonores et musicales. La radio diffuse en continu des paysages sonores, field recordings, expérimentations radiophoniques, émissions et musiques de tous horizons, sans cloisonnement rigide.<br /><br />Ici, pas d’algorithme de recommandation ni d’IA pour orienter l’écoute : seulement une curation humaine, patiente et sensible, des essais, des intuitions, et du temps passé à chercher. Tout est fait maison, hébergé, programmé et maintenu localement. Une radio de proximité cosmique, née dans un coin de la tête, tournée vers l’espace.",
-    "bodyHtmlForFeed": "À écouter en ligne sur <a href=\"https://lechatnoirradio.fr\">lechatnoirradio.fr</a>, ce lancement en direct ouvrira quelques heures de radio plus fragile, plus mouvante, plus présente : créations sonores, bifurcations, prises d’antenne, fragments et accidents heureux.<br /><br />Le Chat Noir est un laboratoire radiophonique indépendant, artisanal, autogéré, dédié aux créations sonores et musicales. La radio diffuse en continu des paysages sonores, field recordings, expérimentations radiophoniques, émissions et musiques de tous horizons, sans cloisonnement rigide.<br /><br />Ici, pas d’algorithme de recommandation ni d’IA pour orienter l’écoute : seulement une curation humaine, patiente et sensible, des essais, des intuitions, et du temps passé à chercher. Tout est fait maison, hébergé, programmé et maintenu localement. Une radio de proximité cosmique, née dans un coin de la tête, tournée vers l’espace.",
-    "url": "https://lechatnoirradio.fr/#actualites/le-chat-noir-lance-officiellement-sa-radio-avec-un-direct-le-30-mai"
+    "sortKey": "2026-05-24-001",
+    "dateLabel": "24 mai 2026",
+    "lead": "La page Voix accueille deux nouveaux projets de laboratoire sonore : 2600 Modulations et Fantomatik.",
+    "leadHtml": "La page Voix accueille deux nouveaux projets de laboratoire sonore : 2600 Modulations et Fantomatik.",
+    "leadHtmlForFeed": "La page Voix accueille deux nouveaux projets de laboratoire sonore : 2600 Modulations et Fantomatik.",
+    "body": "Avec 2600 Modulations, Le Chat Noir ouvre un voyage modulaire dans les circuits du Behringer 2600, là où les modulations prennent le dessus. Fantomatik poursuit la dérive du côté d’une musique acide et répétitive, entre lignes obstinées et séquences qui creusent leur propre tunnel.",
+    "bodyHtml": "Avec 2600 Modulations, Le Chat Noir ouvre un voyage modulaire dans les circuits du Behringer 2600, là où les modulations prennent le dessus. Fantomatik poursuit la dérive du côté d’une musique acide et répétitive, entre lignes obstinées et séquences qui creusent leur propre tunnel.",
+    "bodyHtmlForFeed": "Avec 2600 Modulations, Le Chat Noir ouvre un voyage modulaire dans les circuits du Behringer 2600, là où les modulations prennent le dessus. Fantomatik poursuit la dérive du côté d’une musique acide et répétitive, entre lignes obstinées et séquences qui creusent leur propre tunnel.",
+    "url": "https://lechatnoirradio.fr/#actualites/deux-nouveaux-labos-expe-rejoignent-les-voix"
   },
   {
     "id": "camembert-electrique-arrive-sur-les-ondes-du-samedi",
