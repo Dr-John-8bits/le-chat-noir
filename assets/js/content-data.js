@@ -62,7 +62,7 @@
     },
     {
       meta: "Fiction sonore",
-      title: "Le Pseudodocumentaire de l'espace",
+      title: "Le Pseudocumentaire de l'espace",
       image: "assets/media/shows/pseudocumentaire.webp",
       text: "Fiction d’anticipation où le faux emprunte au réel pour explorer la dépression verte.",
       href: "https://audioblog.arteradio.com/blog/194586/pseudocumentaire-de-l-espace",
@@ -231,7 +231,7 @@
         { time: "Puis", title: "Noise de l'aprème", desc: "Noise-rock, post-punk, etc.", meta: true, highlight: true },
         { time: "18h00", title: "Home Taping Is Killing Music", desc: "Captations pirates, concerts enregistrés sur le vif, archives live, sueur, scène et bootlegs.", highlight: true },
         { time: "Puis", title: "Noise du soir", desc: "Retour au bloc noise du mardi soir jusqu’au rendez-vous de 23h40.", meta: true, highlight: true },
-        { time: "23h40", title: "Le Pseudodocumentaire de l'espace", desc: "Fiction sonore et dépression verte." },
+        { time: "23h40", title: "Le Pseudocumentaire de l'espace", desc: "Fiction sonore et dépression verte." },
       ],
     },
     {
@@ -265,7 +265,7 @@
         { time: "14h00", title: "L'instinct mode", desc: "Chronique du vestiaire by Lady Em." },
         { time: "Puis", title: "Cinéma pour les oreilles", desc: "Bandes-son, paysages projetés, musiques d'images et dérives cinématiques.", meta: true, highlight: true },
         { time: "18h00", title: "Radio Gadin", desc: "Plongée dans le lore de Flash Dog Duke Silver", highlight: true },
-        { time: "23h40", title: "Le Pseudodocumentaire de l'espace", desc: "Fiction sonore et dépression verte." },
+        { time: "23h40", title: "Le Pseudocumentaire de l'espace", desc: "Fiction sonore et dépression verte." },
       ],
     },
     {
@@ -301,7 +301,7 @@
         { time: "16h00", title: "Doucement", desc: "Dream pop, post-rock, lo-fi et écoutes lentes pour laisser retomber l’après-midi avant le grand soir.", highlight: true },
         { time: "18h00", title: "Camembert électrique", desc: "Une heure hebdomadaire dédiée aux explorations expérimentales du label Camembert Électrique.", highlight: true },
         { time: "19h00", title: "When Day Chokes a Radio", desc: "Focus Intégrale When Day Chokes The Night", highlight: true },
-        { time: "23h40", title: "Le Pseudodocumentaire de l'espace", desc: "Fiction sonore (20 min)." },
+        { time: "23h40", title: "Le Pseudocumentaire de l'espace", desc: "Fiction sonore (20 min)." },
       ],
     },
     {
