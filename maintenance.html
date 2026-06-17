@@ -3,60 +3,91 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Le Chat Noir — Maintenance</title>
-    <meta
-      name="description"
-      content="Le site du Chat Noir est momentanément en maintenance. L’antenne reste consultable et le flux peut toujours être écouté."
-    />
-    <meta name="theme-color" content="#1f4fd1" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Le Chat Noir" />
+    <title>Maintenance — Le Chat Noir</title>
+    <meta name="description" content="Le site du Chat Noir est momentanément en maintenance. L'antenne continue et le flux reste écoutable." />
+    <meta name="theme-color" content="#f4eee0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
+    <meta name="robots" content="noindex" />
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="alternate" type="application/rss+xml" title="Actualités Le Chat Noir" href="feed.xml" />
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="assets/js/page-common.js"></script>
-    <script defer src="assets/js/app-utils.js"></script>
-    <script defer src="assets/js/maintenance.js"></script>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/shell.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <style>
+      .maintenance-shell {
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 20px;
+        gap: 0;
+      }
+      .maintenance-card {
+        width: 100%;
+        max-width: 440px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        background: var(--surface);
+        padding: 26px 26px 22px;
+        margin-top: 28px;
+        text-align: left;
+      }
+      .maintenance-audio {
+        width: 100%;
+        margin-top: 18px;
+        accent-color: var(--accent);
+      }
+      .maintenance-note {
+        margin-top: 22px;
+      }
+    </style>
+    <script type="module">
+      import { REFRESH_MS } from "./assets/js/config.js";
+      import { fetchNowPlaying, fetchCurrentShow, STATUS } from "./assets/js/radio-api.js";
+      import { createPoller } from "./assets/js/poller.js";
+      import { setTextIfChanged } from "./assets/js/ui-states.js";
+
+      async function refresh() {
+        const [showResult, trackResult] = await Promise.all([fetchCurrentShow(), fetchNowPlaying()]);
+        if (showResult.status === STATUS.OK) {
+          setTextIfChanged(document.getElementById("mShow"), showResult.data.show || "Programmation en cours");
+        }
+        if (trackResult.status === STATUS.OK) {
+          const t = trackResult.data;
+          setTextIfChanged(document.getElementById("mTrack"), [t.artist, t.title].filter(Boolean).join(" — ") || "—");
+        }
+        return showResult.status === STATUS.OK || trackResult.status === STATUS.OK;
+      }
+      createPoller(refresh, REFRESH_MS.live).start();
+    </script>
   </head>
-  <body class="maintenance-body">
+  <body>
     <main class="maintenance-shell">
-      <header class="maintenance-hero">
-        <img class="maintenance-hero__logo" src="assets/media/brand/logo.png" alt="Logo Le Chat Noir" />
-        <div class="maintenance-hero__copy">
-          <p class="maintenance-hero__eyebrow">Maintenance</p>
-          <h1 class="maintenance-hero__title">Le Chat Noir</h1>
-          <p class="maintenance-hero__lead">Le site est actuellement en maintenance.</p>
-        </div>
-      </header>
+      <img src="assets/media/brand/logo-320.jpg" alt="" width="84" height="84" style="border-radius: 50%;" />
+      <h1 class="page-title" style="margin: 18px 0 0;">Le Chat Noir</h1>
+      <p class="kicker" style="margin: 6px 0 0;">laboratoire radiophonique indépendant</p>
 
-      <section class="maintenance-card" aria-labelledby="maintenance-status-title">
-        <div class="maintenance-card__status">
-          <span class="maintenance-badge">
-            <span class="maintenance-badge__dot" aria-hidden="true"></span>
-            <span>Maintenance en cours</span>
-          </span>
-        </div>
+      <span class="onair-pill is-on" style="margin-top: 22px;">
+        <span class="onair-pill__dot" aria-hidden="true"></span>
+        <span>site en maintenance — l'antenne continue</span>
+      </span>
 
-        <article class="maintenance-panel">
-          <p class="maintenance-panel__label">À l’antenne</p>
-          <h2 class="maintenance-panel__title" id="maintenanceCurrentShow">Chargement…</h2>
-          <p class="maintenance-panel__meta" id="maintenanceCurrentSince">—</p>
-          <h3 class="maintenance-panel__track" id="maintenanceTrackTitle">Chargement…</h3>
-          <p class="maintenance-panel__meta" id="maintenanceTrackMeta">Les métadonnées du morceau apparaîtront ici.</p>
-        </article>
+      <p style="font-size: 15px; color: var(--ink-soft); max-width: 44ch; margin: 18px 0 0;">
+        On bricole le site quelques instants. La radio, elle, ne s'arrête pas : le direct s'écoute ci-dessous.
+      </p>
 
-        <div class="maintenance-audio">
-          <audio class="maintenance-audio__player" controls preload="none">
-            <source src="https://stream.lechatnoirradio.fr/stream.mp3" type="audio/mpeg" />
-          </audio>
-        </div>
-
-        <p class="maintenance-card__note" id="maintenanceUpdatedAt">Mise à jour continue.</p>
+      <section class="maintenance-card" aria-label="Écouter le direct">
+        <span class="kicker kicker--accent">// en ce moment</span>
+        <p style="font-size: 18px; font-weight: 650; margin: 6px 0 2px;" id="mShow">Chargement…</p>
+        <p class="status-line" id="mTrack">…</p>
+        <audio class="maintenance-audio" controls preload="none">
+          <source src="https://stream.lechatnoirradio.fr/stream.mp3" type="audio/mpeg" />
+        </audio>
       </section>
+
+      <p class="status-line maintenance-note">· le chat noir — retour imminent ·</p>
     </main>
   </body>
 </html>

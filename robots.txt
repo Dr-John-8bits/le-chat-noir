@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /news-studio.html
+Disallow: /maintenance.html
+
+Sitemap: https://lechatnoirradio.fr/sitemap.xml

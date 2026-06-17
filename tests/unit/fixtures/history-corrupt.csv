@@ -1,0 +1,6 @@
+iso_utc,epoch,artist,title,album,year
+2026-06-11T10:00:00Z,1781172000,"Artiste, avec virgule","Titre ""quoté""","Album, étrange","2026"
+ligne-cassée-sans-rien
+2026-06-11T09:00:00Z,1781168400,"Énigme accentuée","Élémentaire","Œuvre complète","2025"
+,manque,le,timestamp,,
+2026-06-11T08:00:00Z,incomplet

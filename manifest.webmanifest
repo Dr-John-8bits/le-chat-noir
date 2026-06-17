@@ -1,13 +1,13 @@
 {
   "name": "Le Chat Noir — Laboratoire radiophonique indépendant",
   "short_name": "Le Chat Noir",
-  "description": "Radio indépendante, auto-hébergée et artisanale avec direct, grille des programmes, voix et historique de diffusion.",
+  "description": "Webradio indépendante et auto-hébergée : direct, créations sonores, musique libre et écoute lente.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#05070c",
-  "theme_color": "#05070c",
+  "background_color": "#f4eee0",
+  "theme_color": "#f4eee0",
   "icons": [
     {
       "src": "icon-192.png",

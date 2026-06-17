@@ -3,169 +3,125 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Le Chat Noir</title>
+    <title>Le Chat Noir — laboratoire radiophonique indépendant</title>
     <meta
       name="description"
-      content="Prototype minimal du futur site Le Chat Noir avec bandeau fixe, menu simple et navigation interne."
+      content="Le Chat Noir, webradio indépendante et auto-hébergée : direct, créations sonores, musique libre et écoute lente."
     />
-    <meta name="theme-color" content="#05070c" />
+    <meta name="theme-color" content="#f4eee0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Le Chat Noir" />
+    <link rel="canonical" href="https://lechatnoirradio.fr/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Le Chat Noir" />
+    <meta property="og:title" content="Le Chat Noir — laboratoire radiophonique indépendant" />
+    <meta property="og:description" content="Webradio indépendante et auto-hébergée : direct, créations sonores, musique libre et écoute lente." />
+    <meta property="og:url" content="https://lechatnoirradio.fr/" />
+    <meta property="og:image" content="https://lechatnoirradio.fr/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Le Chat Noir — laboratoire radiophonique indépendant" />
+    <meta name="twitter:description" content="Webradio indépendante et auto-hébergée : direct, créations sonores, musique libre et écoute lente." />
+    <meta name="twitter:image" content="https://lechatnoirradio.fr/icon-512.png" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="alternate" type="application/rss+xml" title="Actualités Le Chat Noir" href="feed.xml" />
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="assets/js/content-data.js"></script>
-    <script defer src="assets/js/page-common.js"></script>
-    <script defer src="assets/js/news-data.js"></script>
-    <script defer src="assets/js/app-utils.js"></script>
-    <script defer src="assets/js/app-renderers.js"></script>
-    <script defer src="app.js"></script>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/shell.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <script type="module" src="assets/js/shell.js"></script>
   </head>
   <body>
     <header class="top-shell" id="topShell">
       <div class="top-shell__inner">
-        <section class="top-banner" aria-label="Informations de la radio">
-          <div class="brand">
-            <a class="brand__home" href="#accueil" data-route-link="accueil" aria-label="Revenir à l’accueil de Le Chat Noir">
-              <img class="brand__logo" src="assets/media/brand/logo.png" alt="Logo Le Chat Noir" />
-            </a>
-            <div class="brand__copy">
+        <div class="shell-head">
+          <a class="brand" href="#accueil" aria-label="Le Chat Noir — retour à l'accueil">
+            <img class="brand__logo" src="assets/media/brand/logo-320.jpg" alt="" width="40" height="40" />
+            <span>
               <span class="brand__name">Le Chat Noir</span>
-              <span class="brand__description">Laboratoire radiophonique indépendant</span>
-            </div>
-          </div>
-
-          <section class="player-strip" aria-label="Lecteur audio">
-            <div class="player-strip__controls">
-              <button class="player-strip__toggle" id="playerToggle" type="button" aria-pressed="false" aria-label="Lancer le direct">
-                <span id="playerToggleIcon" aria-hidden="true"></span>
-              </button>
-
-              <div class="player-strip__meta">
-                <span class="player-strip__label">Direct</span>
-                <div class="player-strip__volume">
-                  <label class="player-strip__volume-label" for="volumeRange">Volume</label>
-                  <input
-                    class="player-strip__volume-range"
-                    id="volumeRange"
-                    type="range"
-                    min="0"
-                    max="100"
-                    step="1"
-                    value="100"
-                    aria-label="Régler le volume du direct"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="player-strip__ticker" id="nowPlayingTicker" aria-live="polite" aria-label="Now playing">
-              <div class="player-strip__ticker-track" id="nowPlayingTickerTrack">
-                <span class="player-strip__ticker-text" id="nowPlayingTickerText">Chargement...</span>
-                <span class="player-strip__ticker-separator" aria-hidden="true">•</span>
-                <span class="player-strip__ticker-text player-strip__ticker-text--clone" id="nowPlayingTickerTextClone" aria-hidden="true">
-                  Chargement...
-                </span>
-              </div>
-            </div>
-          </section>
-
-          <div class="on-air" aria-live="polite">
-            <span class="on-air__label">À l'antenne</span>
-
-            <div class="on-air__status">
-              <span class="signal-indicator is-offline" id="signalIndicator" role="img" aria-label="Flux audio indisponible">
-                <span class="signal-indicator__dot"></span>
-                <span class="signal-indicator__wave"></span>
-                <span class="signal-indicator__wave signal-indicator__wave--late"></span>
-              </span>
-
-              <strong class="on-air__value" id="currentShowText">Chargement...</strong>
-            </div>
-          </div>
-        </section>
-
-        <button
-          class="mobile-nav-toggle"
-          id="mobileNavToggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="mainNav"
-          aria-label="Ouvrir le menu des rubriques"
-        >
-          <span class="mobile-nav-toggle__eyebrow">Rubriques</span>
-          <span class="mobile-nav-toggle__row">
-            <span class="mobile-nav-toggle__label" id="mobileNavCurrentLabel">Accueil</span>
-            <span class="mobile-nav-toggle__chevron" aria-hidden="true"></span>
+              <span class="brand__sub">laboratoire radiophonique indépendant</span>
+            </span>
+          </a>
+          <span class="onair-pill" id="onAirPill">
+            <span class="onair-pill__dot" aria-hidden="true"></span>
+            <span id="onAirPillText">connexion…</span>
           </span>
-        </button>
+        </div>
+
+        <div class="player-row">
+          <button class="play-button" id="playButton" type="button" aria-pressed="false" aria-label="Lancer le direct">
+            <svg id="playIcon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M8 5.5c0-.86.93-1.41 1.68-.98l8.98 5.18a1.14 1.14 0 0 1 0 1.98l-8.98 5.18A1.13 1.13 0 0 1 8 15.88z"></path>
+            </svg>
+          </button>
+
+          <div class="live-meta">
+            <span class="kicker kicker--accent" id="liveKicker">// en ce moment</span>
+            <h1 class="live-meta__show" id="currentShowText">Chargement…</h1>
+            <div class="ticker" id="ticker" aria-live="polite">
+              <div class="ticker__track" id="tickerTrack">
+                <span class="ticker__text" id="tickerText">…</span>
+                <span class="ticker__text ticker__text--clone" id="tickerTextClone" aria-hidden="true">…</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="volume-wrap" id="volumeWrap" hidden>
+            <label class="sr-only" for="volumeRange">Volume du direct</label>
+            <input class="volume-range" id="volumeRange" type="range" min="0" max="100" step="1" value="100" />
+          </div>
+        </div>
 
         <nav class="main-nav" id="mainNav" aria-label="Rubriques principales">
-          <button class="pill-button pill-button--nav main-nav__button" type="button" data-route="accueil">Accueil</button>
-          <button class="pill-button pill-button--nav main-nav__button" type="button" data-route="actualites">Actualités</button>
-          <button class="pill-button pill-button--nav main-nav__button" type="button" data-route="grille">Grille</button>
-          <a class="pill-button pill-button--nav main-nav__button" href="history.html" target="_blank" rel="noopener noreferrer">Historique</a>
-          <button class="pill-button pill-button--nav main-nav__button" type="button" data-route="voix">Voix</button>
-          <button class="pill-button pill-button--nav main-nav__button" type="button" data-route="apropos">À propos</button>
+          <a href="#accueil" data-route="accueil">accueil</a>
+          <a href="#actualites" data-route="actualites">actualités</a>
+          <a href="#grille" data-route="grille">grille</a>
+          <a href="history.html" target="_blank" rel="noopener noreferrer">historique ↗</a>
+          <a href="#voix" data-route="voix">voix</a>
+          <a href="#apropos" data-route="apropos">à propos</a>
         </nav>
       </div>
-
-      <audio id="radioAudio" preload="none" crossorigin="anonymous"></audio>
     </header>
 
     <main class="site-main">
-      <div class="site-main__inner">
-        <section class="page-view" id="pageView" aria-live="polite"></section>
-        <footer class="site-footer" aria-label="Pied de page du site">
-          <p class="site-footer__signature">
-            · Le Chat Noir - Mai 2026
-            <svg
-              class="svg-icon site-footer__icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.85"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M7 9V5.5l2.6 1.9L12 5.7l2.4 1.7L17 5.5V9"></path>
-              <path d="M5.3 10.4C5.3 7.9 7.9 6 12 6s6.7 1.9 6.7 4.4c0 2-1.1 3.8-2.9 4.9V18a1 1 0 0 1-1.6.8L12 17.2l-2.2 1.6a1 1 0 0 1-1.6-.8v-2.7c-1.8-1.1-2.9-2.9-2.9-4.9z"></path>
-              <circle cx="9.4" cy="11.8" r="0.7" fill="currentColor" stroke="none"></circle>
-              <circle cx="14.6" cy="11.8" r="0.7" fill="currentColor" stroke="none"></circle>
-              <path d="M10.1 14.3c1.1.8 2.7.8 3.8 0"></path>
-            </svg>
-          </p>
-        </footer>
-      </div>
+      <div id="pageView"></div>
     </main>
 
-    <button
-      class="scroll-top-button"
-      id="scrollTopButton"
-      type="button"
-      aria-label="Revenir en haut de page"
-      title="Revenir en haut"
-    >
-      <svg
-        class="svg-icon"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.85"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <path d="M12 19V5"></path>
-        <path d="m6 11 6-6 6 6"></path>
-      </svg>
-    </button>
+    <script>
+      if (window.location.protocol === "file:") {
+        document.getElementById("pageView").innerHTML =
+          '<div class="placeholder-card">' +
+          '<p style="margin:0 0 8px;"><span class="mono">// page ouverte en file://</span></p>' +
+          "<p style=\"margin:0;\">Les modules JavaScript sont bloqués par le navigateur quand la page est ouverte directement depuis le Finder. Lancez un serveur local — <code>npm run serve</code> dans le dossier du site — puis ouvrez <strong>http://localhost:48290</strong> (c'est ainsi que GitHub Pages servira le site).</p>" +
+          "</div>";
+      }
+    </script>
+
+    <footer class="site-footer">
+      <p class="site-footer__signature">
+        · le chat noir · webradio indépendante · 2026
+        <svg
+          class="site-footer__cat"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.85"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M7 9V5.5l2.6 1.9L12 5.7l2.4 1.7L17 5.5V9"></path>
+          <path d="M5.3 10.4C5.3 7.9 7.9 6 12 6s6.7 1.9 6.7 4.4c0 2-1.1 3.8-2.9 4.9V18a1 1 0 0 1-1.6.8L12 17.2l-2.2 1.6a1 1 0 0 1-1.6-.8v-2.7c-1.8-1.1-2.9-2.9-2.9-4.9z"></path>
+          <circle cx="9.4" cy="11.8" r="0.7" fill="currentColor" stroke="none"></circle>
+          <circle cx="14.6" cy="11.8" r="0.7" fill="currentColor" stroke="none"></circle>
+          <path d="M10.1 14.3c1.1.8 2.7.8 3.8 0"></path>
+        </svg>
+      </p>
+      <a class="ghost-link" href="https://stream.lechatnoirradio.fr/stream.mp3" target="_blank" rel="noopener noreferrer">flux direct ↗</a>
+    </footer>
   </body>
 </html>

@@ -1,33 +1,19 @@
 {
-  "name": "le-chat-noir-website",
+  "name": "lcn-website",
   "version": "1.0.0",
   "private": true,
-  "main": "app.js",
+  "type": "module",
+  "description": "Site public Le Chat Noir — webradio, laboratoire radiophonique indépendant",
   "scripts": {
-    "build": "npm run build:news",
-    "build:news": "node scripts/build-news.js",
-    "news:new": "node scripts/create-news.js",
-    "serve:test": "python3 -m http.server 48290",
-    "pretest": "npm run build:news",
-    "pretest:headed": "npm run build:news",
-    "pretest:ui": "npm run build:news",
-    "test": "playwright test",
-    "test:headed": "playwright test --headed",
-    "test:ui": "playwright test --ui"
+    "test": "node --test tests/unit/*.test.mjs",
+    "test:e2e": "playwright test",
+    "serve": "node tools/dev-server.mjs",
+    "build:news": "node scripts/build-news.mjs",
+    "build:schedule": "node scripts/build-schedule.mjs",
+    "build:voices": "node scripts/build-voices.mjs",
+    "news:new": "node scripts/create-news.mjs"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Dr-John-8bits/le-chat-noir.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Dr-John-8bits/le-chat-noir/issues"
-  },
-  "homepage": "https://github.com/Dr-John-8bits/le-chat-noir#readme",
-  "description": "Production website for Le Chat Noir radio",
   "devDependencies": {
-    "@playwright/test": "^1.59.1"
+    "@playwright/test": "^1.60.0"
   }
 }

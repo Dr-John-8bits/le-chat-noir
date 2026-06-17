@@ -3,109 +3,78 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Le Chat Noir — Historique de diffusion</title>
-    <meta
-      name="description"
-      content="Archives de diffusion du Chat Noir avec recherche par date et heure."
-    />
-    <meta name="theme-color" content="#05070c" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Le Chat Noir" />
+    <title>Historique de diffusion — Le Chat Noir</title>
+    <meta name="description" content="Archives de diffusion du Chat Noir avec recherche par date et heure, en heure de Paris." />
+    <meta name="theme-color" content="#f4eee0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href="https://lechatnoirradio.fr/history.html" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="alternate" type="application/rss+xml" title="Actualités Le Chat Noir" href="feed.xml" />
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="assets/js/app-utils.js"></script>
-    <script defer src="assets/js/history.js"></script>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/shell.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <script type="module" src="assets/js/page-history.js"></script>
   </head>
-  <body class="direct-body">
-    <header class="direct-header">
-      <div class="direct-header__inner">
-        <a class="brand" href="index.html" aria-label="Retour à l'accueil Le Chat Noir">
-          <img class="brand__logo" src="assets/media/brand/logo.png" alt="Logo Le Chat Noir" />
-          <div class="brand__copy">
-            <span class="brand__name">Le Chat Noir</span>
-            <span class="brand__description">Laboratoire radiophonique indépendant</span>
-          </div>
-        </a>
-        <a class="ghost-button direct-header__back" href="index.html">Retour à l’accueil</a>
+  <body>
+    <header class="top-shell">
+      <div class="top-shell__inner" style="padding-bottom: 14px;">
+        <div class="shell-head">
+          <a class="brand" href="index.html" aria-label="Le Chat Noir — retour à l'accueil">
+            <img class="brand__logo" src="assets/media/brand/logo-320.jpg" alt="" width="40" height="40" />
+            <span>
+              <span class="brand__name">Le Chat Noir</span>
+              <span class="brand__sub">les archives de la radio</span>
+            </span>
+          </a>
+          <a class="ghost-link" href="index.html">← retour au direct</a>
+        </div>
       </div>
     </header>
 
-    <main class="direct-main">
-      <div class="direct-shell">
-        <section class="page" aria-labelledby="history-title">
-          <article class="page-card page-card--hero history-hero">
-            <span class="page-eyebrow">Les archives de la radio</span>
-            <h1 class="page-title" id="history-title">Historique de diffusion</h1>
-            <p class="page-copy">Tous les titres diffusés, avec recherche par date et heure, dans une page dédiée pour garder l’écoute fluide sur le site principal.</p>
-            <div class="meta-row">
-              <span class="meta-pill">Mise à jour toutes les 20 s</span>
-              <span class="meta-pill" id="historyTimezoneLabel">Europe/Paris</span>
-            </div>
-            <div class="history-toolbar__copy">
-              <p class="history-toolbar__label" id="historyDisplayLabel">Chargement…</p>
-              <p class="history-toolbar__status" id="historyStatusText">Chargement des archives complètes…</p>
-            </div>
-            <div class="history-form">
-              <label class="field-group">
-                <span>Choisir une date</span>
-                <input id="historyDayInput" type="date" />
-              </label>
-              <label class="field-group">
-                <span>Choisir une heure</span>
-                <input id="historyTimeInput" type="time" />
-              </label>
-              <button class="ghost-button history-search-button" id="historySearchButton" type="button">Rechercher</button>
-            </div>
-          </article>
+    <main class="site-main">
+      <p class="kicker kicker--accent" style="margin: 0 0 6px;">// les archives de la radio</p>
+      <h1 class="page-title">Historique de diffusion</h1>
+      <p class="page-lead">
+        Un titre t'a échappé pendant l'écoute ? Toutes les diffusions, en lecture chronologique, avec recherche
+        par date et heure. Cette page vit dans son propre onglet pour ne jamais interrompre l'écoute du direct.
+      </p>
 
-          <article class="page-card">
-            <div class="history-table">
-              <div class="history-table__head" aria-hidden="true">
-                <span>Date</span>
-                <span>Heure</span>
-                <span>Titre</span>
-                <span>Artiste</span>
-                <span>Album</span>
-                <span>Année</span>
-              </div>
-              <ul class="history-list history-list--table" id="historyList">
-                <li class="history-empty">Chargement des dernières diffusions…</li>
-              </ul>
-            </div>
-            <div class="history-more-row" id="historyMoreRow" hidden>
-              <button class="ghost-button" id="historyMoreButton" type="button">Afficher davantage</button>
-            </div>
-          </article>
-        </section>
+      <form class="history-form" id="historyForm">
+        <label class="field">
+          <span class="kicker">choisir une date</span>
+          <input id="historyDayInput" type="date" />
+        </label>
+        <label class="field">
+          <span class="kicker">autour de l'heure</span>
+          <input id="historyTimeInput" type="time" />
+        </label>
+        <button class="action-button" id="historySearchButton" type="submit">Rechercher</button>
+      </form>
 
-        <footer class="site-footer" aria-label="Pied de page du site">
-          <p class="site-footer__signature">
-            · Le Chat Noir - Mai 2026
-            <svg
-              class="svg-icon site-footer__icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.85"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M7 9V5.5l2.6 1.9L12 5.7l2.4 1.7L17 5.5V9"></path>
-              <path d="M5.3 10.4C5.3 7.9 7.9 6 12 6s6.7 1.9 6.7 4.4c0 2-1.1 3.8-2.9 4.9V18a1 1 0 0 1-1.6.8L12 17.2l-2.2 1.6a1 1 0 0 1-1.6-.8v-2.7c-1.8-1.1-2.9-2.9-2.9-4.9z"></path>
-              <circle cx="9.4" cy="11.8" r="0.7" fill="currentColor" stroke="none"></circle>
-              <circle cx="14.6" cy="11.8" r="0.7" fill="currentColor" stroke="none"></circle>
-              <path d="M10.1 14.3c1.1.8 2.7.8 3.8 0"></path>
-            </svg>
-          </p>
-        </footer>
+      <div class="page-section__head" style="margin-top: 28px;">
+        <h2 class="page-section__title" id="historyLabel">Dernières diffusions</h2>
+        <span class="status-line" id="historyStatus">chargement des archives…</span>
+      </div>
+
+      <ul class="track-list track-list--history" id="historyList" aria-live="polite">
+        <li><span class="track-time">--:--</span><span class="track-main">Chargement des archives…</span></li>
+      </ul>
+
+      <div class="history-actions">
+        <button class="action-button" id="historyMoreButton" type="button" hidden>Afficher davantage</button>
+        <button class="action-button action-button--ghost" id="historyReloadButton" type="button">
+          Actualiser les archives
+        </button>
+        <span class="status-line" id="historyZone"></span>
       </div>
     </main>
+
+    <footer class="site-footer">
+      <p class="site-footer__signature">· le chat noir — historique de diffusion</p>
+      <a class="ghost-link" href="index.html">revenir à l'accueil</a>
+    </footer>
   </body>
 </html>

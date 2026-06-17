@@ -1,5 +1,23 @@
+# macOS
 .DS_Store
 **/.DS_Store
-node_modules
-playwright-report
-test-results
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Dépendances de développement (jamais servies)
+node_modules/
+
+# Sorties de tests Playwright
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+
+# Éditeurs / divers
+.vscode/
+.idea/
+*.log
+.env

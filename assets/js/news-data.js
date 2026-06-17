@@ -1,5 +1,5 @@
-// Generated from content/news by scripts/build-news.js. Do not edit by hand.
-window.LCN_NEWS_ITEMS = [
+// Généré depuis content/news par scripts/build-news.mjs — ne pas éditer à la main.
+export const NEWS_ITEMS = [
   {
     "id": "deux-nouveaux-labos-expe-rejoignent-les-voix",
     "slug": "deux-nouveaux-labos-expe-rejoignent-les-voix",

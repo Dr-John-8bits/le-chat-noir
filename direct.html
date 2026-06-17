@@ -3,109 +3,73 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Le Chat Noir — État du direct</title>
-    <meta
-      name="description"
-      content="Show réellement diffusé, now playing et audience web du direct de Le Chat Noir."
-    />
-    <meta name="theme-color" content="#05070c" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Le Chat Noir" />
+    <title>État du direct — Le Chat Noir</title>
+    <meta name="description" content="Show réellement diffusé, titre en cours et audience du direct de Le Chat Noir." />
+    <meta name="theme-color" content="#f4eee0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href="https://lechatnoirradio.fr/direct.html" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="alternate" type="application/rss+xml" title="Actualités Le Chat Noir" href="feed.xml" />
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="assets/js/page-common.js"></script>
-    <script defer src="assets/js/app-utils.js"></script>
-    <script defer src="assets/js/direct.js"></script>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/shell.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <script type="module" src="assets/js/page-direct.js"></script>
   </head>
-  <body class="direct-body">
-    <header class="direct-header">
-      <div class="direct-header__inner">
-        <a class="brand" href="index.html" aria-label="Retour à l'accueil Le Chat Noir">
-          <img class="brand__logo" src="assets/media/brand/logo.png" alt="Logo Le Chat Noir" />
-          <div class="brand__copy">
-            <span class="brand__name">Le Chat Noir</span>
-            <span class="brand__description">Laboratoire radiophonique indépendant</span>
-          </div>
-        </a>
-        <a class="ghost-button direct-header__back" href="index.html">Retour à l’accueil</a>
+  <body>
+    <header class="top-shell">
+      <div class="top-shell__inner" style="padding-bottom: 14px;">
+        <div class="shell-head">
+          <a class="brand" href="index.html" aria-label="Le Chat Noir — retour à l'accueil">
+            <img class="brand__logo" src="assets/media/brand/logo-320.jpg" alt="" width="40" height="40" />
+            <span>
+              <span class="brand__name">Le Chat Noir</span>
+              <span class="brand__sub">état du direct</span>
+            </span>
+          </a>
+          <a class="ghost-link" href="index.html">← retour à l'accueil</a>
+        </div>
       </div>
     </header>
 
-    <main class="direct-main">
-      <div class="direct-shell">
-        <section class="page" aria-labelledby="direct-title">
-          <article class="page-card page-card--hero direct-card direct-card--compact">
-            <span class="page-eyebrow">Direct</span>
-            <h1 class="page-title" id="direct-title">État du direct</h1>
-            <div class="direct-card__head">
-              <div>
-                <p class="section-kicker">À l’antenne</p>
-                <h2 class="direct-card__title" id="directCurrentShow">Chargement…</h2>
-              </div>
-              <div class="direct-card__badge" id="directCurrentBadge"></div>
-            </div>
+    <main class="site-main">
+      <p class="kicker kicker--accent" style="margin: 0 0 6px;">// état du direct</p>
+      <h1 class="page-title">Ce qui passe à l'antenne</h1>
 
-            <div class="direct-card__body">
-              <h3 class="direct-track-title" id="directTrackTitle">Chargement…</h3>
-              <p class="direct-track-meta" id="directTrackMeta">Les métadonnées du morceau apparaîtront ici.</p>
-            </div>
+      <section class="page-section" style="margin-top: 24px;">
+        <div class="page-section__head">
+          <h2 class="page-section__title">À l'antenne</h2>
+          <span class="onair-pill" id="directPill"><span class="onair-pill__dot" aria-hidden="true"></span><span id="directPillText">connexion…</span></span>
+        </div>
+        <p style="font-size: 22px; font-weight: 650; margin: 0 0 4px;" id="directShow">Chargement…</p>
+        <p class="status-line" id="directSince">—</p>
+      </section>
 
-            <p class="direct-meta-line" id="directCurrentSince">—</p>
+      <section class="page-section">
+        <div class="page-section__head">
+          <h2 class="page-section__title">Titre en cours</h2>
+        </div>
+        <p style="font-size: 16px; margin: 0 0 4px;" id="directTrack">Chargement…</p>
+        <p class="status-line" id="directTrackMeta">les métadonnées du morceau apparaîtront ici</p>
+      </section>
 
-            <div class="direct-stats-grid">
-              <article class="direct-stat">
-                <span class="direct-stat__label">En ce moment</span>
-                <div class="direct-stat__value-row">
-                  <strong class="direct-stat__value" id="directListenersCurrent">—</strong>
-                  <span class="direct-stat__unit" id="directListenersUnit">auditeur·ices</span>
-                </div>
-              </article>
-              <article class="direct-stat direct-stat--subtle">
-                <span class="direct-stat__label">Pic</span>
-                <div class="direct-stat__value-row">
-                  <strong class="direct-stat__value direct-stat__value--secondary" id="directListenersPeak">—</strong>
-                  <span class="direct-stat__unit">max</span>
-                </div>
-              </article>
-            </div>
+      <section class="page-section">
+        <div class="page-section__head">
+          <h2 class="page-section__title">Audience du flux web</h2>
+        </div>
+        <p style="font-size: 16px; margin: 0 0 4px;"><span class="mono" id="directListeners">—</span></p>
+        <p class="status-line" id="directListenersUpdated">—</p>
+      </section>
 
-            <p class="direct-meta-line" id="directListenersUpdated">—</p>
-
-            <div class="direct-actions">
-              <a class="ghost-button" href="index.html">Revenir à l’accueil</a>
-              <button class="ghost-button" id="directRefreshButton" type="button">Actualiser maintenant</button>
-            </div>
-          </article>
-        </section>
-
-        <footer class="site-footer" aria-label="Pied de page du site">
-          <p class="site-footer__signature">
-            · Le Chat Noir - Mai 2026
-            <svg
-              class="svg-icon site-footer__icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.85"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M7 9V5.5l2.6 1.9L12 5.7l2.4 1.7L17 5.5V9"></path>
-              <path d="M5.3 10.4C5.3 7.9 7.9 6 12 6s6.7 1.9 6.7 4.4c0 2-1.1 3.8-2.9 4.9V18a1 1 0 0 1-1.6.8L12 17.2l-2.2 1.6a1 1 0 0 1-1.6-.8v-2.7c-1.8-1.1-2.9-2.9-2.9-4.9z"></path>
-              <circle cx="9.4" cy="11.8" r="0.7" fill="currentColor" stroke="none"></circle>
-              <circle cx="14.6" cy="11.8" r="0.7" fill="currentColor" stroke="none"></circle>
-              <path d="M10.1 14.3c1.1.8 2.7.8 3.8 0"></path>
-            </svg>
-          </p>
-        </footer>
+      <div class="history-actions">
+        <button class="action-button action-button--ghost" id="directRefreshButton" type="button">Actualiser maintenant</button>
       </div>
     </main>
+
+    <footer class="site-footer">
+      <p class="site-footer__signature">· le chat noir — état du direct</p>
+      <a class="ghost-link" href="index.html">revenir à l'accueil</a>
+    </footer>
   </body>
 </html>
