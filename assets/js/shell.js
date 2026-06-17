@@ -16,7 +16,13 @@ import { renderAbout } from "./renderers/render-about.js";
 const NEWS_PAGE_SIZE = 6;
 let newsModulePromise = null;
 function loadNewsModule() {
-  if (!newsModulePromise) newsModulePromise = import("./renderers/render-news.js");
+  if (!newsModulePromise) {
+    // Ne pas mémoriser un échec : un blip réseau ne doit pas figer la rubrique.
+    newsModulePromise = import("./renderers/render-news.js").catch((error) => {
+      newsModulePromise = null;
+      throw error;
+    });
+  }
   return newsModulePromise;
 }
 
@@ -85,8 +91,18 @@ function parseHash() {
 }
 
 async function renderNewsRoute() {
-  refs.pageView.innerHTML = '<p class="status-line">chargement des actualités…</p>';
-  const news = await loadNewsModule();
+  refs.pageView.innerHTML = '<p class="status-line is-loading-anim">chargement des actualités</p>';
+  let news;
+  try {
+    news = await loadNewsModule();
+  } catch {
+    if (state.route !== "actualites") return;
+    refs.pageView.innerHTML =
+      '<h2 class="page-title">Actualités</h2>' +
+      '<p class="status-line is-error">Impossible de charger les actualités pour le moment.</p>' +
+      '<p style="margin-top:14px;"><button class="action-button action-button--ghost" type="button" data-news-retry>Réessayer</button></p>';
+    return;
+  }
   if (state.route !== "actualites") return;
 
   const item = news.findNewsBySlug(state.focusedNewsSlug);
@@ -380,6 +396,11 @@ refs.pageView.addEventListener("click", (event) => {
   if (dayButton) {
     state.selectedScheduleDay = dayButton.dataset.day;
     renderRoute();
+    return;
+  }
+
+  if (event.target.closest("[data-news-retry]")) {
+    renderNewsRoute();
     return;
   }
 
