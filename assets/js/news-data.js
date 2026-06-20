@@ -1,6 +1,23 @@
 // Généré depuis content/news par scripts/build-news.mjs — ne pas éditer à la main.
 export const NEWS_ITEMS = [
   {
+    "id": "l-app-s-installe-sur-ton-bureau",
+    "slug": "l-app-s-installe-sur-ton-bureau",
+    "title": "Le Chat Noir s'installe sur ton bureau",
+    "publishedOn": "2026-06-20",
+    "publishedAt": "2026-06-20T12:01:00.000Z",
+    "order": 1,
+    "sortKey": "2026-06-20-001",
+    "dateLabel": "20 juin 2026",
+    "lead": "Le Chat Noir a désormais une app. Une vraie, native : le direct, la grille, les voix et les actualités, posés directement sur ton bureau — sans onglet à garder ouvert.",
+    "leadHtml": "Le Chat Noir a désormais une app. Une vraie, native : le direct, la grille, les voix et les actualités, posés directement sur ton bureau — sans onglet à garder ouvert.",
+    "leadHtmlForFeed": "Le Chat Noir a désormais une app. Une vraie, native : le direct, la grille, les voix et les actualités, posés directement sur ton bureau — sans onglet à garder ouvert.",
+    "body": "Elle est disponible dès maintenant sur macOS (Mac Apple Silicon, macOS 14 Sonoma ou plus récent). C'est une app indépendante et non signée par Apple : au premier lancement, un clic droit → Ouvrir suffit à la lancer. Tout est détaillé dans la rubrique « l'app ».\n\nEt ce n'est qu'un début : une version Linux est en chantier — pour Ubuntu et Linux Mint, en Flatpak et en AppImage. Elle arrivera bientôt ; on prend le temps de bien faire. En attendant, l'app Mac est là, et la radio continue d'émettre — ici, comme sur ton bureau.",
+    "bodyHtml": "Elle est disponible dès maintenant sur macOS (Mac Apple Silicon, macOS 14 Sonoma ou plus récent). C&#39;est une app indépendante et non signée par Apple : au premier lancement, un clic droit → Ouvrir suffit à la lancer. Tout est détaillé dans la rubrique « l&#39;app ».<br /><br />Et ce n&#39;est qu&#39;un début : une version Linux est en chantier — pour Ubuntu et Linux Mint, en Flatpak et en AppImage. Elle arrivera bientôt ; on prend le temps de bien faire. En attendant, l&#39;app Mac est là, et la radio continue d&#39;émettre — ici, comme sur ton bureau.",
+    "bodyHtmlForFeed": "Elle est disponible dès maintenant sur macOS (Mac Apple Silicon, macOS 14 Sonoma ou plus récent). C&#39;est une app indépendante et non signée par Apple : au premier lancement, un clic droit → Ouvrir suffit à la lancer. Tout est détaillé dans la rubrique « l&#39;app ».<br /><br />Et ce n&#39;est qu&#39;un début : une version Linux est en chantier — pour Ubuntu et Linux Mint, en Flatpak et en AppImage. Elle arrivera bientôt ; on prend le temps de bien faire. En attendant, l&#39;app Mac est là, et la radio continue d&#39;émettre — ici, comme sur ton bureau.",
+    "url": "https://lechatnoirradio.fr/#actualites/l-app-s-installe-sur-ton-bureau"
+  },
+  {
     "id": "le-chat-noir-fait-peau-neuve",
     "slug": "le-chat-noir-fait-peau-neuve",
     "title": "Le Chat Noir fait peau neuve",

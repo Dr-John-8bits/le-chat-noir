@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readdirSync } from "node:fs";
 import {
   slugify,
   parseFrontMatter,
@@ -9,6 +10,7 @@ import {
   renderRss,
   readNewsEntries,
   buildNewsUrl,
+  CONTENT_DIR,
 } from "../../scripts/lib/news-content.mjs";
 
 test("slugify : accents, apostrophes, esperluettes", () => {
@@ -82,9 +84,11 @@ test("renderRss : XML bien formé, dates RFC 822, items présents", () => {
   assert.ok(rss.includes('guid isPermaLink="true"'));
 });
 
-test("readNewsEntries : lit les 24 billets réels, tri anti-chronologique", () => {
+test("readNewsEntries : lit tous les billets sources, tri anti-chronologique", () => {
   const items = readNewsEntries();
-  assert.equal(items.length, 24);
+  const sourceCount = readdirSync(CONTENT_DIR).filter((f) => /^\d{4}-\d{2}-\d{2}-.+\.md$/.test(f)).length;
+  assert.equal(items.length, sourceCount);
+  assert.ok(items.length > 0);
   for (let i = 1; i < items.length; i += 1) {
     assert.ok(items[i - 1].sortKey >= items[i].sortKey);
   }

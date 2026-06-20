@@ -5,8 +5,15 @@
     <link>https://lechatnoirradio.fr/#actualites</link>
     <description>Actualités éditoriales de la radio Le Chat Noir.</description>
     <language>fr-fr</language>
-    <lastBuildDate>Wed, 17 Jun 2026 16:01:20 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2026 09:55:07 GMT</lastBuildDate>
     <atom:link href="https://lechatnoirradio.fr/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Le Chat Noir s&#39;installe sur ton bureau</title>
+      <link>https://lechatnoirradio.fr/#actualites/l-app-s-installe-sur-ton-bureau</link>
+      <guid isPermaLink="true">https://lechatnoirradio.fr/#actualites/l-app-s-installe-sur-ton-bureau</guid>
+      <pubDate>Sat, 20 Jun 2026 12:01:00 GMT</pubDate>
+      <description><![CDATA[Le Chat Noir a désormais une app. Une vraie, native : le direct, la grille, les voix et les actualités, posés directement sur ton bureau — sans onglet à garder ouvert.<br /><br />Elle est disponible dès maintenant sur macOS (Mac Apple Silicon, macOS 14 Sonoma ou plus récent). C&#39;est une app indépendante et non signée par Apple : au premier lancement, un clic droit → Ouvrir suffit à la lancer. Tout est détaillé dans la rubrique « l&#39;app ».<br /><br />Et ce n&#39;est qu&#39;un début : une version Linux est en chantier — pour Ubuntu et Linux Mint, en Flatpak et en AppImage. Elle arrivera bientôt ; on prend le temps de bien faire. En attendant, l&#39;app Mac est là, et la radio continue d&#39;émettre — ici, comme sur ton bureau.]]></description>
+    </item>
     <item>
       <title>Le Chat Noir fait peau neuve</title>
       <link>https://lechatnoirradio.fr/#actualites/le-chat-noir-fait-peau-neuve</link>

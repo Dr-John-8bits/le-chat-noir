@@ -1,5 +1,12 @@
 # Maintenance du site — Le Chat Noir
 
+## Publier une version de l'app (macOS / Linux)
+
+À chaque nouvelle release de l'app : publier le `.dmg` en GitHub Release (tag `vAA.MM.JJ`,
+asset nommé **exactement `LeChatNoir.dmg`**), puis mettre à jour `assets/data/app-version.json`
+(version, build, notes) — c'est ce fichier que l'app lit pour proposer une mise à jour.
+**Process complet dans la doc de pilotage : `LCN-RELEASE-APP.md`.**
+
 ## Ajouter une actualité
 
 Deux chemins, au choix :

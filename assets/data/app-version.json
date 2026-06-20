@@ -1,0 +1,8 @@
+{
+  "macos": {
+    "version": "26.06.20",
+    "build": 8,
+    "url": "https://github.com/Dr-John-8bits/le-chat-noir/releases/latest/download/LeChatNoir.dmg",
+    "notes": "Première version publique de l'app macOS."
+  }
+}

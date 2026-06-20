@@ -10,6 +10,7 @@ import { renderHome, renderTodaySlots, renderRecentTracks } from "./renderers/re
 import { renderSchedule } from "./renderers/render-schedule.js";
 import { renderVoices } from "./renderers/render-voices.js";
 import { renderAbout } from "./renderers/render-about.js";
+import { renderApp, loadAppVersion } from "./renderers/render-app.js";
 
 // Le module actualités (et ses données générées, ~50 Ko) ne se charge
 // qu'à l'ouverture de la rubrique — jamais sur la home.
@@ -26,7 +27,7 @@ function loadNewsModule() {
   return newsModulePromise;
 }
 
-const ROUTES = ["accueil", "actualites", "grille", "voix", "apropos"];
+const ROUTES = ["accueil", "actualites", "grille", "voix", "apropos", "app"];
 
 const ICONS = {
   play: '<path d="M8 5.5c0-.86.93-1.41 1.68-.98l8.98 5.18a1.14 1.14 0 0 1 0 1.98l-8.98 5.18A1.13 1.13 0 0 1 8 15.88z"></path>',
@@ -366,6 +367,7 @@ function renderRoute() {
     grille: "Grille des programmes — Le Chat Noir",
     voix: "Voix et formats — Le Chat Noir",
     apropos: "À propos — Le Chat Noir",
+    app: "L'app Le Chat Noir — Mac & Linux",
   };
   document.title = titles[state.route] || titles.accueil;
 
@@ -382,6 +384,10 @@ function renderRoute() {
       break;
     case "apropos":
       refs.pageView.innerHTML = renderAbout();
+      break;
+    case "app":
+      refs.pageView.innerHTML = renderApp();
+      loadAppVersion();
       break;
     default:
       refs.pageView.innerHTML = renderHome();

@@ -311,10 +311,181 @@
   cursor: wait;
 }
 
+.action-button--accent {
+  background: var(--accent-fill);
+  border-color: var(--accent-fill);
+  color: var(--accent-contrast);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-button--accent:hover {
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
+  color: var(--accent-contrast);
+}
+
 .action-button--ghost {
   background: transparent;
   color: var(--ink-soft);
   border-color: var(--line-strong);
+}
+
+/* ---- Page « L'app » ---- */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.platform-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: 22px 22px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.platform-card--soon {
+  background: transparent;
+  border-style: dashed;
+}
+
+.app-icon {
+  width: 84px;
+  height: 84px;
+  margin-bottom: 16px;
+}
+
+.app-icon__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 22%;
+  border: 1px solid var(--line);
+  display: block;
+}
+
+.app-icon--soon {
+  opacity: 0.5;
+}
+
+.platform-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.platform-card__name {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 20px;
+  font-weight: 650;
+  margin: 0;
+}
+
+.plat-glyph {
+  width: 20px;
+  height: 20px;
+  color: var(--ink);
+  flex: 0 0 auto;
+}
+
+.soon-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--accent-ink);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 4px 11px;
+  white-space: nowrap;
+}
+
+.avail-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--accent-ink);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 4px 11px;
+  white-space: nowrap;
+}
+
+.avail-pill__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: 0 0 auto;
+}
+
+.spec-list {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.spec-list li {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  padding-left: 16px;
+  position: relative;
+}
+
+.spec-list li::before {
+  content: "·";
+  position: absolute;
+  left: 4px;
+  color: var(--accent-ink);
+}
+
+.platform-card .action-button {
+  align-self: flex-start;
+  margin: 4px 0 0;
+}
+
+.install-note {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.install-note strong {
+  color: var(--ink);
+}
+
+.formats {
+  margin-top: 8px;
+}
+
+.format-row {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 0 0 6px;
+}
+
+.format-row strong {
+  color: var(--ink);
 }
 
 .action-button--ghost:hover {
