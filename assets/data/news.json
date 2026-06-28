@@ -1,6 +1,23 @@
 {
-  "generatedAt": "2026-06-20T09:55:07.285Z",
+  "generatedAt": "2026-06-28T13:03:42.967Z",
   "items": [
+    {
+      "id": "miaou-session-01-le-laboratoire-sort-du-studio",
+      "slug": "miaou-session-01-le-laboratoire-sort-du-studio",
+      "title": "MIAOU SESSION #01 — le laboratoire sort du studio",
+      "publishedOn": "2026-06-28",
+      "publishedAt": "2026-06-28T12:01:00.000Z",
+      "order": 1,
+      "sortKey": "2026-06-28-001",
+      "dateLabel": "28 juin 2026",
+      "lead": "Le 5 décembre, Le Chat Noir quitte exceptionnellement son studio pour installer son antenne au Bidule, à Lille : une soirée d'expériences électroniques à vivre sur place, et à suivre en direct sur les ondes du Chat Noir pour qui ne pourra pas s'y rendre.",
+      "leadHtml": "Le 5 décembre, Le Chat Noir quitte exceptionnellement son studio pour installer son antenne au Bidule, à Lille : une soirée d&#39;expériences électroniques à vivre sur place, et à suivre en direct sur les ondes du Chat Noir pour qui ne pourra pas s&#39;y rendre.",
+      "leadHtmlForFeed": "Le 5 décembre, Le Chat Noir quitte exceptionnellement son studio pour installer son antenne au Bidule, à Lille : une soirée d&#39;expériences électroniques à vivre sur place, et à suivre en direct sur les ondes du Chat Noir pour qui ne pourra pas s&#39;y rendre.",
+      "body": "MIAOU SESSION #01 est un laboratoire public de musiques électroniques. Ce n'est pas un concert : les œuvres ne sont pas figées, les protocoles restent ouverts, et l'erreur y est traitée comme une donnée de l'expérience plutôt que comme un incident. Le temps d'une soirée, les machines dialoguent, les musiciens tentent — sous vos yeux — des manipulations dont nul ne saurait garantir l'issue. On branche d'abord, on comprend ensuite.\n\nTout sera retransmis en direct sur les ondes du Chat Noir : le laboratoire s'écoute sur place comme à distance. Le Bidule — bar de concerts, de jams et de scènes ouvertes, au 19 rue Henri Kolb à Lille — recevra les machines et le public ; la radio en transmettra le signal pour les oreilles lointaines.\n\nRendez-vous le samedi 5 décembre 2026. Accueil dès 19 h 30, premières observations à 20 h, fin de la transmission vers 22 h. Participation à prix libre. La programmation des artistes invités sera dévoilée prochainement.",
+      "bodyHtml": "MIAOU SESSION #01 est un laboratoire public de musiques électroniques. Ce n&#39;est pas un concert : les œuvres ne sont pas figées, les protocoles restent ouverts, et l&#39;erreur y est traitée comme une donnée de l&#39;expérience plutôt que comme un incident. Le temps d&#39;une soirée, les machines dialoguent, les musiciens tentent — sous vos yeux — des manipulations dont nul ne saurait garantir l&#39;issue. On branche d&#39;abord, on comprend ensuite.<br /><br />Tout sera retransmis en direct sur les ondes du Chat Noir : le laboratoire s&#39;écoute sur place comme à distance. Le Bidule — bar de concerts, de jams et de scènes ouvertes, au 19 rue Henri Kolb à Lille — recevra les machines et le public ; la radio en transmettra le signal pour les oreilles lointaines.<br /><br />Rendez-vous le samedi 5 décembre 2026. Accueil dès 19 h 30, premières observations à 20 h, fin de la transmission vers 22 h. Participation à prix libre. La programmation des artistes invités sera dévoilée prochainement.",
+      "bodyHtmlForFeed": "MIAOU SESSION #01 est un laboratoire public de musiques électroniques. Ce n&#39;est pas un concert : les œuvres ne sont pas figées, les protocoles restent ouverts, et l&#39;erreur y est traitée comme une donnée de l&#39;expérience plutôt que comme un incident. Le temps d&#39;une soirée, les machines dialoguent, les musiciens tentent — sous vos yeux — des manipulations dont nul ne saurait garantir l&#39;issue. On branche d&#39;abord, on comprend ensuite.<br /><br />Tout sera retransmis en direct sur les ondes du Chat Noir : le laboratoire s&#39;écoute sur place comme à distance. Le Bidule — bar de concerts, de jams et de scènes ouvertes, au 19 rue Henri Kolb à Lille — recevra les machines et le public ; la radio en transmettra le signal pour les oreilles lointaines.<br /><br />Rendez-vous le samedi 5 décembre 2026. Accueil dès 19 h 30, premières observations à 20 h, fin de la transmission vers 22 h. Participation à prix libre. La programmation des artistes invités sera dévoilée prochainement.",
+      "url": "https://lechatnoirradio.fr/#actualites/miaou-session-01-le-laboratoire-sort-du-studio"
+    },
     {
       "id": "l-app-s-installe-sur-ton-bureau",
       "slug": "l-app-s-installe-sur-ton-bureau",
