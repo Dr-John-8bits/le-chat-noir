@@ -48,6 +48,7 @@ const MENTIONS = [
   ["Open source.", "L’intégralité de la webradio repose sur des outils open source comme Ubuntu, Icecast et Liquidsoap, et nous encourageons chaleureusement le soutien à cette communauté qui rend cette aventure possible."],
   ["Crédit photo.", "La photo utilisée pour le logo du Chat Noir a été prise par Yirmi June."],
   ["Responsabilité.", "L’éditeur ne saurait être tenu responsable d’une interruption temporaire du flux, ni de tout dommage indirect lié à l’usage du site ou à la diffusion en ligne."],
+  ["Publication du site.", "Conception et rédaction humaines. Éditorialisation et publication assistées par IA."],
 ];
 
 export function renderAbout() {
