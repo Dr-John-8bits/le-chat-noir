@@ -1,6 +1,40 @@
 {
-  "generatedAt": "2026-06-28T13:03:42.967Z",
+  "generatedAt": "2026-09-27T16:36:16.953Z",
   "items": [
+    {
+      "id": "le-chat-noir-ouvre-une-chatiere-sur-mastodon",
+      "slug": "le-chat-noir-ouvre-une-chatiere-sur-mastodon",
+      "title": "Le Chat Noir ouvre une chatière sur Mastodon",
+      "publishedOn": "2026-09-27",
+      "publishedAt": "2026-09-27T12:02:00.000Z",
+      "order": 2,
+      "sortKey": "2026-09-27-002",
+      "dateLabel": "27 septembre 2026",
+      "lead": "La station a désormais son compte sur Mastodon : @lechatnoirradio@mastodon.social.",
+      "leadHtml": "La station a désormais son compte sur Mastodon : <a href=\"https://mastodon.social/@lechatnoirradio\" target=\"_blank\" rel=\"noopener noreferrer\">@lechatnoirradio@mastodon.social</a>.",
+      "leadHtmlForFeed": "La station a désormais son compte sur Mastodon : <a href=\"https://mastodon.social/@lechatnoirradio\">@lechatnoirradio@mastodon.social</a>.",
+      "body": "Mastodon est un réseau social libre et décentralisé, sans publicité, où aucun algorithme ne décide de ce que l’on voit. Un voisinage naturel pour une radio artisanale et autogérée, qui diffuse des musiques libres. On peut s’y abonner depuis n’importe quel serveur Mastodon.\n\nLe site et le compte se reconnaissent l’un l’autre : sur le profil, l’adresse lechatnoirradio.fr s’affiche avec une coche verte. C’est bien nous.",
+      "bodyHtml": "Mastodon est un réseau social libre et décentralisé, sans publicité, où aucun algorithme ne décide de ce que l’on voit. Un voisinage naturel pour une radio artisanale et autogérée, qui diffuse des musiques libres. On peut s’y abonner depuis n’importe quel serveur Mastodon.<br /><br />Le site et le compte se reconnaissent l’un l’autre : sur le profil, l’adresse lechatnoirradio.fr s’affiche avec une coche verte. C’est bien nous.",
+      "bodyHtmlForFeed": "Mastodon est un réseau social libre et décentralisé, sans publicité, où aucun algorithme ne décide de ce que l’on voit. Un voisinage naturel pour une radio artisanale et autogérée, qui diffuse des musiques libres. On peut s’y abonner depuis n’importe quel serveur Mastodon.<br /><br />Le site et le compte se reconnaissent l’un l’autre : sur le profil, l’adresse lechatnoirradio.fr s’affiche avec une coche verte. C’est bien nous.",
+      "url": "https://lechatnoirradio.fr/#actualites/le-chat-noir-ouvre-une-chatiere-sur-mastodon"
+    },
+    {
+      "id": "la-nuit-change-de-voix",
+      "slug": "la-nuit-change-de-voix",
+      "title": "La nuit change de voix",
+      "publishedOn": "2026-09-27",
+      "publishedAt": "2026-09-27T12:01:00.000Z",
+      "order": 1,
+      "sortKey": "2026-09-27-001",
+      "dateLabel": "27 septembre 2026",
+      "lead": "🌜️ Nouvelle mise à jour au Chat Noir. Cette nuit, l’antenne change légèrement de voix.",
+      "leadHtml": "🌜️ Nouvelle mise à jour au Chat Noir. Cette nuit, l’antenne change légèrement de voix.",
+      "leadHtmlForFeed": "🌜️ Nouvelle mise à jour au Chat Noir. Cette nuit, l’antenne change légèrement de voix.",
+      "body": "Les jingles et les réclames habituels quittent la programmation nocturne. À leur place, de nouveaux jingles de nuit, plus doux, plus discrets, viendront ponctuer les longues heures de diffusion.\n\nIci Le Chat Noir.\n\nLa nuit commence.\n\nBonne écoute, et bonne nuit. 🐈‍⬛",
+      "bodyHtml": "Les jingles et les réclames habituels quittent la programmation nocturne. À leur place, de nouveaux jingles de nuit, plus doux, plus discrets, viendront ponctuer les longues heures de diffusion.<br /><br />Ici Le Chat Noir.<br /><br />La nuit commence.<br /><br />Bonne écoute, et bonne nuit. 🐈‍⬛",
+      "bodyHtmlForFeed": "Les jingles et les réclames habituels quittent la programmation nocturne. À leur place, de nouveaux jingles de nuit, plus doux, plus discrets, viendront ponctuer les longues heures de diffusion.<br /><br />Ici Le Chat Noir.<br /><br />La nuit commence.<br /><br />Bonne écoute, et bonne nuit. 🐈‍⬛",
+      "url": "https://lechatnoirradio.fr/#actualites/la-nuit-change-de-voix"
+    },
     {
       "id": "miaou-session-01-le-laboratoire-sort-du-studio",
       "slug": "miaou-session-01-le-laboratoire-sort-du-studio",
