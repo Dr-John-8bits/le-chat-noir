@@ -110,7 +110,7 @@ export function renderAbout() {
       </div>
       <p style="font-size:14.5px;color:var(--ink-soft);max-width:62ch;margin:0 0 6px;">Si tu demandes le retrait d’un morceau, la suppression est faite dès réception du message.</p>
       <p style="font-size:14.5px;color:var(--ink-soft);max-width:62ch;margin:0 0 6px;">Aucune donnée personnelle n’est conservée au-delà du traitement de ta demande.</p>
-      <p style="font-size:14.5px;color:var(--ink-soft);max-width:62ch;margin:0 0 18px;">On n’est pas très actif·ves sur les produits de META, mais on tient un <a class="ghost-link" href="https://www.instagram.com/lechatnoirradio/" target="_blank" rel="noopener noreferrer">compte Instagram vaguement à jour ↗</a>.</p>
+      <p style="font-size:14.5px;color:var(--ink-soft);max-width:62ch;margin:0 0 18px;">On n’est pas très actif·ves sur les réseaux sociaux, mais on tient un <a class="ghost-link" href="https://mastodon.social/@lechatnoirradio" target="_blank" rel="me noopener noreferrer">compte Mastodon vaguement à jour ↗</a>.</p>
       <div class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">${contribCards}</div>
     </section>
 
