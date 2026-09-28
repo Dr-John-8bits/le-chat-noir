@@ -5,8 +5,15 @@
     <link>https://lechatnoirradio.fr/#actualites</link>
     <description>Actualités éditoriales de la radio Le Chat Noir.</description>
     <language>fr-fr</language>
-    <lastBuildDate>Sun, 27 Sep 2026 16:36:16 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 28 Sep 2026 05:22:31 GMT</lastBuildDate>
     <atom:link href="https://lechatnoirradio.fr/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MIAOU SESSION #01 : la programmation est dévoilée</title>
+      <link>https://lechatnoirradio.fr/#actualites/miaou-session-01-la-programmation-est-devoilee</link>
+      <guid isPermaLink="true">https://lechatnoirradio.fr/#actualites/miaou-session-01-la-programmation-est-devoilee</guid>
+      <pubDate>Mon, 28 Sep 2026 12:01:00 GMT</pubDate>
+      <description><![CDATA[La programmation de MIAOU SESSION #01 est prête. Le samedi 5 décembre, cinq projets rejoindront le laboratoire.<br /><br />OBSOLETE LIFEFORM : human-generated electro. <a href="https://www.obsolete-lifeform.fr/">obsolete-lifeform.fr</a><br /><br />GAUFFRE : style à définir.<br /><br />MAC HERTZ : électro, IDM, tech. <a href="https://machertz.bandcamp.com/">machertz.bandcamp.com</a><br /><br />KNOBBER : improvisations modulaires. <a href="https://knobber.bandcamp.com/">knobber.bandcamp.com</a><br /><br />SIRCUMFLEX : recherche sonore modulaire. <a href="https://circumflex.bandcamp.com/">circumflex.bandcamp.com</a><br /><br />KNOBBER et SIRCUMFLEX forment aussi le duo <a href="https://knbmusic1.bandcamp.com/">KNÔB</a>.<br /><br />Tout le monde est invité à venir au Bidule, 19 rue Henri Kolb à Lille, pour assister à ce laboratoire radiophonique expérimental hors les murs. Accueil dès 19 h 30, premières observations à 20 h, fin de la transmission vers 22 h. Participation à prix libre.<br /><br />Et bien sûr, la soirée sera retransmise en direct sur les ondes du Chat Noir pour les personnes à distance.]]></description>
+    </item>
     <item>
       <title>Le Chat Noir ouvre une chatière sur Mastodon</title>
       <link>https://lechatnoirradio.fr/#actualites/le-chat-noir-ouvre-une-chatiere-sur-mastodon</link>
