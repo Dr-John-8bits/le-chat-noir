@@ -42,7 +42,7 @@ test("configuration requise macOS + notice Gatekeeper présentes", async ({ page
   await expect(macCard).toContainText("clic droit sur l'app");
 });
 
-test("carte Linux : à venir, compatibilité et formats annoncés, sans lien Flathub", async ({ page }) => {
+test("carte Linux : à venir, compatibilité et AppImage annoncés, sans Flatpak ni Flathub", async ({ page }) => {
   await mockRadio(page);
   await page.goto("/#app");
   const linux = page.locator(".platform-card--soon");
@@ -50,10 +50,10 @@ test("carte Linux : à venir, compatibilité et formats annoncés, sans lien Fla
   await expect(linux).toContainText("Ubuntu 24.04 LTS");
   await expect(linux).toContainText("Linux Mint 21 / 22");
   await expect(linux).toContainText("x86_64");
-  await expect(linux).toContainText("Flatpak");
+  await expect(linux).not.toContainText(/Flatpak|Flathub/);
   await expect(linux).toContainText("AppImage");
   await expect(linux).toContainText("fr.lechatnoirradio.Player");
-  // pas de lien Flathub tant que la page n'est pas en ligne
+  // distribution en AppImage uniquement : aucun lien Flathub
   await expect(linux.locator('a[href*="flathub"]')).toHaveCount(0);
   // pas de date annoncée
   await expect(linux).not.toContainText(/\b20\d{2}\b/);

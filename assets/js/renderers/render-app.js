@@ -22,7 +22,6 @@ const LINUX_SPECS = [
 ];
 
 const LINUX_FORMATS = [
-  ["Flatpak", "via Flathub — canal principal, mises à jour automatiques"],
   ["AppImage", "téléchargement direct, sans installation"],
 ];
 
