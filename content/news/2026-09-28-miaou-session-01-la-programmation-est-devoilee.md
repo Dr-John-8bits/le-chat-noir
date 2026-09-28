@@ -16,8 +16,6 @@ KNOBBER : improvisations modulaires. [knobber.bandcamp.com](https://knobber.band
 
 SIRCUMFLEX : recherche sonore modulaire. [circumflex.bandcamp.com](https://circumflex.bandcamp.com/)
 
-KNOBBER et SIRCUMFLEX forment aussi le duo [KNÔB](https://knbmusic1.bandcamp.com/).
-
 Tout le monde est invité à venir au Bidule, 19 rue Henri Kolb à Lille, pour assister à ce laboratoire radiophonique expérimental hors les murs. Accueil dès 19 h 30, premières observations à 20 h, fin de la transmission vers 22 h. Participation à prix libre.
 
 Et bien sûr, la soirée sera retransmise en direct sur les ondes du Chat Noir pour les personnes à distance.
