@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T06:40:55.341Z",
+  "generatedAt": "2026-09-28T17:42:32.609Z",
   "items": [
     {
       "id": "miaou-session-01-la-programmation-est-devoilee",
@@ -30,9 +30,9 @@
       "lead": "La station a désormais son compte sur Mastodon : @lechatnoirradio@mastodon.social.",
       "leadHtml": "La station a désormais son compte sur Mastodon : <a href=\"https://mastodon.social/@lechatnoirradio\" target=\"_blank\" rel=\"noopener noreferrer\">@lechatnoirradio@mastodon.social</a>.",
       "leadHtmlForFeed": "La station a désormais son compte sur Mastodon : <a href=\"https://mastodon.social/@lechatnoirradio\">@lechatnoirradio@mastodon.social</a>.",
-      "body": "Mastodon est un réseau social libre et décentralisé, sans publicité, où aucun algorithme ne décide de ce que l’on voit. Un voisinage naturel pour une radio artisanale et autogérée, qui diffuse des musiques libres. On peut s’y abonner depuis n’importe quel serveur Mastodon.\n\nLe site et le compte se reconnaissent l’un l’autre : sur le profil, l’adresse lechatnoirradio.fr s’affiche avec une coche verte. C’est bien nous.",
-      "bodyHtml": "Mastodon est un réseau social libre et décentralisé, sans publicité, où aucun algorithme ne décide de ce que l’on voit. Un voisinage naturel pour une radio artisanale et autogérée, qui diffuse des musiques libres. On peut s’y abonner depuis n’importe quel serveur Mastodon.<br /><br />Le site et le compte se reconnaissent l’un l’autre : sur le profil, l’adresse lechatnoirradio.fr s’affiche avec une coche verte. C’est bien nous.",
-      "bodyHtmlForFeed": "Mastodon est un réseau social libre et décentralisé, sans publicité, où aucun algorithme ne décide de ce que l’on voit. Un voisinage naturel pour une radio artisanale et autogérée, qui diffuse des musiques libres. On peut s’y abonner depuis n’importe quel serveur Mastodon.<br /><br />Le site et le compte se reconnaissent l’un l’autre : sur le profil, l’adresse lechatnoirradio.fr s’affiche avec une coche verte. C’est bien nous.",
+      "body": "Mastodon est un réseau social libre et décentralisé, sans publicité, où aucun algorithme ne décide de ce que l’on voit. Un voisinage naturel pour une radio artisanale et autogérée, qui diffuse des musiques libres. On peut s’y abonner depuis n’importe quel serveur Mastodon.",
+      "bodyHtml": "Mastodon est un réseau social libre et décentralisé, sans publicité, où aucun algorithme ne décide de ce que l’on voit. Un voisinage naturel pour une radio artisanale et autogérée, qui diffuse des musiques libres. On peut s’y abonner depuis n’importe quel serveur Mastodon.",
+      "bodyHtmlForFeed": "Mastodon est un réseau social libre et décentralisé, sans publicité, où aucun algorithme ne décide de ce que l’on voit. Un voisinage naturel pour une radio artisanale et autogérée, qui diffuse des musiques libres. On peut s’y abonner depuis n’importe quel serveur Mastodon.",
       "url": "https://lechatnoirradio.fr/#actualites/le-chat-noir-ouvre-une-chatiere-sur-mastodon"
     },
     {
