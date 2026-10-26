@@ -1,16 +1,57 @@
+/* Bandeau « ciel » : la photo du logo sous un voile de nuit, identique dans les deux
+   thèmes. Les tokens sont redéfinis ici : pastille, menu, liens et focus prennent
+   les couleurs de nuit sans règle dédiée. */
 .top-shell {
+  --ink: var(--sky-ink);
+  --ink-soft: var(--sky-soft);
+  --muted: var(--sky-soft);
+  --accent: var(--sky-accent);
+  --accent-ink: var(--sky-accent);
+  --accent-soft: var(--sky-soft-fill);
+  --accent-contrast: var(--sky-on);
+  --live: var(--sky-accent);
+  --direct: var(--sky-direct);
+  --line-strong: var(--sky-line);
+  /* Hauteur qui file sous le haut de l'écran une fois l'en-tête collé :
+     la ligne du logo disparaît, le lecteur et le menu restent. */
+  --shell-collapse: 66px;
+
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  background-color: var(--sky);
+  background-image: var(--sky-veil), url("../media/brand/sky-720.webp");
+  background-image: var(--sky-veil), image-set(url("../media/brand/sky-720.webp") 1x, url("../media/brand/sky-1064.webp") 2x);
+  background-size: cover;
+  background-position: center 30%;
   padding-top: var(--safe-area-top);
+}
+
+.top-shell:has(.player-row) {
+  top: calc(-1 * var(--shell-collapse));
+}
+
+.top-shell:has(.onair-pill.is-direct) {
+  --halo: var(--halo-direct);
+  --sky-fill: var(--sky-fill-direct);
+}
+
+@media (min-width: 760px) {
+  .top-shell {
+    background-image: var(--sky-veil), url("../media/brand/sky-1064.webp");
+  }
 }
 
 .top-shell__inner {
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 14px 20px 0;
+  padding: 16px 20px 0;
+}
+
+/* En-tête court des pages ouvertes à part (historique, direct, studio) : pas de lecteur. */
+.top-shell--thin .top-shell__inner {
+  padding-bottom: 14px;
 }
 
 .shell-head {
@@ -33,6 +74,7 @@
   height: 40px;
   border-radius: 50%;
   flex: 0 0 auto;
+  box-shadow: 0 0 0 1px var(--sky-line);
 }
 
 .brand__name {
@@ -65,6 +107,11 @@
   padding: 4px 11px;
   white-space: nowrap;
   flex: 0 0 auto;
+}
+
+/* Sur la photo, la pastille porte son propre fond sombre pour rester lisible. */
+.top-shell .onair-pill {
+  background: var(--sky-pill);
 }
 
 .onair-pill__dot {
@@ -103,36 +150,47 @@
 .player-row {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-top: 16px;
+  gap: 22px;
+  margin-top: 22px;
 }
 
+/* Le bouton lecture est le halo de la photo ; il respire pendant l'écoute
+   (aria-pressed, déjà tenu par shell.js) et passe en braise pendant un direct. */
 .play-button {
-  width: 54px;
-  height: 54px;
+  width: 58px;
+  height: 58px;
   flex: 0 0 auto;
   border-radius: 50%;
-  background: transparent;
-  border: 1.5px solid var(--ink);
+  background: var(--sky-fill);
+  border: 0;
+  box-shadow: 0 0 0 7px var(--sky-ring), 0 0 40px 10px var(--halo);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.15s ease, transform 0.1s ease;
+  transition: box-shadow 0.3s ease, transform 0.1s ease;
 }
 
 .play-button:hover {
-  background: var(--accent-soft);
+  box-shadow: 0 0 0 9px var(--sky-ring), 0 0 52px 16px var(--halo);
 }
 
 .play-button:active {
   transform: scale(0.96);
 }
 
+.play-button[aria-pressed="true"] {
+  animation: lcn-halo 3.6s ease-in-out infinite;
+}
+
+@keyframes lcn-halo {
+  50% { box-shadow: 0 0 0 12px var(--sky-ring), 0 0 64px 22px var(--halo); }
+}
+
 .play-button svg {
-  width: 22px;
-  height: 22px;
-  fill: var(--ink);
+  width: 24px;
+  height: 24px;
+  fill: var(--sky-on);
 }
 
 .play-button.is-connecting svg {
@@ -144,10 +202,15 @@
   flex: 1;
 }
 
+.top-shell:has(.onair-pill.is-direct) .kicker--accent {
+  color: var(--direct);
+}
+
 .live-meta__show {
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.25;
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
   margin: 2px 0 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -194,6 +257,9 @@
     animation: none;
   }
   .onair-pill.is-on .onair-pill__dot {
+    animation: none;
+  }
+  .play-button[aria-pressed="true"] {
     animation: none;
   }
 }
@@ -254,19 +320,17 @@
 .main-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 22px;
-  margin-top: 16px;
-  padding: 0 0 12px;
+  gap: 2px 24px;
+  margin-top: 22px;
+  padding: 0 0 10px;
 }
 
 .main-nav a {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  letter-spacing: 0.04em;
+  font-size: 14.5px;
   text-transform: lowercase;
   text-decoration: none;
   color: var(--muted);
-  padding: 4px 0;
+  padding: 6px 0;
   border-bottom: 2px solid transparent;
 }
 
@@ -283,6 +347,23 @@
   max-width: var(--content-width);
   margin: 0 auto;
   padding: 32px 20px 48px;
+}
+
+/* La vue de l'accueil est remplie par le JS après chargement : on lui réserve un écran
+   pour que le pied de page ne saute pas (décalage de mise en page, CLS). */
+#pageView {
+  min-height: 100svh;
+}
+
+/* Le barbelé de la photo, en séparateur sous le bandeau (décor pur, sans balisage). */
+.top-shell + .site-main::before {
+  content: "";
+  display: block;
+  height: 14px;
+  margin: -16px 0 22px;
+  background: var(--line-strong);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='14'%3E%3Cpath d='M0 7.5h72M30 3l8 9M38 3l-8 9' stroke='%23000' stroke-width='1.3' fill='none'/%3E%3C/svg%3E") round 0 0 / 72px 14px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='14'%3E%3Cpath d='M0 7.5h72M30 3l8 9M38 3l-8 9' stroke='%23000' stroke-width='1.3' fill='none'/%3E%3C/svg%3E") round 0 0 / 72px 14px;
 }
 
 .site-footer {
@@ -330,17 +411,61 @@
 }
 
 @media (max-width: 560px) {
+  .top-shell {
+    --shell-collapse: 58px;
+  }
+  .top-shell__inner {
+    padding-top: 12px;
+  }
   .brand__sub {
     display: none;
   }
+  .player-row {
+    gap: 18px;
+    margin-top: 16px;
+  }
   .live-meta__show {
-    font-size: 16px;
+    font-size: 22px;
   }
   .listeners-note {
     display: none;
   }
   .play-button {
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
+    box-shadow: 0 0 0 6px var(--sky-ring), 0 0 30px 8px var(--halo);
+  }
+  /* Menu sur une seule ligne (7 rubriques) : il tient en entier dès 412 px de large ;
+     plus étroit, il défile latéralement et un fondu à droite l'indique. */
+  .main-nav {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0 7px;
+    margin: 12px -4px 0;
+    padding: 0 16px 4px 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 16px), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 16px), transparent);
+  }
+  .main-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .main-nav a {
+    font-size: 13px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .main-nav {
+    gap: 0 6px;
+    padding-right: 12px;
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 12px), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 12px), transparent);
+  }
+  .main-nav a {
+    font-size: 12.5px;
   }
 }

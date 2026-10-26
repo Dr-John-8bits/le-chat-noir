@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>État du direct — Le Chat Noir</title>
     <meta name="description" content="Show réellement diffusé, titre en cours et audience du direct de Le Chat Noir." />
-    <meta name="theme-color" content="#f4eee0" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#08122b" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#08122b" media="(prefers-color-scheme: dark)" />
     <link rel="canonical" href="https://lechatnoirradio.fr/direct.html" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -18,8 +18,8 @@
     <script type="module" src="assets/js/page-direct.js"></script>
   </head>
   <body>
-    <header class="top-shell">
-      <div class="top-shell__inner" style="padding-bottom: 14px;">
+    <header class="top-shell top-shell--thin">
+      <div class="top-shell__inner">
         <div class="shell-head">
           <a class="brand" href="index.html" aria-label="Le Chat Noir — retour à l'accueil">
             <img class="brand__logo" src="assets/media/brand/logo-320.jpg" alt="" width="40" height="40" />
@@ -34,33 +34,31 @@
     </header>
 
     <main class="site-main">
-      <p class="kicker kicker--accent" style="margin: 0 0 6px;">// état du direct</p>
+      <p class="kicker kicker--accent page-kicker">// état du direct</p>
       <h1 class="page-title">Ce qui passe à l'antenne</h1>
 
-      <section class="page-section" style="margin-top: 24px;">
-        <div class="page-section__head">
-          <h2 class="page-section__title">À l'antenne</h2>
-          <span class="onair-pill" id="directPill"><span class="onair-pill__dot" aria-hidden="true"></span><span id="directPillText">connexion…</span></span>
-        </div>
-        <p style="font-size: 22px; font-weight: 650; margin: 0 0 4px;" id="directShow">Chargement…</p>
-        <p class="status-line" id="directSince">—</p>
-      </section>
+      <div class="status-grid">
+        <section class="status-card">
+          <div class="status-card__head">
+            <h2 class="status-card__title">À l'antenne</h2>
+            <span class="onair-pill" id="directPill"><span class="onair-pill__dot" aria-hidden="true"></span><span id="directPillText">connexion…</span></span>
+          </div>
+          <p class="status-card__show" id="directShow">Chargement…</p>
+          <p class="status-line" id="directSince">—</p>
+        </section>
 
-      <section class="page-section">
-        <div class="page-section__head">
-          <h2 class="page-section__title">Titre en cours</h2>
-        </div>
-        <p style="font-size: 16px; margin: 0 0 4px;" id="directTrack">Chargement…</p>
-        <p class="status-line" id="directTrackMeta">les métadonnées du morceau apparaîtront ici</p>
-      </section>
+        <section class="status-card">
+          <h2 class="status-card__title">Titre en cours</h2>
+          <p class="status-card__value" id="directTrack">Chargement…</p>
+          <p class="status-line" id="directTrackMeta">les métadonnées du morceau apparaîtront ici</p>
+        </section>
 
-      <section class="page-section">
-        <div class="page-section__head">
-          <h2 class="page-section__title">Audience du flux web</h2>
-        </div>
-        <p style="font-size: 16px; margin: 0 0 4px;"><span class="mono" id="directListeners">—</span></p>
-        <p class="status-line" id="directListenersUpdated">—</p>
-      </section>
+        <section class="status-card">
+          <h2 class="status-card__title">Audience du flux web</h2>
+          <p class="status-card__value"><span class="mono" id="directListeners">—</span></p>
+          <p class="status-line" id="directListenersUpdated">—</p>
+        </section>
+      </div>
 
       <div class="history-actions">
         <button class="action-button action-button--ghost" id="directRefreshButton" type="button">Actualiser maintenant</button>

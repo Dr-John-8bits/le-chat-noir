@@ -1,65 +1,172 @@
 .page-section {
-  margin: 0 0 40px;
+  margin: 0 0 44px;
 }
 
 .page-section__head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 10px;
-  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-bottom: 14px;
 }
 
 .page-section__title {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
   margin: 0;
 }
 
 .page-title {
-  font-size: 26px;
-  font-weight: 650;
-  letter-spacing: -0.015em;
-  line-height: 1.2;
-  margin: 0 0 6px;
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 10px;
+  text-wrap: balance;
 }
 
 .page-lead {
   font-size: 15.5px;
   color: var(--ink-soft);
-  max-width: 56ch;
+  max-width: var(--reading-width);
   margin: 0 0 32px;
 }
 
+.section-more {
+  margin: 14px 0 0;
+}
+
+.page-kicker {
+  display: block;
+  margin: 0 0 6px;
+}
+
+/* Historique : la liste ne montre qu'une journée ; son titre (« Diffusions — aujourd'hui »)
+   tient lieu de séparateur de jour. */
+.history-head {
+  margin: 28px 0 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.history-head .page-section__title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  color: var(--accent-ink);
+}
+
+.history-head + .track-list li:first-child {
+  border-top: 0;
+}
+
+/* Page direct : l'antenne, le titre en cours et l'audience en trois cartes. */
+.status-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+@media (min-width: 760px) {
+  .status-grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.status-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.status-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+.status-card__title {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--muted);
+}
+
+.status-card__show {
+  margin: 4px 0 0;
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.status-card__value {
+  margin: 4px 0 0;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.status-card__value .mono {
+  font-size: 15px;
+}
+
+.status-card .status-line {
+  margin: 0;
+}
+
+/* Accueil : programme du jour et derniers passages côte à côte sur grand écran. */
+.home-grid {
+  display: grid;
+  gap: 0 56px;
+}
+
+@media (min-width: 900px) {
+  .home-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+
+.home-grid > .page-section {
+  min-width: 0;
+}
+
+/* Morceaux : heure, puis artiste — titre, l'album et l'année en dessous. */
 .track-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 .track-list li {
-  display: flex;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  column-gap: 14px;
   align-items: baseline;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--line);
-  min-width: 0;
-}
-
-.track-list li:last-child {
-  border-bottom: none;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
 }
 
 .track-list .track-time {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--muted);
-  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
 }
 
 .track-list li:first-child .track-time {
@@ -67,9 +174,8 @@
 }
 
 .track-list .track-main {
-  font-size: 14.5px;
+  font-size: 15px;
   min-width: 0;
-  flex: 1;
   overflow-wrap: anywhere;
 }
 
@@ -78,16 +184,15 @@
 }
 
 .track-list .track-extra {
+  grid-column: 2;
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--muted);
-  flex: 0 1 auto;
-  margin-left: auto;
-  text-align: right;
+  margin-top: 2px;
   overflow-wrap: anywhere;
-  max-width: 45%;
 }
 
+/* Créneaux : une ligne de nuit ponctuée d'étoiles ; celle du show à l'antenne brille. */
 .slot-list {
   list-style: none;
   margin: 0;
@@ -95,15 +200,33 @@
 }
 
 .slot-list li {
+  position: relative;
   display: grid;
-  grid-template-columns: 64px 1fr;
+  grid-template-columns: 60px minmax(0, 1fr);
   gap: 14px;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 11px 12px 11px 24px;
 }
 
-.slot-list li:last-child {
-  border-bottom: none;
+.slot-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line-strong);
+}
+
+.slot-list li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
 }
 
 .slot-list .slot-time {
@@ -115,28 +238,31 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .slot-list .slot-title {
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 600;
   margin: 0;
 }
 
 .slot-list .slot-desc {
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--muted);
   margin: 2px 0 0;
+  max-width: var(--reading-width);
 }
 
 .slot-list li.is-current {
   background: var(--accent-soft);
-  border-radius: var(--radius);
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: -10px;
-  margin-right: -10px;
-  border-bottom-color: transparent;
+  border-radius: var(--radius-lg);
+}
+
+.slot-list li.is-current::after {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px 3px var(--glow);
 }
 
 .slot-list li.is-current .slot-time {
@@ -148,8 +274,11 @@
 }
 
 .slot-list li.slot-sep {
-  border-bottom: none;
-  padding: 16px 0 2px;
+  padding: 16px 12px 4px 24px;
+}
+
+.slot-list li.slot-sep::after {
+  display: none;
 }
 
 .slot-list li.slot-sep .kicker {
@@ -159,14 +288,15 @@
 .slot-badge {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
   color: var(--accent-ink);
   border: 1px solid var(--accent);
-  border-radius: 3px;
-  padding: 1px 6px;
+  border-radius: 999px;
+  padding: 1px 8px;
   margin-left: 8px;
   vertical-align: 2px;
+  white-space: nowrap;
 }
 
 .slot-badge--onair {
@@ -227,13 +357,13 @@
 
 .day-tabs button {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   letter-spacing: 0.03em;
   background: transparent;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
-  color: var(--muted);
-  padding: 5px 13px;
+  color: var(--ink-soft);
+  padding: 7px 14px;
   cursor: pointer;
 }
 
@@ -246,6 +376,141 @@
   background: var(--ink);
   border-color: var(--ink);
   color: var(--surface);
+}
+
+/* Ciel de la journée (grille) : un trait par début de créneau, un astre sur l'heure. */
+.day-sky {
+  margin: 0 0 20px;
+}
+
+.day-sky__bar {
+  position: relative;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--day-sky);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.day-sky__tick {
+  position: absolute;
+  left: var(--at);
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--day-sky-tick);
+}
+
+.day-sky__now {
+  position: absolute;
+  left: var(--at);
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--sky-fill);
+  box-shadow: 0 0 0 4px var(--sky-ring), 0 0 20px 7px var(--day-sky-sun);
+}
+
+.day-sky__legend {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 7px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Pages « ciel » (maintenance, 404) : toute la page est la photo du logo sous un voile
+   de nuit, dans les deux thèmes. Comme pour le bandeau, les tokens sont redéfinis ici. */
+.sky-page {
+  --ink: var(--sky-ink);
+  --ink-soft: var(--sky-soft);
+  --muted: var(--sky-soft);
+  --accent: var(--sky-accent);
+  --accent-ink: var(--sky-accent);
+  --accent-fill: var(--sky-accent);
+  --accent-contrast: var(--sky-on);
+  --live: var(--sky-accent);
+  --direct: var(--sky-direct);
+  --surface: var(--sky);
+  --line: var(--sky-line);
+  --line-strong: var(--sky-line);
+
+  color-scheme: dark;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: max(40px, var(--safe-area-top)) 20px 40px;
+  box-sizing: border-box;
+  text-align: center;
+  color: var(--ink);
+  background-color: var(--sky);
+  background-image: var(--sky-veil-page), url("../media/brand/sky-1064.webp");
+  background-size: cover;
+  background-position: center 30%;
+}
+
+.sky-page__inner {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  max-width: 46ch;
+}
+
+.sky-page__inner > * {
+  margin: 0;
+}
+
+.sky-page__logo {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px var(--sky-ring), 0 0 60px 18px var(--halo);
+  margin-bottom: 8px;
+}
+
+.sky-page .onair-pill {
+  background: var(--sky-pill);
+}
+
+.sky-page__lead {
+  font-size: 15.5px;
+  color: var(--ink-soft);
+}
+
+.maintenance-card {
+  width: 100%;
+  max-width: 440px;
+  margin-top: 10px;
+  padding: 22px 24px;
+  box-sizing: border-box;
+  text-align: left;
+  border-radius: var(--radius-lg);
+  background: var(--sky-card);
+  border: 1px solid var(--sky-line);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  display: grid;
+  gap: 4px;
+}
+
+.maintenance-card p {
+  margin: 0;
+}
+
+.maintenance-card__show {
+  margin-top: 4px;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+.maintenance-audio {
+  width: 100%;
+  margin-top: 14px;
+  accent-color: var(--accent);
 }
 
 .placeholder-card {
@@ -284,20 +549,25 @@
   background: var(--surface-raised);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  padding: 8px 10px;
+  padding: 9px 11px;
   min-width: 150px;
 }
 
 .action-button {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.03em;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
   background: var(--ink);
   color: var(--surface);
   border: 1px solid var(--ink);
-  border-radius: var(--radius);
-  padding: 9px 18px;
+  border-radius: 999px;
+  padding: 10px 20px;
   cursor: pointer;
+}
+
+a.action-button {
+  display: inline-block;
+  text-decoration: none;
 }
 
 .action-button:hover {
@@ -502,18 +772,46 @@
   margin-top: 20px;
 }
 
+/* Actualités : la chronologie sur la même ligne d'étoiles que la grille ;
+   l'actualité la plus récente de l'année brille. */
 .news-item {
-  padding: 22px 0;
-  border-bottom: 1px solid var(--line);
+  position: relative;
+  padding: 18px 16px 20px 30px;
+  max-width: calc(var(--reading-width) + 46px);
 }
 
-.news-item:last-of-type {
-  border-bottom: none;
+.news-item::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line-strong);
+}
+
+.news-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 24px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+}
+
+.news-item:first-of-type::after {
+  background: var(--accent);
+  box-shadow: 0 0 10px 3px var(--glow);
 }
 
 .news-item__title {
-  font-size: 18px;
-  font-weight: 650;
+  font-size: 21px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
   margin: 4px 0 8px;
 }
 
@@ -536,11 +834,7 @@
 
 .news-item.is-focused {
   background: var(--accent-soft);
-  border-radius: var(--radius);
-  padding-left: 14px;
-  padding-right: 14px;
-  margin-left: -14px;
-  margin-right: -14px;
+  border-radius: var(--radius-lg);
 }
 
 .cards-grid {
@@ -558,17 +852,53 @@
   flex-direction: column;
 }
 
+/* Visuels d'émission : un léger voile de nuit en bas unifie des images très différentes.
+   Cadrage par le haut, là où les visuels portent leur titre. */
+.card__media {
+  position: relative;
+  background: var(--surface-raised);
+}
+
+.card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--media-veil);
+  pointer-events: none;
+}
+
+.card__media:has(.card__image--contain)::after {
+  display: none;
+}
+
 .card__image {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  background: var(--surface-raised);
+  object-position: center top;
 }
 
 .card__image--contain {
   object-fit: contain;
+  object-position: center;
   padding: 12px;
   box-sizing: border-box;
+}
+
+/* Voix : les personnes à gauche, les émissions à droite sur grand écran. */
+.voices-layout {
+  display: grid;
+  gap: 0 48px;
+}
+
+@media (min-width: 960px) {
+  .voices-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  }
+}
+
+.voices-layout > .page-section {
+  min-width: 0;
 }
 
 .card__body {
@@ -610,6 +940,7 @@
   border-radius: 50%;
   object-fit: cover;
   flex: 0 0 auto;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--line-strong);
 }
 
 .voice-row__name {
@@ -622,6 +953,7 @@
   font-size: 13.5px;
   color: var(--muted);
   margin: 2px 0 0;
+  max-width: var(--reading-width);
 }
 
 .chips {
@@ -642,12 +974,81 @@
   padding: 4px 12px;
 }
 
+/* À propos : la première phrase du manifeste sert d'accroche. */
+.manifesto {
+  margin-top: 16px;
+}
+
+.manifesto p {
+  font-size: 15px;
+  color: var(--ink-soft);
+  max-width: var(--reading-width);
+  margin: 0 0 14px;
+}
+
+.manifesto .manifesto__lead {
+  font-size: 21px;
+  font-weight: 300;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.about-section {
+  margin-top: 44px;
+}
+
+.about-text {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  max-width: var(--reading-width);
+  margin: 0 0 12px;
+}
+
+.about-text--tight {
+  margin-bottom: 6px;
+}
+
+.cards-grid--panels {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  margin-top: 18px;
+}
+
+.cards-grid--contact {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  margin-top: 18px;
+}
+
+.mentions p {
+  font-size: 13.5px;
+  color: var(--muted);
+  max-width: var(--reading-width);
+  margin: 0 0 10px;
+}
+
+.mentions strong {
+  color: var(--ink-soft);
+}
+
 .contrib-card {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--surface);
   padding: 18px 20px;
 }
+
+.contrib-card .card__title {
+  margin: 0 0 8px;
+}
+
+.contrib-card .kicker + .card__title {
+  margin-top: 6px;
+}
+
+.contrib-card .card__text {
+  font-size: 13.5px;
+}
+
 
 .contrib-card ul {
   margin: 10px 0 14px;
@@ -688,6 +1089,11 @@
   box-sizing: border-box;
 }
 
+/* Le studio fixe lui-même la largeur de ses champs (ex. « ordre » à 110 px). */
+.studio-grid .field input {
+  min-width: 0;
+}
+
 @media (max-width: 700px) {
   .studio-grid {
     grid-template-columns: 1fr;
@@ -695,10 +1101,50 @@
 }
 
 @media (max-width: 560px) {
-  .track-list .track-extra {
-    display: none;
+  .page-title {
+    font-size: 29px;
+  }
+  .page-section__title {
+    font-size: 21px;
+  }
+  .track-list li {
+    grid-template-columns: 46px minmax(0, 1fr);
+    column-gap: 12px;
+  }
+  /* Voix : chaque émission en ligne, visuel à gauche, texte complet à droite. */
+  .voices-layout .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .voices-layout .card {
+    flex-direction: row;
+  }
+  .voices-layout .card__media {
+    flex: 0 0 112px;
+  }
+  .voices-layout .card__image {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 112px;
+  }
+  .voices-layout .card__body {
+    padding: 12px 14px;
+  }
+  /* Les 7 jours de la grille se partagent une seule ligne. */
+  .day-tabs:has(> [data-day]) {
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+  .day-tabs:has(> [data-day]) button {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 7px 0;
+    font-size: 12px;
+    letter-spacing: 0;
   }
   .slot-list li {
-    grid-template-columns: 52px 1fr;
+    grid-template-columns: 50px minmax(0, 1fr);
+    gap: 12px;
+    padding-right: 8px;
   }
 }

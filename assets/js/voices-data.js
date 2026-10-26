@@ -45,6 +45,13 @@ export const PRODUCERS = [
     "bio": "Fait circuler chaque semaine les nouveautés blocSonic, les pépites d’archives et quelques affinités bien choisies."
   },
   {
+    "role": "Agenda",
+    "name": "Stéph",
+    "image": "assets/media/producers/lvdm.webp",
+    "bio": "Tient La Vie Des Microbes, l’agenda culturel underground et alternatif de Lille, de sa région et de tout autour.",
+    "href": "https://microb.fr/"
+  },
+  {
     "role": "Jingles",
     "name": "Les potes",
     "image": "assets/media/producers/potes.webp",
@@ -129,6 +136,15 @@ export const SHOWS = [
     "imageFit": "contain",
     "text": "Mixtapes hip-hop, downtempo et indie du label américain blocSonic.",
     "href": "https://blocsonic.com/",
+    "actionLabel": "Visiter le site"
+  },
+  {
+    "meta": "Agenda culturel",
+    "title": "La Vie Des Microbes",
+    "image": "assets/media/producers/lvdm.webp",
+    "imageFit": "contain",
+    "text": "Agenda culturel underground, alternatif, hebdomadaire, subjectif et sinéquanone sur Lille, sa région, et tout autour s’il reste un peu de temps... Du cinéma, de la littérature, des arts graphiques, des événements en tous genres... et de la musique avant toute chose !",
+    "href": "https://microb.fr/",
     "actionLabel": "Visiter le site"
   }
 ];

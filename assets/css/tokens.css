@@ -1,60 +1,96 @@
 :root {
   color-scheme: light dark;
 
-  /* Mode clair — crème lumineux & veille (palette dérivée du logo) */
-  --bg: #f4eee0;
-  --surface: #faf6ec;
-  --surface-raised: #fdfbf4;
-  --ink: #1b1813;
-  --ink-soft: #4a4336;
-  --muted: #6d644f;
-  --line: #d9cfba;
-  --line-strong: #b8ac92;
+  /* Thème « aube » (clair) — ciel pâle d'avant le jour, tiré de la photo du logo */
+  --bg: #e8eef7;
+  --surface: #f1f5fb;
+  --surface-raised: #f8fafd;
+  --ink: #0b1a36;
+  --ink-soft: #2c3e62;
+  --muted: #4f6189;
+  --line: #cfd8e6;
+  --line-strong: #9eadc5;
 
-  /* Accent principal : azur (le halo et le ciel du logo) */
-  --accent: #0c84cc;
-  --accent-ink: #0f5c8c;
-  --accent-fill: #0d5685;
-  --accent-soft: rgba(12, 132, 204, 0.1);
-  --accent-contrast: #f6efe2;
+  /* Accent principal : azur du halo */
+  --accent: #0a5f9f;
+  --accent-ink: #0a5a96;
+  --accent-fill: #0a5a96;
+  --accent-soft: rgba(10, 95, 159, 0.08);
+  --accent-contrast: #f4f7fc;
 
-  /* Accent direct : braise (les ombres chaudes du logo), réservé à l'antenne live */
+  /* Accent direct : braise, réservé à l'antenne live */
   --direct: #b5371a;
 
-  --live: #0c84cc;
-  --warn: #8a5e0c;
+  --live: #0a5f9f;
+  --warn: #875a0a;
+
+  /* Bandeau « ciel » : toujours nocturne, dans les deux thèmes */
+  --sky: #08122b;
+  /* Voile posé sur la photo : ≥ 72 % en haut, ≥ 82 % là où vit le texte du lecteur
+     (contrastes AA garantis même sur le blanc du halo, cf. PLAN-NUIT-CLAIRE § 7). */
+  --sky-veil: linear-gradient(180deg, rgba(6, 14, 34, 0.72) 0%, rgba(6, 14, 34, 0.82) 40%, rgba(6, 14, 34, 0.95) 100%);
+  --sky-ink: #f1f6ff;
+  --sky-soft: #cdd9ef;
+  --sky-accent: #9ad6ff;
+  --sky-direct: #ff9479;
+  --sky-fill: #eef8ff;
+  --sky-fill-direct: #ffe9e2;
+  --sky-on: #08122b;
+  --sky-line: rgba(241, 246, 255, 0.32);
+  --sky-pill: rgba(6, 14, 34, 0.55);
+  --sky-ring: rgba(238, 248, 255, 0.12);
+  --sky-soft-fill: rgba(154, 214, 255, 0.14);
+  /* Pages entièrement « ciel » (maintenance, 404) : voile plus dense, le texte y couvre la photo. */
+  --sky-veil-page: linear-gradient(180deg, rgba(6, 14, 34, 0.8) 0%, rgba(6, 14, 34, 0.86) 50%, rgba(6, 14, 34, 0.96) 100%);
+  --sky-card: rgba(8, 18, 43, 0.74);
+  --halo: rgba(150, 215, 255, 0.5);
+  --halo-direct: rgba(255, 122, 89, 0.5);
+
+  /* Ciel de la journée (grille) : nuit → aube → jour → crépuscule → nuit */
+  --day-sky: linear-gradient(90deg, #08122b 0%, #0f2048 22%, #4f86c4 32%, #a9d4f2 50%, #8fbbe6 66%, #3c5f9a 80%, #14214a 90%, #08122b 100%);
+  --day-sky-tick: rgba(241, 246, 255, 0.4);
+  --day-sky-sun: rgba(238, 248, 255, 0.75);
+
+  /* Voile de nuit au bas des visuels d'émission (page Voix) */
+  --media-veil: linear-gradient(180deg, transparent 55%, rgba(6, 14, 34, 0.5) 100%);
 
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
-  --content-width: 720px;
-  --radius: 6px;
-  --radius-lg: 12px;
+  /* Lueur des repères « en cours » (étoile de la grille, actualité la plus récente) */
+  --glow: rgba(10, 95, 159, 0.3);
+
+  --content-width: 1080px;
+  --reading-width: 66ch;
+  --radius: 8px;
+  --radius-lg: 14px;
   --shell-height: 132px;
   --safe-area-top: env(safe-area-inset-top, 0px);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Mode sombre — nuit chaude & halo cyan (transposition directe du logo) */
-    --bg: #14110d;
-    --surface: #1c1813;
-    --surface-raised: #241f18;
-    --ink: #ece4d2;
-    --ink-soft: #c9bfa9;
-    --muted: #938973;
-    --line: #322c22;
-    --line-strong: #4c4434;
+    /* Thème « nuit » (sombre) — le bleu de nuit de la photo du logo */
+    --bg: #08122b;
+    --surface: #0d1936;
+    --surface-raised: #13213f;
+    --ink: #e6eefc;
+    --ink-soft: #b9c7e1;
+    --muted: #8a9bbb;
+    --line: #1c2a4a;
+    --line-strong: #34466d;
 
-    --accent: #36a6df;
-    --accent-ink: #4cb4e6;
-    --accent-fill: #2f9fd8;
-    --accent-soft: rgba(54, 166, 223, 0.14);
-    --accent-contrast: #14110d;
+    --accent: #7cc8ff;
+    --accent-ink: #8fd0ff;
+    --accent-fill: #7cc8ff;
+    --accent-soft: rgba(124, 200, 255, 0.12);
+    --accent-contrast: #08122b;
 
-    --direct: #ef6a40;
+    --direct: #ff7a59;
 
-    --live: #36a6df;
-    --warn: #cfa14a;
+    --live: #7cc8ff;
+    --warn: #e0b45c;
+
+    --glow: rgba(150, 215, 255, 0.45);
   }
 }

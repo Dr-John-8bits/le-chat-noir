@@ -54,20 +54,20 @@ const MENTIONS = [
 export function renderAbout() {
   const manifesto = MANIFESTO_LINES.map(
     (line, index) =>
-      `<p style="font-size:${index === 0 ? "16.5px" : "15px"};color:${index === 0 ? "var(--ink)" : "var(--ink-soft)"};max-width:62ch;margin:0 0 14px;">${escapeHtml(line)}</p>`
+      `<p${index === 0 ? ' class="manifesto__lead"' : ""}>${escapeHtml(line)}</p>`
   ).join("");
 
   const chips = ABOUT_CHIPS.map((chip) => `<li>${escapeHtml(chip)}</li>`).join("");
 
   const contributionIntro = CONTRIBUTION_LINES.map(
-    (line) => `<p style="font-size:14.5px;color:var(--ink-soft);max-width:62ch;margin:0 0 12px;">${escapeHtml(line)}</p>`
+    (line) => `<p class="about-text">${escapeHtml(line)}</p>`
   ).join("");
 
   const panels = CONTRIBUTION_PANELS.map(
     (panel) => `
       <article class="contrib-card">
-        <h4 class="card__title" style="margin:0 0 8px;">${escapeHtml(panel.title)}</h4>
-        <div class="card__text" style="font-size:13.5px;">${panel.body}</div>
+        <h4 class="card__title">${escapeHtml(panel.title)}</h4>
+        <div class="card__text">${panel.body}</div>
       </article>
     `
   ).join("");
@@ -76,31 +76,31 @@ export function renderAbout() {
     (mode) => `
       <article class="contrib-card">
         <span class="kicker kicker--accent">${escapeHtml(mode.kicker)}</span>
-        <h4 class="card__title" style="margin:6px 0 8px;">${escapeHtml(mode.title)}</h4>
+        <h4 class="card__title">${escapeHtml(mode.title)}</h4>
         <p class="card__text">${escapeHtml(mode.text)}</p>
         <ul>${mode.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul>
-        <a class="action-button" style="display:inline-block;text-decoration:none;" href="${buildMailtoHref(mode.subject, mode.body)}">${escapeHtml(mode.cta)}</a>
+        <a class="action-button" href="${buildMailtoHref(mode.subject, mode.body)}">${escapeHtml(mode.cta)}</a>
       </article>
     `
   ).join("");
 
   const mentions = MENTIONS.map(
     ([label, text]) =>
-      `<p style="font-size:13.5px;color:var(--muted);max-width:68ch;margin:0 0 10px;"><strong style="color:var(--ink-soft);">${escapeHtml(label)}</strong> ${escapeHtml(text)}</p>`
+      `<p><strong>${escapeHtml(label)}</strong> ${escapeHtml(text)}</p>`
   ).join("");
 
   return `
     <h2 class="page-title">Un laboratoire radiophonique indépendant</h2>
-    <div style="margin-top:16px;">${manifesto}</div>
+    <div class="manifesto">${manifesto}</div>
     <ul class="chips">${chips}</ul>
 
-    <section class="page-section" style="margin-top:40px;" aria-labelledby="about-contribute">
+    <section class="page-section about-section" aria-labelledby="about-contribute">
       <div class="page-section__head">
         <h3 class="page-section__title" id="about-contribute">Proposer une création</h3>
         <span class="kicker">émission · mix · podcast · création sonore</span>
       </div>
       ${contributionIntro}
-      <div class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr));margin-top:18px;">${panels}</div>
+      <div class="cards-grid cards-grid--panels">${panels}</div>
     </section>
 
     <section class="page-section" aria-labelledby="about-write">
@@ -108,13 +108,13 @@ export function renderAbout() {
         <h3 class="page-section__title" id="about-write">Nous écrire</h3>
         <span class="kicker">${escapeHtml(CONTACT_EMAIL)}</span>
       </div>
-      <p style="font-size:14.5px;color:var(--ink-soft);max-width:62ch;margin:0 0 6px;">Si tu demandes le retrait d’un morceau, la suppression est faite dès réception du message.</p>
-      <p style="font-size:14.5px;color:var(--ink-soft);max-width:62ch;margin:0 0 6px;">Aucune donnée personnelle n’est conservée au-delà du traitement de ta demande.</p>
-      <p style="font-size:14.5px;color:var(--ink-soft);max-width:62ch;margin:0 0 18px;">On n’est pas très actif·ves sur les réseaux sociaux, mais on tient un <a class="ghost-link" href="https://mastodon.social/@lechatnoirradio" target="_blank" rel="me noopener noreferrer">compte Mastodon vaguement à jour ↗</a>.</p>
-      <div class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">${contribCards}</div>
+      <p class="about-text about-text--tight">Si tu demandes le retrait d’un morceau, la suppression est faite dès réception du message.</p>
+      <p class="about-text about-text--tight">Aucune donnée personnelle n’est conservée au-delà du traitement de ta demande.</p>
+      <p class="about-text">On n’est pas très actif·ves sur les produits de META : notre <a class="ghost-link" href="https://www.instagram.com/lechatnoirradio/" target="_blank" rel="noopener noreferrer">compte Instagram ↗</a> est de moins en moins à jour. On est plutôt sur Mastodon, <a class="ghost-link" href="https://mastodon.social/@lechatnoirradio" target="_blank" rel="me noopener noreferrer">@lechatnoirradio@mastodon.social ↗</a>, où l’on communique quand on a le temps et qu’on y pense.</p>
+      <div class="cards-grid cards-grid--contact">${contribCards}</div>
     </section>
 
-    <section class="page-section" aria-labelledby="about-mentions">
+    <section class="page-section mentions" aria-labelledby="about-mentions">
       <div class="page-section__head">
         <h3 class="page-section__title" id="about-mentions">Mentions et confidentialité</h3>
         <span class="kicker">cadre de diffusion</span>

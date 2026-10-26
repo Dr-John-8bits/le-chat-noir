@@ -5,44 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Maintenance — Le Chat Noir</title>
     <meta name="description" content="Le site du Chat Noir est momentanément en maintenance. L'antenne continue et le flux reste écoutable." />
-    <meta name="theme-color" content="#f4eee0" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#08122b" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#08122b" media="(prefers-color-scheme: dark)" />
     <meta name="robots" content="noindex" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="stylesheet" href="assets/css/tokens.css" />
     <link rel="stylesheet" href="assets/css/base.css" />
     <link rel="stylesheet" href="assets/css/shell.css" />
     <link rel="stylesheet" href="assets/css/components.css" />
-    <style>
-      .maintenance-shell {
-        min-height: 100svh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 40px 20px;
-        gap: 0;
-      }
-      .maintenance-card {
-        width: 100%;
-        max-width: 440px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        background: var(--surface);
-        padding: 26px 26px 22px;
-        margin-top: 28px;
-        text-align: left;
-      }
-      .maintenance-audio {
-        width: 100%;
-        margin-top: 18px;
-        accent-color: var(--accent);
-      }
-      .maintenance-note {
-        margin-top: 22px;
-      }
-    </style>
     <script type="module">
       import { REFRESH_MS } from "./assets/js/config.js";
       import { fetchNowPlaying, fetchCurrentShow, STATUS } from "./assets/js/radio-api.js";
@@ -64,30 +34,32 @@
     </script>
   </head>
   <body>
-    <main class="maintenance-shell">
-      <img src="assets/media/brand/logo-320.jpg" alt="" width="84" height="84" style="border-radius: 50%;" />
-      <h1 class="page-title" style="margin: 18px 0 0;">Le Chat Noir</h1>
-      <p class="kicker" style="margin: 6px 0 0;">laboratoire radiophonique indépendant</p>
+    <main class="sky-page">
+      <div class="sky-page__inner">
+        <img class="sky-page__logo" src="assets/media/brand/logo-320.jpg" alt="" width="84" height="84" />
+        <h1 class="page-title">Le Chat Noir</h1>
+        <p class="kicker">laboratoire radiophonique indépendant</p>
 
-      <span class="onair-pill is-on" style="margin-top: 22px;">
-        <span class="onair-pill__dot" aria-hidden="true"></span>
-        <span>site en maintenance — l'antenne continue</span>
-      </span>
+        <span class="onair-pill is-on">
+          <span class="onair-pill__dot" aria-hidden="true"></span>
+          <span>site en maintenance — l'antenne continue</span>
+        </span>
 
-      <p style="font-size: 15px; color: var(--ink-soft); max-width: 44ch; margin: 18px 0 0;">
-        On bricole le site quelques instants. La radio, elle, ne s'arrête pas : le direct s'écoute ci-dessous.
-      </p>
+        <p class="sky-page__lead">
+          On bricole le site quelques instants. La radio, elle, ne s'arrête pas : le direct s'écoute ci-dessous.
+        </p>
 
-      <section class="maintenance-card" aria-label="Écouter le direct">
-        <span class="kicker kicker--accent">// en ce moment</span>
-        <p style="font-size: 18px; font-weight: 650; margin: 6px 0 2px;" id="mShow">Chargement…</p>
-        <p class="status-line" id="mTrack">…</p>
-        <audio class="maintenance-audio" controls preload="none">
-          <source src="https://stream.lechatnoirradio.fr/stream.mp3" type="audio/mpeg" />
-        </audio>
-      </section>
+        <section class="maintenance-card" aria-label="Écouter le direct">
+          <span class="kicker kicker--accent">// en ce moment</span>
+          <p class="maintenance-card__show" id="mShow">Chargement…</p>
+          <p class="status-line" id="mTrack">…</p>
+          <audio class="maintenance-audio" controls preload="none">
+            <source src="https://stream.lechatnoirradio.fr/stream.mp3" type="audio/mpeg" />
+          </audio>
+        </section>
 
-      <p class="status-line maintenance-note">· le chat noir — retour imminent ·</p>
+        <p class="status-line">· le chat noir — retour imminent ·</p>
+      </div>
     </main>
   </body>
 </html>

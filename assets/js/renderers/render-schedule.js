@@ -1,6 +1,7 @@
 import { escapeHtml } from "../ui-states.js";
 import { SCHEDULE_TIMELINE_DAYS } from "../content-data.js";
-import { getCurrentDayId } from "../time.js";
+import { getCurrentDayId, getCurrentLocalMinutes } from "../time.js";
+import { buildDaySky } from "../day-sky.js";
 
 export function renderSchedule(selectedDayId, currentShow, resolveShowSlot) {
   const todayId = getCurrentDayId();
@@ -46,8 +47,26 @@ export function renderSchedule(selectedDayId, currentShow, resolveShowSlot) {
     <h2 class="page-title">La semaine en clair</h2>
     <p class="page-lead">Les nuits, les matinées, les rendez-vous fixes, les focus et les dérives qui donnent son rythme à la radio. La grille reste fluide et indicative : un direct, un décalage ou une dérive peuvent déplacer l'antenne. C'est la grille de lancement de la radio : d'autres émissions viendront bientôt l'habiter, au fil des rencontres, des essais et des formes qui s'invitent à l'antenne.</p>
     <div class="day-tabs" id="scheduleDayTabs" role="tablist" aria-label="Jours de la semaine">${tabs}</div>
+    ${renderDaySky(day, isToday)}
     <p class="kicker" style="margin:0 0 10px;">${escapeHtml(day.name)} — ${escapeHtml(day.summary || "")}</p>
     ${nowLine}
     <ul class="slot-list">${slots}</ul>
+  `;
+}
+
+// Décor : la liste des créneaux porte déjà l'information, d'où aria-hidden.
+// Le repère porte data-day pour que shell.js le déplace (ou redessine la grille
+// au changement de jour) sans nouveau minuteur.
+function renderDaySky(day, isToday) {
+  const { ticks, now } = buildDaySky(day, isToday ? getCurrentLocalMinutes() : null);
+  const marks = ticks.map((t) => `<span class="day-sky__tick" style="--at:${t.percent}%"></span>`).join("");
+  const nowMark = now
+    ? `<span class="day-sky__now" id="scheduleSkyNow" data-day="${escapeHtml(day.id)}" style="--at:${now.percent}%"></span>`
+    : "";
+  return `
+    <div class="day-sky" aria-hidden="true">
+      <div class="day-sky__bar">${marks}${nowMark}</div>
+      <div class="day-sky__legend"><span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>24h</span></div>
+    </div>
   `;
 }

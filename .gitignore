@@ -21,3 +21,9 @@ playwright/.cache/
 .idea/
 *.log
 .env
+
+# Outils personnels du mainteneur (jamais publiés)
+news-studio.html
+assets/js/page-news-studio.js
+tools/studio-server.mjs
+tools/Studio*.command

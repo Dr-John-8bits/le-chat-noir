@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Historique de diffusion — Le Chat Noir</title>
     <meta name="description" content="Archives de diffusion du Chat Noir avec recherche par date et heure, en heure de Paris." />
-    <meta name="theme-color" content="#f4eee0" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#08122b" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#08122b" media="(prefers-color-scheme: dark)" />
     <link rel="canonical" href="https://lechatnoirradio.fr/history.html" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -19,8 +19,8 @@
     <script type="module" src="assets/js/page-history.js"></script>
   </head>
   <body>
-    <header class="top-shell">
-      <div class="top-shell__inner" style="padding-bottom: 14px;">
+    <header class="top-shell top-shell--thin">
+      <div class="top-shell__inner">
         <div class="shell-head">
           <a class="brand" href="index.html" aria-label="Le Chat Noir — retour à l'accueil">
             <img class="brand__logo" src="assets/media/brand/logo-320.jpg" alt="" width="40" height="40" />
@@ -35,7 +35,7 @@
     </header>
 
     <main class="site-main">
-      <p class="kicker kicker--accent" style="margin: 0 0 6px;">// les archives de la radio</p>
+      <p class="kicker kicker--accent page-kicker">// les archives de la radio</p>
       <h1 class="page-title">Historique de diffusion</h1>
       <p class="page-lead">
         Un titre t'a échappé pendant l'écoute ? Toutes les diffusions, en lecture chronologique, avec recherche
@@ -54,7 +54,7 @@
         <button class="action-button" id="historySearchButton" type="submit">Rechercher</button>
       </form>
 
-      <div class="page-section__head" style="margin-top: 28px;">
+      <div class="page-section__head history-head">
         <h2 class="page-section__title" id="historyLabel">Dernières diffusions</h2>
         <span class="status-line" id="historyStatus">chargement des archives…</span>
       </div>

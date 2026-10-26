@@ -5,27 +5,29 @@ import { getHomeTodayState } from "../schedule-match.js";
 
 export function renderHome() {
   return `
-    <section class="page-section" aria-labelledby="home-today-title">
-      <div class="page-section__head">
-        <h2 class="page-section__title" id="home-today-title">Aujourd'hui</h2>
-        <span class="kicker">programmation indicative</span>
-      </div>
-      <ul class="slot-list" id="homeTodayList">
-        <li><span class="slot-time mono">…</span><div><p class="slot-title">Chargement de la grille…</p></div></li>
-      </ul>
-      <p style="margin:14px 0 0;"><a class="ghost-link" href="#grille">voir la grille complète →</a></p>
-    </section>
+    <div class="home-grid">
+      <section class="page-section" aria-labelledby="home-today-title">
+        <div class="page-section__head">
+          <h2 class="page-section__title" id="home-today-title">Aujourd'hui</h2>
+          <span class="kicker">programmation indicative</span>
+        </div>
+        <ul class="slot-list" id="homeTodayList">
+          <li><span class="slot-time mono">…</span><div><p class="slot-title">Chargement de la grille…</p></div></li>
+        </ul>
+        <p class="section-more"><a class="ghost-link" href="#grille">voir la grille complète →</a></p>
+      </section>
 
-    <section class="page-section" aria-labelledby="home-recent-title">
-      <div class="page-section__head">
-        <h2 class="page-section__title" id="home-recent-title">Derniers passages</h2>
-        <span class="status-line" id="homeRecentStatus">chargement…</span>
-      </div>
-      <ul class="track-list" id="homeRecentList">
-        <li><span class="track-time">--:--</span><span class="track-main">Chargement des dernières diffusions…</span></li>
-      </ul>
-      <p style="margin:14px 0 0;"><a class="ghost-link" href="history.html" target="_blank" rel="noopener noreferrer">explorer tout l'historique ↗</a></p>
-    </section>
+      <section class="page-section" aria-labelledby="home-recent-title">
+        <div class="page-section__head">
+          <h2 class="page-section__title" id="home-recent-title">Derniers passages</h2>
+          <span class="status-line" id="homeRecentStatus">chargement…</span>
+        </div>
+        <ul class="track-list" id="homeRecentList">
+          <li><span class="track-time">--:--</span><span class="track-main">Chargement des dernières diffusions…</span></li>
+        </ul>
+        <p class="section-more"><a class="ghost-link" href="history.html" target="_blank" rel="noopener noreferrer">explorer tout l'historique ↗</a></p>
+      </section>
+    </div>
   `;
 }
 

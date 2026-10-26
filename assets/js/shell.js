@@ -6,6 +6,8 @@ import { createPoller } from "./poller.js";
 import { initScrollTop } from "./scroll-top.js";
 import { setTextIfChanged, prefersReducedMotion } from "./ui-states.js";
 import { createShowSlotResolver } from "./schedule-match.js";
+import { minutesToPercent } from "./day-sky.js";
+import { getCurrentDayId, getCurrentLocalMinutes } from "./time.js";
 import { renderHome, renderTodaySlots, renderRecentTracks } from "./renderers/render-home.js";
 import { renderSchedule } from "./renderers/render-schedule.js";
 import { renderVoices } from "./renderers/render-voices.js";
@@ -259,8 +261,22 @@ async function refreshLive() {
   if (state.route === "accueil") updateHomeToday();
   if (state.route === "grille" && scheduleShowKey() !== state.lastScheduleShowKey) {
     renderRoute();
+  } else if (state.route === "grille") {
+    updateDaySkyNow();
   }
   return anyOk;
+}
+
+// Avance le repère « maintenant » du ciel de la grille au rythme des
+// rafraîchissements live ; au passage de minuit, la grille est redessinée.
+function updateDaySkyNow() {
+  const marker = document.getElementById("scheduleSkyNow");
+  if (!marker) return;
+  if (marker.dataset.day !== getCurrentDayId()) {
+    renderRoute();
+    return;
+  }
+  marker.style.setProperty("--at", `${minutesToPercent(getCurrentLocalMinutes())}%`);
 }
 
 /* ---------- Derniers passages (home) ---------- */
