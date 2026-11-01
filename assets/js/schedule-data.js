@@ -193,7 +193,7 @@ export const SCHEDULE_TIMELINE_DAYS = [
     "id": "thu",
     "shortName": "Jeu",
     "name": "Jeudi",
-    "summary": "Traversées matinales, cinéma pour les oreilles, Radio Gadin et fiction tardive.",
+    "summary": "Le Migou, La Vie Des Microbes, Traversées matinales, cinéma pour les oreilles, Radio Gadin et fiction tardive.",
     "slots": [
       {
         "time": "00h00",
@@ -204,6 +204,12 @@ export const SCHEDULE_TIMELINE_DAYS = [
         "time": "07h00",
         "title": "Le Migou",
         "desc": "Réveil café."
+      },
+      {
+        "time": "07h05",
+        "title": "La Vie Des Microbes",
+        "desc": "L’agenda culturel underground et alternatif de Lille et de sa région, par Stéph.",
+        "highlight": true
       },
       {
         "time": "Puis",

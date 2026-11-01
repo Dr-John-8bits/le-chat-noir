@@ -1,7 +1,7 @@
 {
   "schema": "lcn-schedule/1",
   "app": "LCN Concepteur de Grille",
-  "generatedAt": "2026-06-12T15:41:30+02:00",
+  "generatedAt": "2026-11-01T11:12:12+01:00",
   "timezone": "Europe/Paris",
   "aliases": {
     "Fragments": "Matinée : Fragments",
@@ -327,7 +327,7 @@
       "id": "thu",
       "name": "Jeudi",
       "shortName": "Jeu",
-      "summary": "Traversées matinales, cinéma pour les oreilles, Radio Gadin et fiction tardive.",
+      "summary": "Le Migou, La Vie Des Microbes, Traversées matinales, cinéma pour les oreilles, Radio Gadin et fiction tardive.",
       "slots": [
         {
           "time": "00h00",
@@ -348,12 +348,22 @@
           "end": "07:05"
         },
         {
+          "time": "07h05",
+          "title": "La Vie Des Microbes",
+          "desc": "L’agenda culturel underground et alternatif de Lille et de sa région, par Stéph.",
+          "showId": "la-vie-des-microbes",
+          "kind": "editorial_event",
+          "start": "07:05",
+          "end": "08:05",
+          "highlight": true
+        },
+        {
           "time": "Puis",
           "title": "Matinée : Traversées",
           "desc": "Dérives musicales de morceaux de moins de 10 minutes.",
           "showId": "traversees",
           "kind": "music_block",
-          "start": "07:05",
+          "start": "08:05",
           "end": "12:00",
           "meta": true
         },
