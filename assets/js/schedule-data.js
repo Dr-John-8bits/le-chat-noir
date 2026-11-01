@@ -206,13 +206,14 @@ export const SCHEDULE_TIMELINE_DAYS = [
         "desc": "Réveil café."
       },
       {
-        "time": "07h05",
+        "time": "Puis",
         "title": "La Vie Des Microbes",
         "desc": "L’agenda culturel underground et alternatif de Lille et de sa région, par Stéph.",
+        "meta": true,
         "highlight": true
       },
       {
-        "time": "Puis",
+        "time": "Après",
         "title": "Matinée : Traversées",
         "desc": "Dérives musicales de morceaux de moins de 10 minutes.",
         "meta": true

@@ -1,7 +1,7 @@
 {
   "schema": "lcn-schedule/1",
   "app": "LCN Concepteur de Grille",
-  "generatedAt": "2026-11-01T11:12:12+01:00",
+  "generatedAt": "2026-11-01T11:47:58+01:00",
   "timezone": "Europe/Paris",
   "aliases": {
     "Fragments": "Matinée : Fragments",
@@ -348,17 +348,18 @@
           "end": "07:05"
         },
         {
-          "time": "07h05",
+          "time": "Puis",
           "title": "La Vie Des Microbes",
           "desc": "L’agenda culturel underground et alternatif de Lille et de sa région, par Stéph.",
           "showId": "la-vie-des-microbes",
           "kind": "editorial_event",
           "start": "07:05",
           "end": "08:05",
+          "meta": true,
           "highlight": true
         },
         {
-          "time": "Puis",
+          "time": "Après",
           "title": "Matinée : Traversées",
           "desc": "Dérives musicales de morceaux de moins de 10 minutes.",
           "showId": "traversees",
