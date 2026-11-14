@@ -15,7 +15,7 @@ test("minutesToPercent : minuit, midi, fin de journée", () => {
 test("buildDaySky : un trait par créneau horaire, « Puis » et minuit ignorés", () => {
   const { ticks } = buildDaySky(saturday);
   const labels = ticks.map((t) => t.minutes);
-  assert.deepEqual(labels, [7 * 60, 10 * 60, 11 * 60 + 45, 12 * 60, 14 * 60, 16 * 60, 18 * 60, 19 * 60, 23 * 60 + 40]);
+  assert.deepEqual(labels, [7 * 60, 10 * 60, 11 * 60 + 45, 12 * 60, 14 * 60, 16 * 60, 18 * 60, 19 * 60, 21 * 60, 23 * 60 + 40]);
 });
 
 test("buildDaySky : repère « maintenant » seulement avec une heure valide", () => {

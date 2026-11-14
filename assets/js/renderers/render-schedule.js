@@ -45,7 +45,7 @@ export function renderSchedule(selectedDayId, currentShow, resolveShowSlot) {
 
   return `
     <h2 class="page-title">La semaine en clair</h2>
-    <p class="page-lead">Les nuits, les matinées, les rendez-vous fixes, les focus et les dérives qui donnent son rythme à la radio. La grille reste fluide et indicative : un direct, un décalage ou une dérive peuvent déplacer l'antenne. C'est la grille de lancement de la radio : d'autres émissions viendront bientôt l'habiter, au fil des rencontres, des essais et des formes qui s'invitent à l'antenne.</p>
+    <p class="page-lead">Les nuits, les matinées, les rendez-vous fixes, les focus et les dérives qui donnent son rythme à la radio. La grille reste fluide et indicative : un direct, un décalage ou une dérive peuvent déplacer l'antenne. Depuis le 14 novembre 2026, pour son premier anniversaire, la radio a une nouvelle grille : d'autres émissions viendront encore l'habiter, au fil des rencontres, des essais et des formes qui s'invitent à l'antenne.</p>
     <div class="day-tabs" id="scheduleDayTabs" role="tablist" aria-label="Jours de la semaine">${tabs}</div>
     ${renderDaySky(day, isToday)}
     <p class="kicker" style="margin:0 0 10px;">${escapeHtml(day.name)} — ${escapeHtml(day.summary || "")}</p>

@@ -5,12 +5,12 @@ export const SCHEDULE_TIMELINE_DAYS = [
     "id": "mon",
     "shortName": "Lun",
     "name": "Lundi",
-    "summary": "Le Migou, Fragments, le lundi rock, blocSonic, Tha Bloc Report et le retour de L’Autre Nuit.",
+    "summary": "Le Migou, Fragments, le lundi rock, blocSonic, Tha Bloc Report et L’Autre Nuit.",
     "slots": [
       {
         "time": "00h00",
         "title": "La Grande Nuit",
-        "desc": "Paysages sonores étendus, pièces immersives."
+        "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin."
       },
       {
         "time": "07h00",
@@ -55,7 +55,7 @@ export const SCHEDULE_TIMELINE_DAYS = [
       {
         "time": "Puis",
         "title": "Rock du soir",
-        "desc": "Retour au bloc rock du lundi soir jusqu’au rendez-vous de 23h40.",
+        "desc": "Rock, grunge, garage, surf et psyché jusqu’au rendez-vous de 23h40.",
         "meta": true,
         "highlight": true
       },
@@ -70,12 +70,12 @@ export const SCHEDULE_TIMELINE_DAYS = [
     "id": "tue",
     "shortName": "Mar",
     "name": "Mardi",
-    "summary": "Le Migou, Trajectoires, l’aprème noise, Home Taping et le Noise du soir jusqu’au pseudocumentaire.",
+    "summary": "Le Migou, Trajectoires, Cinéma pour les oreilles, l’aprème noise, Home Taping, le Noise du soir et le Pseudocumentaire.",
     "slots": [
       {
         "time": "00h00",
         "title": "La Grande Nuit",
-        "desc": "Paysages sonores étendus, pièces immersives."
+        "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin."
       },
       {
         "time": "07h00",
@@ -87,6 +87,12 @@ export const SCHEDULE_TIMELINE_DAYS = [
         "title": "Matinée : Trajectoires",
         "desc": "Dérives musicales de morceaux de 15 à 30 minutes.",
         "meta": true
+      },
+      {
+        "time": "10h00",
+        "title": "Cinéma pour les oreilles",
+        "desc": "Bandes-son, paysages projetés, musiques d'images et dérives cinématiques.",
+        "highlight": true
       },
       {
         "time": "12h00",
@@ -114,14 +120,14 @@ export const SCHEDULE_TIMELINE_DAYS = [
       {
         "time": "Puis",
         "title": "Noise du soir",
-        "desc": "Retour au bloc noise du mardi soir jusqu’au rendez-vous de 23h40.",
+        "desc": "Noise, coldwave, indus et formes sombres jusqu’au rendez-vous de 23h40.",
         "meta": true,
         "highlight": true
       },
       {
         "time": "23h40",
         "title": "Le Pseudocumentaire de l'espace",
-        "desc": "Fiction sonore et dépression verte."
+        "desc": "Fiction sonore et dépression verte, un épisode après l’autre."
       }
     ]
   },
@@ -129,12 +135,12 @@ export const SCHEDULE_TIMELINE_DAYS = [
     "id": "wed",
     "shortName": "Mer",
     "name": "Mercredi",
-    "summary": "Immersion, Transmissions, chats sauvages, Documents de terrain, Entre chien et loup, Rapport d’exobiologie et Ondes du Chat Noir.",
+    "summary": "Immersion, Pixels, Transmissions, chats sauvages, Documents de terrain, Entre chien et loup, Rapport d’exobiologie et Ondes du Chat Noir.",
     "slots": [
       {
         "time": "00h00",
         "title": "La Grande Nuit",
-        "desc": "Paysages sonores étendus, pièces immersives."
+        "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin."
       },
       {
         "time": "07h00",
@@ -146,6 +152,12 @@ export const SCHEDULE_TIMELINE_DAYS = [
         "title": "Matinée : Immersion",
         "desc": "Longues dérives musicales de morceaux de plus de 30 minutes.",
         "meta": true
+      },
+      {
+        "time": "10h00",
+        "title": "Pixels",
+        "desc": "Chiptune, 8-bits et Atari punk noise : les machines de jeu ont leur propre bloc.",
+        "highlight": true
       },
       {
         "time": "12h00",
@@ -185,7 +197,7 @@ export const SCHEDULE_TIMELINE_DAYS = [
       {
         "time": "22h00",
         "title": "Les Ondes du Chat Noir",
-        "desc": "Émissions, fictions, transmissions et formes radiophoniques choisies au hasard."
+        "desc": "Les archives des émissions de la maison, tirées au hasard : Tha Bloc Report, Camembert électrique, Home Taping, les Transmissions du Dr. John et d’autres."
       }
     ]
   },
@@ -193,12 +205,12 @@ export const SCHEDULE_TIMELINE_DAYS = [
     "id": "thu",
     "shortName": "Jeu",
     "name": "Jeudi",
-    "summary": "Le Migou, La Vie Des Microbes, Traversées matinales, cinéma pour les oreilles, Radio Gadin et fiction tardive.",
+    "summary": "Le Migou, La Vie Des Microbes, Traversées, Cinéma pour les oreilles, Radio Gadin, Citron et le Pseudocumentaire.",
     "slots": [
       {
         "time": "00h00",
         "title": "La Grande Nuit",
-        "desc": "Paysages sonores étendus, pièces immersives."
+        "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin."
       },
       {
         "time": "07h00",
@@ -238,14 +250,20 @@ export const SCHEDULE_TIMELINE_DAYS = [
       {
         "time": "18h00",
         "title": "Radio Gadin",
-        "desc": "Plongée dans le lore de Flash Dog Duke Silver",
+        "desc": "Plongée dans le lore de Flash Dog Duke Silver.",
         "highlight": true,
         "badge": "Focus"
       },
       {
+        "time": "21h00",
+        "title": "Citron",
+        "desc": "Acid, techno, breakcore et jungle : les machines mutantes.",
+        "highlight": true
+      },
+      {
         "time": "23h40",
         "title": "Le Pseudocumentaire de l'espace",
-        "desc": "Fiction sonore et dépression verte."
+        "desc": "Fiction sonore et dépression verte, un épisode après l’autre."
       }
     ]
   },
@@ -253,12 +271,12 @@ export const SCHEDULE_TIMELINE_DAYS = [
     "id": "fri",
     "shortName": "Ven",
     "name": "Vendredi",
-    "summary": "Fragments, indie de l'aprème et My Favorite Dead Radio.",
+    "summary": "Traversées, Beats & Flow, Indie de l’aprème, le concert du vendredi avec Home Taping, My Favorite Dead Radio et L’Autre Nuit.",
     "slots": [
       {
         "time": "00h00",
         "title": "La Grande Nuit",
-        "desc": "Paysages sonores étendus, pièces immersives."
+        "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin."
       },
       {
         "time": "07h00",
@@ -267,9 +285,15 @@ export const SCHEDULE_TIMELINE_DAYS = [
       },
       {
         "time": "Puis",
-        "title": "Matinée : Fragments",
-        "desc": "Courtes dérives musicales de morceaux de 10 à 15 minutes.",
+        "title": "Matinée : Traversées",
+        "desc": "Dérives musicales de morceaux de moins de 10 minutes.",
         "meta": true
+      },
+      {
+        "time": "10h00",
+        "title": "Beats & Flow",
+        "desc": "Hip-hop, trip-hop, downtempo, beats et grooves.",
+        "highlight": true
       },
       {
         "time": "12h00",
@@ -290,8 +314,14 @@ export const SCHEDULE_TIMELINE_DAYS = [
       },
       {
         "time": "18h00",
+        "title": "Home Taping Is Killing Music",
+        "desc": "Le concert du vendredi : captations pirates, concerts enregistrés sur le vif, sueur et scène.",
+        "highlight": true
+      },
+      {
+        "time": "20h30",
         "title": "My Favorite Dead Radio",
-        "desc": "Focus sur les affinités entre Drive with a dead girl et les lives de My Favourite Everything.",
+        "desc": "Rock indé, shoegaze, coldwave et grunge, avec les lives de My Favourite Everything.",
         "highlight": true,
         "badge": "Focus"
       },
@@ -306,12 +336,12 @@ export const SCHEDULE_TIMELINE_DAYS = [
     "id": "sat",
     "shortName": "Sam",
     "name": "Samedi",
-    "summary": "Matin félin, Console-toi, Documents de terrain, synthèse analogique, Beats & Flow, Doucement, Camembert électrique et grand soir.",
+    "summary": "Matin félin, Console-toi, Documents de terrain, synthèse analogique, Beats & Flow, Doucement, Camembert électrique, Pixels et When Day Chokes a Radio.",
     "slots": [
       {
         "time": "00h00",
         "title": "La Grande Nuit",
-        "desc": "Paysages sonores étendus, pièces immersives."
+        "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin."
       },
       {
         "time": "07h00",
@@ -349,14 +379,14 @@ export const SCHEDULE_TIMELINE_DAYS = [
       {
         "time": "Puis",
         "title": "Beats & Flow",
-        "desc": "Hip-hop, trip-hop, downtempo, beats et grooves pour faire basculer doucement le samedi après-midi.",
+        "desc": "Hip-hop, trip-hop, downtempo, beats et grooves. Pour faire basculer doucement le samedi après-midi.",
         "meta": true,
         "highlight": true
       },
       {
         "time": "16h00",
         "title": "Doucement",
-        "desc": "Dream pop, post-rock, lo-fi et écoutes lentes pour laisser retomber l’après-midi avant le grand soir.",
+        "desc": "Dream pop, post-rock, slowcore, trip-hop et écoutes lentes pour laisser retomber l’après-midi avant le grand soir.",
         "highlight": true
       },
       {
@@ -367,15 +397,21 @@ export const SCHEDULE_TIMELINE_DAYS = [
       },
       {
         "time": "19h00",
+        "title": "Pixels",
+        "desc": "Chiptune, 8-bits et Atari punk noise : les machines de jeu ont leur propre bloc. Dans le prolongement de Camembert électrique.",
+        "highlight": true
+      },
+      {
+        "time": "21h00",
         "title": "When Day Chokes a Radio",
-        "desc": "Focus Intégrale When Day Chokes The Night",
+        "desc": "Focus Intégrale When Day Chokes The Night.",
         "highlight": true,
         "badge": "Focus"
       },
       {
         "time": "23h40",
         "title": "Le Pseudocumentaire de l'espace",
-        "desc": "Fiction sonore (20 min)."
+        "desc": "Fiction sonore et dépression verte, un épisode après l’autre."
       }
     ]
   },
@@ -388,12 +424,12 @@ export const SCHEDULE_TIMELINE_DAYS = [
       {
         "time": "00h00",
         "title": "La Grande Nuit",
-        "desc": "Paysages sonores étendus, pièces immersives."
+        "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin."
       },
       {
         "time": "07h00",
         "title": "Le réveil lent du chat",
-        "desc": "Musiques calmes, flottantes et encore ensommeillées pour entrer doucement dans le jour."
+        "desc": "Folk, piano et paysages de terrain, calmes et encore ensommeillés, pour entrer doucement dans le jour."
       },
       {
         "time": "12h00",
@@ -403,17 +439,17 @@ export const SCHEDULE_TIMELINE_DAYS = [
       {
         "time": "14h00",
         "title": "Les Ondes du Chat Noir",
-        "desc": "Émissions, fictions, transmissions et formes radiophoniques choisies au hasard."
+        "desc": "Les archives des émissions de la maison, tirées au hasard : Tha Bloc Report, Camembert électrique, Home Taping, les Transmissions du Dr. John et d’autres."
       },
       {
         "time": "15h00",
         "title": "Les siestes du chat",
-        "desc": "Dream pop, lo-fi, ambient doux et formes suspendues pour laisser le dimanche s'étirer."
+        "desc": "Lo-fi, ambient doux, modulaire et formes suspendues pour laisser le dimanche s'étirer."
       },
       {
         "time": "18h00",
         "title": "Citron",
-        "desc": "Acid, 8-bits, Atari Punk Noise, breakcore et machines mutantes pour faire basculer le dimanche soir.",
+        "desc": "Acid, techno, breakcore et jungle : les machines mutantes. Pour faire basculer le dimanche soir.",
         "highlight": true
       },
       {
@@ -426,7 +462,7 @@ export const SCHEDULE_TIMELINE_DAYS = [
       {
         "time": "22h00",
         "title": "Documents de terrain",
-        "desc": "Captations de terrain monophoniques et stéréophoniques, paysages sonores, écoutes situées, pour apaiser la soirée avant La Grande Nuit.",
+        "desc": "Captations de terrain monophoniques et stéréophoniques, paysages sonores, écoutes situées. Pour apaiser la soirée avant La Grande Nuit.",
         "highlight": true
       }
     ]

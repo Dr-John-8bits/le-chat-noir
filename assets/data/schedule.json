@@ -1,7 +1,7 @@
 {
   "schema": "lcn-schedule/1",
-  "app": "LCN Concepteur de Grille",
-  "generatedAt": "2026-11-01T11:47:58+01:00",
+  "app": "Grille v2, saisie à la main le 14 novembre 2026 (hors Concepteur-Grille)",
+  "generatedAt": "2026-11-14T12:00:00+01:00",
   "timezone": "Europe/Paris",
   "aliases": {
     "Fragments": "Matinée : Fragments",
@@ -23,12 +23,12 @@
       "id": "mon",
       "name": "Lundi",
       "shortName": "Lun",
-      "summary": "Le Migou, Fragments, le lundi rock, blocSonic, Tha Bloc Report et le retour de L’Autre Nuit.",
+      "summary": "Le Migou, Fragments, le lundi rock, blocSonic, Tha Bloc Report et L’Autre Nuit.",
       "slots": [
         {
           "time": "00h00",
           "title": "La Grande Nuit",
-          "desc": "Paysages sonores étendus, pièces immersives.",
+          "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin.",
           "showId": "la-grande-nuit",
           "kind": "music_block",
           "start": "00:00",
@@ -105,7 +105,7 @@
         {
           "time": "Puis",
           "title": "Rock du soir",
-          "desc": "Retour au bloc rock du lundi soir jusqu’au rendez-vous de 23h40.",
+          "desc": "Rock, grunge, garage, surf et psyché jusqu’au rendez-vous de 23h40.",
           "showId": "rock-du-soir",
           "kind": "music_block",
           "start": "20:00",
@@ -128,12 +128,12 @@
       "id": "tue",
       "name": "Mardi",
       "shortName": "Mar",
-      "summary": "Le Migou, Trajectoires, l’aprème noise, Home Taping et le Noise du soir jusqu’au pseudocumentaire.",
+      "summary": "Le Migou, Trajectoires, Cinéma pour les oreilles, l’aprème noise, Home Taping, le Noise du soir et le Pseudocumentaire.",
       "slots": [
         {
           "time": "00h00",
           "title": "La Grande Nuit",
-          "desc": "Paysages sonores étendus, pièces immersives.",
+          "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin.",
           "showId": "la-grande-nuit",
           "kind": "music_block",
           "start": "00:00",
@@ -155,8 +155,18 @@
           "showId": "trajectoires",
           "kind": "music_block",
           "start": "07:05",
-          "end": "12:00",
+          "end": "10:00",
           "meta": true
+        },
+        {
+          "time": "10h00",
+          "title": "Cinéma pour les oreilles",
+          "desc": "Bandes-son, paysages projetés, musiques d'images et dérives cinématiques.",
+          "showId": "cinema-pour-les-oreilles",
+          "kind": "music_block",
+          "start": "10:00",
+          "end": "12:00",
+          "highlight": true
         },
         {
           "time": "12h00",
@@ -194,16 +204,16 @@
           "showId": "home-taping-is-killing-music",
           "kind": "editorial_event",
           "start": "18:00",
-          "end": "19:00",
+          "end": "18:30",
           "highlight": true
         },
         {
           "time": "Puis",
           "title": "Noise du soir",
-          "desc": "Retour au bloc noise du mardi soir jusqu’au rendez-vous de 23h40.",
+          "desc": "Noise, coldwave, indus et formes sombres jusqu’au rendez-vous de 23h40.",
           "showId": "noise-du-soir",
           "kind": "music_block",
-          "start": "19:00",
+          "start": "18:30",
           "end": "23:40",
           "meta": true,
           "highlight": true
@@ -211,7 +221,7 @@
         {
           "time": "23h40",
           "title": "Le Pseudocumentaire de l'espace",
-          "desc": "Fiction sonore et dépression verte.",
+          "desc": "Fiction sonore et dépression verte, un épisode après l’autre.",
           "showId": "le-pseudodocumentaire-de-lespace",
           "kind": "editorial_event",
           "start": "23:40",
@@ -223,12 +233,12 @@
       "id": "wed",
       "name": "Mercredi",
       "shortName": "Mer",
-      "summary": "Immersion, Transmissions, chats sauvages, Documents de terrain, Entre chien et loup, Rapport d’exobiologie et Ondes du Chat Noir.",
+      "summary": "Immersion, Pixels, Transmissions, chats sauvages, Documents de terrain, Entre chien et loup, Rapport d’exobiologie et Ondes du Chat Noir.",
       "slots": [
         {
           "time": "00h00",
           "title": "La Grande Nuit",
-          "desc": "Paysages sonores étendus, pièces immersives.",
+          "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin.",
           "showId": "la-grande-nuit",
           "kind": "music_block",
           "start": "00:00",
@@ -250,8 +260,18 @@
           "showId": "immersion",
           "kind": "music_block",
           "start": "07:05",
-          "end": "12:00",
+          "end": "10:00",
           "meta": true
+        },
+        {
+          "time": "10h00",
+          "title": "Pixels",
+          "desc": "Chiptune, 8-bits et Atari punk noise : les machines de jeu ont leur propre bloc.",
+          "showId": "pixels",
+          "kind": "music_block",
+          "start": "10:00",
+          "end": "12:00",
+          "highlight": true
         },
         {
           "time": "12h00",
@@ -269,7 +289,7 @@
           "showId": "les-transmissions-du-dr-john",
           "kind": "editorial_event",
           "start": "14:00",
-          "end": "15:00"
+          "end": "14:30"
         },
         {
           "time": "Puis",
@@ -277,7 +297,7 @@
           "desc": "Le jour des enfants, c'est musique aléatoire !",
           "showId": "les-chats-sauvages",
           "kind": "music_block",
-          "start": "15:00",
+          "start": "14:30",
           "end": "18:00",
           "meta": true,
           "highlight": true
@@ -315,7 +335,7 @@
         {
           "time": "22h00",
           "title": "Les Ondes du Chat Noir",
-          "desc": "Émissions, fictions, transmissions et formes radiophoniques choisies au hasard.",
+          "desc": "Les archives des émissions de la maison, tirées au hasard : Tha Bloc Report, Camembert électrique, Home Taping, les Transmissions du Dr. John et d’autres.",
           "showId": "les-ondes-du-chat-noir",
           "kind": "editorial_window",
           "start": "22:00",
@@ -327,12 +347,12 @@
       "id": "thu",
       "name": "Jeudi",
       "shortName": "Jeu",
-      "summary": "Le Migou, La Vie Des Microbes, Traversées matinales, cinéma pour les oreilles, Radio Gadin et fiction tardive.",
+      "summary": "Le Migou, La Vie Des Microbes, Traversées, Cinéma pour les oreilles, Radio Gadin, Citron et le Pseudocumentaire.",
       "slots": [
         {
           "time": "00h00",
           "title": "La Grande Nuit",
-          "desc": "Paysages sonores étendus, pièces immersives.",
+          "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin.",
           "showId": "la-grande-nuit",
           "kind": "music_block",
           "start": "00:00",
@@ -400,18 +420,28 @@
         {
           "time": "18h00",
           "title": "Radio Gadin",
-          "desc": "Plongée dans le lore de Flash Dog Duke Silver",
+          "desc": "Plongée dans le lore de Flash Dog Duke Silver.",
           "showId": "radio-gadin",
           "kind": "music_block",
           "start": "18:00",
-          "end": "23:40",
+          "end": "21:00",
           "highlight": true,
           "badge": "Focus"
         },
         {
+          "time": "21h00",
+          "title": "Citron",
+          "desc": "Acid, techno, breakcore et jungle : les machines mutantes.",
+          "showId": "citron",
+          "kind": "music_block",
+          "start": "21:00",
+          "end": "23:40",
+          "highlight": true
+        },
+        {
           "time": "23h40",
           "title": "Le Pseudocumentaire de l'espace",
-          "desc": "Fiction sonore et dépression verte.",
+          "desc": "Fiction sonore et dépression verte, un épisode après l’autre.",
           "showId": "le-pseudodocumentaire-de-lespace",
           "kind": "editorial_event",
           "start": "23:40",
@@ -423,12 +453,12 @@
       "id": "fri",
       "name": "Vendredi",
       "shortName": "Ven",
-      "summary": "Fragments, indie de l'aprème et My Favorite Dead Radio.",
+      "summary": "Traversées, Beats & Flow, Indie de l’aprème, le concert du vendredi avec Home Taping, My Favorite Dead Radio et L’Autre Nuit.",
       "slots": [
         {
           "time": "00h00",
           "title": "La Grande Nuit",
-          "desc": "Paysages sonores étendus, pièces immersives.",
+          "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin.",
           "showId": "la-grande-nuit",
           "kind": "music_block",
           "start": "00:00",
@@ -445,13 +475,23 @@
         },
         {
           "time": "Puis",
-          "title": "Matinée : Fragments",
-          "desc": "Courtes dérives musicales de morceaux de 10 à 15 minutes.",
-          "showId": "fragments",
+          "title": "Matinée : Traversées",
+          "desc": "Dérives musicales de morceaux de moins de 10 minutes.",
+          "showId": "traversees",
           "kind": "music_block",
           "start": "07:05",
-          "end": "12:00",
+          "end": "10:00",
           "meta": true
+        },
+        {
+          "time": "10h00",
+          "title": "Beats & Flow",
+          "desc": "Hip-hop, trip-hop, downtempo, beats et grooves.",
+          "showId": "beats-et-flow",
+          "kind": "music_block",
+          "start": "10:00",
+          "end": "12:00",
+          "highlight": true
         },
         {
           "time": "12h00",
@@ -484,11 +524,21 @@
         },
         {
           "time": "18h00",
+          "title": "Home Taping Is Killing Music",
+          "desc": "Le concert du vendredi : captations pirates, concerts enregistrés sur le vif, sueur et scène.",
+          "showId": "home-taping-is-killing-music",
+          "kind": "editorial_window",
+          "start": "18:00",
+          "end": "20:30",
+          "highlight": true
+        },
+        {
+          "time": "20h30",
           "title": "My Favorite Dead Radio",
-          "desc": "Focus sur les affinités entre Drive with a dead girl et les lives de My Favourite Everything.",
+          "desc": "Rock indé, shoegaze, coldwave et grunge, avec les lives de My Favourite Everything.",
           "showId": "my-favorite-dead-radio",
           "kind": "music_block",
-          "start": "18:00",
+          "start": "20:30",
           "end": "23:40",
           "highlight": true,
           "badge": "Focus"
@@ -508,12 +558,12 @@
       "id": "sat",
       "name": "Samedi",
       "shortName": "Sam",
-      "summary": "Matin félin, Console-toi, Documents de terrain, synthèse analogique, Beats & Flow, Doucement, Camembert électrique et grand soir.",
+      "summary": "Matin félin, Console-toi, Documents de terrain, synthèse analogique, Beats & Flow, Doucement, Camembert électrique, Pixels et When Day Chokes a Radio.",
       "slots": [
         {
           "time": "00h00",
           "title": "La Grande Nuit",
-          "desc": "Paysages sonores étendus, pièces immersives.",
+          "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin.",
           "showId": "la-grande-nuit",
           "kind": "music_block",
           "start": "00:00",
@@ -562,10 +612,10 @@
           "time": "12h00",
           "title": "La table du chat",
           "desc": "Chanson, electro douce, ambient léger.",
-          "showId": "la-table-du-chat-repère-de-mi-journée",
-          "kind": "editorial_event",
+          "showId": "la-table-du-chat",
+          "kind": "music_block",
           "start": "12:00",
-          "end": "13:00"
+          "end": "14:00"
         },
         {
           "time": "14h00",
@@ -579,7 +629,7 @@
         {
           "time": "Puis",
           "title": "Beats & Flow",
-          "desc": "Hip-hop, trip-hop, downtempo, beats et grooves pour faire basculer doucement le samedi après-midi.",
+          "desc": "Hip-hop, trip-hop, downtempo, beats et grooves. Pour faire basculer doucement le samedi après-midi.",
           "showId": "beats-et-flow",
           "kind": "music_block",
           "start": "14:05",
@@ -590,7 +640,7 @@
         {
           "time": "16h00",
           "title": "Doucement",
-          "desc": "Dream pop, post-rock, lo-fi et écoutes lentes pour laisser retomber l’après-midi avant le grand soir.",
+          "desc": "Dream pop, post-rock, slowcore, trip-hop et écoutes lentes pour laisser retomber l’après-midi avant le grand soir.",
           "showId": "doucement",
           "kind": "music_block",
           "start": "16:00",
@@ -609,11 +659,21 @@
         },
         {
           "time": "19h00",
-          "title": "When Day Chokes a Radio",
-          "desc": "Focus Intégrale When Day Chokes The Night",
-          "showId": "when-day-chokes-a-radio",
+          "title": "Pixels",
+          "desc": "Chiptune, 8-bits et Atari punk noise : les machines de jeu ont leur propre bloc. Dans le prolongement de Camembert électrique.",
+          "showId": "pixels",
           "kind": "music_block",
           "start": "19:00",
+          "end": "21:00",
+          "highlight": true
+        },
+        {
+          "time": "21h00",
+          "title": "When Day Chokes a Radio",
+          "desc": "Focus Intégrale When Day Chokes The Night.",
+          "showId": "when-day-chokes-a-radio",
+          "kind": "music_block",
+          "start": "21:00",
           "end": "23:40",
           "highlight": true,
           "badge": "Focus"
@@ -621,7 +681,7 @@
         {
           "time": "23h40",
           "title": "Le Pseudocumentaire de l'espace",
-          "desc": "Fiction sonore (20 min).",
+          "desc": "Fiction sonore et dépression verte, un épisode après l’autre.",
           "showId": "le-pseudodocumentaire-de-lespace",
           "kind": "editorial_event",
           "start": "23:40",
@@ -638,7 +698,7 @@
         {
           "time": "00h00",
           "title": "La Grande Nuit",
-          "desc": "Paysages sonores étendus, pièces immersives.",
+          "desc": "Paysages sonores étendus, pièces immersives, sans jingle ni réclame jusqu’au matin.",
           "showId": "la-grande-nuit",
           "kind": "music_block",
           "start": "00:00",
@@ -647,7 +707,7 @@
         {
           "time": "07h00",
           "title": "Le réveil lent du chat",
-          "desc": "Musiques calmes, flottantes et encore ensommeillées pour entrer doucement dans le jour.",
+          "desc": "Folk, piano et paysages de terrain, calmes et encore ensommeillés, pour entrer doucement dans le jour.",
           "showId": "le-reveil-lent-du-chat",
           "kind": "music_block",
           "start": "07:00",
@@ -665,7 +725,7 @@
         {
           "time": "14h00",
           "title": "Les Ondes du Chat Noir",
-          "desc": "Émissions, fictions, transmissions et formes radiophoniques choisies au hasard.",
+          "desc": "Les archives des émissions de la maison, tirées au hasard : Tha Bloc Report, Camembert électrique, Home Taping, les Transmissions du Dr. John et d’autres.",
           "showId": "les-ondes-du-chat-noir",
           "kind": "editorial_window",
           "start": "14:00",
@@ -674,7 +734,7 @@
         {
           "time": "15h00",
           "title": "Les siestes du chat",
-          "desc": "Dream pop, lo-fi, ambient doux et formes suspendues pour laisser le dimanche s'étirer.",
+          "desc": "Lo-fi, ambient doux, modulaire et formes suspendues pour laisser le dimanche s'étirer.",
           "showId": "les-siestes-du-chat",
           "kind": "music_block",
           "start": "15:00",
@@ -683,7 +743,7 @@
         {
           "time": "18h00",
           "title": "Citron",
-          "desc": "Acid, 8-bits, Atari Punk Noise, breakcore et machines mutantes pour faire basculer le dimanche soir.",
+          "desc": "Acid, techno, breakcore et jungle : les machines mutantes. Pour faire basculer le dimanche soir.",
           "showId": "citron",
           "kind": "music_block",
           "start": "18:00",
@@ -704,7 +764,7 @@
         {
           "time": "22h00",
           "title": "Documents de terrain",
-          "desc": "Captations de terrain monophoniques et stéréophoniques, paysages sonores, écoutes situées, pour apaiser la soirée avant La Grande Nuit.",
+          "desc": "Captations de terrain monophoniques et stéréophoniques, paysages sonores, écoutes situées. Pour apaiser la soirée avant La Grande Nuit.",
           "showId": "documents-de-terrain",
           "kind": "editorial_window",
           "start": "22:00",
