@@ -20,7 +20,7 @@ Plusieurs blocs gagnent un second créneau en fin de matinée : Cinéma pour les
 
 Matin félin, Entre chien et loup, Noise du soir et Cinéma pour les oreilles retrouvent leur couleur : la musique concrète d’Institute For Alien Research garde sa fenêtre du mercredi, Rapport d’exobiologie, et ne déborde plus sur les autres. Doucement, Les siestes du chat et Le réveil lent du chat, qui se ressemblaient beaucoup trop, ont désormais chacun leur paysage. Rock du soir s’ouvre au grunge, au garage, au surf et au psyché, et La Grande Nuit fait entendre davantage d’artistes chaque nuit.
 
-Les Ondes du Chat Noir puisent désormais dans les archives des émissions de la maison : Tha Bloc Report, Camembert électrique, Home Taping, les Transmissions du Dr. John et d’autres. Les fictions et les rendez-vous à épisodes passent enfin dans l’ordre, sans jamais rediffuser deux fois de suite le même épisode. Et les réclames se font plus rares, une toutes les trois heures.
+Les Ondes du Chat Noir puisent désormais dans les archives des émissions de la maison : Camembert électrique, Home Taping, les Transmissions du Dr. John et d’autres. Les fictions et les rendez-vous à épisodes passent enfin dans l’ordre, sans jamais rediffuser deux fois de suite le même épisode. Et les réclames se font plus rares, une toutes les trois heures.
 
 Des jingles d’ouverture vont bientôt annoncer chaque émission. Toute la nouvelle grille est à retrouver dans la rubrique grille du site.
 

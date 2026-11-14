@@ -197,7 +197,7 @@ export const SCHEDULE_TIMELINE_DAYS = [
       {
         "time": "22h00",
         "title": "Les Ondes du Chat Noir",
-        "desc": "Les archives des émissions de la maison, tirées au hasard : Tha Bloc Report, Camembert électrique, Home Taping, les Transmissions du Dr. John et d’autres."
+        "desc": "Les archives des émissions de la maison, tirées au hasard : Camembert électrique, Home Taping, les Transmissions du Dr. John et d’autres."
       }
     ]
   },
@@ -439,7 +439,7 @@ export const SCHEDULE_TIMELINE_DAYS = [
       {
         "time": "14h00",
         "title": "Les Ondes du Chat Noir",
-        "desc": "Les archives des émissions de la maison, tirées au hasard : Tha Bloc Report, Camembert électrique, Home Taping, les Transmissions du Dr. John et d’autres."
+        "desc": "Les archives des émissions de la maison, tirées au hasard : Camembert électrique, Home Taping, les Transmissions du Dr. John et d’autres."
       },
       {
         "time": "15h00",
