@@ -69,6 +69,11 @@ export async function mockRadio(page, overrides = {}) {
   await page.route("**/stream.lechatnoirradio.fr/listeners.json*", (route) =>
     overrides.failListeners ? route.fulfill({ status: 404 }) : route.fulfill({ json: listeners })
   );
+  await page.route("**/stream.lechatnoirradio.fr/history/episodes.json*", (route) =>
+    overrides.failEpisodes
+      ? route.fulfill({ status: 404 })
+      : route.fulfill({ json: overrides.episodes ?? { emissions: [] } })
+  );
   await page.route("**/stream.lechatnoirradio.fr/history/nowplaying.csv*", (route) =>
     overrides.failCsv
       ? route.fulfill({ status: 500 })

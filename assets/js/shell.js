@@ -1,5 +1,5 @@
 import { REFRESH_MS, STALE_MS, HISTORY_PREVIEW_ROWS, HISTORY_CACHE_KEY, HISTORY_CACHE_AT_KEY, HISTORY_CACHE_MAX_AGE_MS } from "./config.js";
-import { fetchNowPlaying, fetchCurrentShow, fetchHistoryCsv, STATUS } from "./radio-api.js";
+import { fetchNowPlaying, fetchCurrentShow, fetchHistoryCsv, fetchEpisodes, STATUS } from "./radio-api.js";
 import { parseHistoryCsvChunked, enrichHistoryRow } from "./csv.js";
 import { createPlayer, shouldDisableWebVolumeControl } from "./player.js";
 import { createPoller } from "./poller.js";
@@ -7,7 +7,7 @@ import { initScrollTop } from "./scroll-top.js";
 import { setTextIfChanged, prefersReducedMotion } from "./ui-states.js";
 import { createShowSlotResolver } from "./schedule-match.js";
 import { minutesToPercent } from "./day-sky.js";
-import { getCurrentDayId, getCurrentLocalMinutes } from "./time.js";
+import { getCurrentDayId, getCurrentLocalMinutes, getTodayYmd } from "./time.js";
 import { renderHome, renderTodaySlots, renderRecentTracks } from "./renderers/render-home.js";
 import { renderSchedule } from "./renderers/render-schedule.js";
 import { renderVoices } from "./renderers/render-voices.js";
@@ -64,6 +64,8 @@ const state = {
   recentLoaded: false,
   selectedScheduleDay: "",
   lastScheduleShowKey: "",
+  episodes: null,
+  episodesKey: "",
 };
 
 function scheduleShowKey() {
@@ -356,7 +358,7 @@ function updateHomeRecent(status) {
 function updateHomeToday() {
   const list = document.getElementById("homeTodayList");
   if (!list) return;
-  const html = renderTodaySlots(state.currentShow, resolveShowSlot);
+  const html = renderTodaySlots(state.currentShow, resolveShowSlot, state.episodes);
   if (list.dataset.rendered !== html) {
     list.dataset.rendered = html;
     list.innerHTML = html;
@@ -387,7 +389,7 @@ function renderRoute() {
 
   switch (state.route) {
     case "grille":
-      refs.pageView.innerHTML = renderSchedule(state.selectedScheduleDay, state.currentShow, resolveShowSlot);
+      refs.pageView.innerHTML = renderSchedule(state.selectedScheduleDay, state.currentShow, resolveShowSlot, state.episodes);
       state.lastScheduleShowKey = scheduleShowKey();
       break;
     case "actualites":
@@ -488,6 +490,22 @@ renderRoute();
 
 const livePoller = createPoller(refreshLive, REFRESH_MS.live);
 livePoller.start();
+
+// Le fichier change une fois par nuit : une lecture au démarrage, puis une par
+// heure pour qu'une page laissée ouverte passe au lendemain. Un échec ne
+// retire rien de ce qui est affiché, il n'ajoute simplement pas de ligne.
+async function refreshEpisodes() {
+  const result = await fetchEpisodes(getTodayYmd());
+  if (result.status !== STATUS.OK) return;
+  const key = JSON.stringify([...result.data]);
+  if (key === state.episodesKey) return;
+  state.episodesKey = key;
+  state.episodes = result.data;
+  if (state.route === "accueil") updateHomeToday();
+  if (state.route === "grille") renderRoute();
+}
+refreshEpisodes();
+setInterval(refreshEpisodes, REFRESH_MS.episodes);
 
 setTimeout(() => {
   if (typeof window.requestIdleCallback === "function") {

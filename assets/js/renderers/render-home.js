@@ -1,4 +1,4 @@
-import { escapeHtml } from "../ui-states.js";
+import { escapeHtml, renderEpisodeLine } from "../ui-states.js";
 import { SCHEDULE_TIMELINE_DAYS } from "../content-data.js";
 import { getCurrentDayId, getCurrentLocalMinutes } from "../time.js";
 import { getHomeTodayState } from "../schedule-match.js";
@@ -31,7 +31,7 @@ export function renderHome() {
   `;
 }
 
-function renderSlotItem(slot, isCurrent) {
+function renderSlotItem(slot, isCurrent, episodes, dayId) {
   const badge = slot.badge ? `<span class="slot-badge">${escapeHtml(slot.badge)}</span>` : "";
   return `
     <li${isCurrent ? ' class="is-current"' : ""}>
@@ -39,12 +39,13 @@ function renderSlotItem(slot, isCurrent) {
       <div>
         <p class="slot-title">${escapeHtml(slot.title || "")}${badge}</p>
         <p class="slot-desc">${escapeHtml(slot.desc || "")}</p>
+        ${renderEpisodeLine(episodes, dayId, slot.title)}
       </div>
     </li>
   `;
 }
 
-export function renderTodaySlots(currentShow, resolver) {
+export function renderTodaySlots(currentShow, resolver, episodes) {
   const dayIndex = Math.max(
     0,
     SCHEDULE_TIMELINE_DAYS.findIndex((d) => d.id === getCurrentDayId())
@@ -56,7 +57,7 @@ export function renderTodaySlots(currentShow, resolver) {
     return `<li><span class="slot-time mono">—</span><div><p class="slot-title">Grille indisponible</p></div></li>`;
   }
 
-  let html = rows.map((slot) => renderSlotItem(slot, slot === currentSlot)).join("");
+  let html = rows.map((slot) => renderSlotItem(slot, slot === currentSlot, episodes, day.id)).join("");
 
   // Fin de journée : la suite du programme vit déjà demain (ex. 23h40 →
   // La Grande Nuit de 00h00). On complète avec les premiers créneaux du lendemain.
@@ -70,7 +71,7 @@ export function renderTodaySlots(currentShow, resolver) {
           <p class="kicker">demain — ${escapeHtml(nextDay.name.toLowerCase())}</p>
         </li>
       `;
-      html += nextSlots.map((slot) => renderSlotItem(slot, false)).join("");
+      html += nextSlots.map((slot) => renderSlotItem(slot, false, episodes, nextDay.id)).join("");
     }
   }
 

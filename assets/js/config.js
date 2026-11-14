@@ -5,12 +5,15 @@ export const LCN_ENDPOINTS = Object.freeze({
   currentShow: "https://stream.lechatnoirradio.fr/current-show.json",
   listeners: "https://stream.lechatnoirradio.fr/listeners.json",
   historyCsv: "https://stream.lechatnoirradio.fr/history/nowplaying.csv",
+  // Écrit par generate_pools.py à chaque génération nocturne (04h05).
+  episodes: "https://stream.lechatnoirradio.fr/history/episodes.json",
 });
 
 export const REFRESH_MS = Object.freeze({
   live: 12_000,
   listeners: 30_000,
   historyPage: 20_000,
+  episodes: 60 * 60_000,
 });
 
 export const STALE_MS = Object.freeze({

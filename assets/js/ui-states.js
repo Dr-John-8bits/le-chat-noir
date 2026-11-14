@@ -16,6 +16,14 @@ export function setTextIfChanged(el, text) {
   return true;
 }
 
+// Ligne « prochain épisode » sous un créneau de la grille. Vide si rien n'est
+// annoncé pour ce jour et cette émission.
+export function renderEpisodeLine(episodes, dayId, slotTitle) {
+  const ep = episodes && typeof episodes.get === "function" ? episodes.get(`${dayId}|${slotTitle}`) : null;
+  if (!ep) return "";
+  return `<p class="slot-episode">Épisode : « ${escapeHtml(ep.titre)} »</p>`;
+}
+
 export function escapeHtml(value) {
   return String(value || "")
     .replace(/&/g, "&amp;")

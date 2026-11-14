@@ -1,9 +1,9 @@
-import { escapeHtml } from "../ui-states.js";
+import { escapeHtml, renderEpisodeLine } from "../ui-states.js";
 import { SCHEDULE_TIMELINE_DAYS } from "../content-data.js";
 import { getCurrentDayId, getCurrentLocalMinutes } from "../time.js";
 import { buildDaySky } from "../day-sky.js";
 
-export function renderSchedule(selectedDayId, currentShow, resolveShowSlot) {
+export function renderSchedule(selectedDayId, currentShow, resolveShowSlot, episodes) {
   const todayId = getCurrentDayId();
   const dayId = selectedDayId || todayId;
   const day = SCHEDULE_TIMELINE_DAYS.find((d) => d.id === dayId) || SCHEDULE_TIMELINE_DAYS[0];
@@ -37,6 +37,7 @@ export function renderSchedule(selectedDayId, currentShow, resolveShowSlot) {
           <div>
             <p class="slot-title">${escapeHtml(slot.title || "")}${badge}${onAir}</p>
             <p class="slot-desc">${escapeHtml(slot.desc || "")}</p>
+            ${renderEpisodeLine(episodes, day.id, slot.title)}
           </div>
         </li>
       `;

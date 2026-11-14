@@ -221,6 +221,45 @@ export function fetchListeners() {
   return fetchEndpoint(LCN_ENDPOINTS.listeners, async (res) => extractListeners(await res.json()));
 }
 
+// Annonce du prochain épisode des rendez-vous à épisodes.
+// Rend une Map « jour|émission » -> { titre, numero, total, date }, où le jour
+// est l'identifiant de la grille (mon, tue…). Seules les annonces datées
+// d'aujourd'hui aux six jours suivants sont gardées : un fichier qui ne serait
+// plus régénéré cesse d'afficher quoi que ce soit dès que la date est passée,
+// plutôt que d'annoncer un épisode déjà diffusé.
+const DAY_IDS_FROM_UTC = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
+export function extractEpisodes(payload, todayYmd) {
+  const episodes = new Map();
+  const list = payload && Array.isArray(payload.emissions) ? payload.emissions : [];
+  const today = Date.parse(`${todayYmd}T00:00:00Z`);
+  if (!Number.isFinite(today)) return episodes;
+
+  for (const item of list) {
+    const emission = asString(item && item.emission);
+    const titre = asString(item && item.titre);
+    const date = asString(item && item.date);
+    if (!emission || !titre || !/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
+    const at = Date.parse(`${date}T00:00:00Z`);
+    const ecart = Math.round((at - today) / 86_400_000);
+    if (!Number.isFinite(at) || ecart < 0 || ecart > 6) continue;
+    const dayId = DAY_IDS_FROM_UTC[new Date(at).getUTCDay()];
+    const numero = Number(item.numero);
+    const total = Number(item.total);
+    episodes.set(`${dayId}|${emission}`, {
+      titre,
+      date,
+      numero: Number.isInteger(numero) && numero > 0 ? numero : null,
+      total: Number.isInteger(total) && total > 0 ? total : null,
+    });
+  }
+  return episodes;
+}
+
+export function fetchEpisodes(todayYmd) {
+  return fetchEndpoint(LCN_ENDPOINTS.episodes, async (res) => extractEpisodes(await res.json(), todayYmd));
+}
+
 export function fetchHistoryCsv({ tailBytes } = {}) {
   // tailBytes reste inactif tant que le serveur n'autorise pas Range en CORS
   // (voir docs/SPEC-SERVEUR-HISTORIQUE.md).
