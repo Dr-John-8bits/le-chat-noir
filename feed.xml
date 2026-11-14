@@ -5,8 +5,15 @@
     <link>https://lechatnoirradio.fr/#actualites</link>
     <description>Actualités éditoriales de la radio Le Chat Noir.</description>
     <language>fr-fr</language>
-    <lastBuildDate>Sat, 14 Nov 2026 10:48:01 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2026 13:52:59 GMT</lastBuildDate>
     <atom:link href="https://lechatnoirradio.fr/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Appel à émissions : Le Chat Noir ouvre de nouveau son antenne</title>
+      <link>https://lechatnoirradio.fr/#actualites/appel-a-emissions</link>
+      <guid isPermaLink="true">https://lechatnoirradio.fr/#actualites/appel-a-emissions</guid>
+      <pubDate>Sat, 14 Nov 2026 12:02:00 GMT</pubDate>
+      <description><![CDATA[Pour fêter sa première année, Le Chat Noir ouvre de nouveau son antenne : dans la lignée des appels précédents, la radio lance un nouvel appel à émissions et libère plusieurs créneaux dans sa grille pour accueillir de nouvelles voix.<br /><br />Ce qu’on cherche avant tout, c’est de l’expérimentation sonore et musicale. Improvisations, bidouilles électroniques, collages, field recording, musique concrète, instruments détournés, essais radiophoniques : tout ce qui cherche, tâtonne et ose. Pas besoin que ce soit parfait, maîtrisé ou mixé dans les règles. Une tentative nous intéresse autant qu’un travail abouti, et parfois plus.<br /><br />L’antenne est aussi ouverte aux émissions parlées : récits, causeries, chroniques, lectures, histoires vraies ou inventées, conversations au long cours. Si vous avez envie de raconter quelque chose au micro, c’est le moment.<br /><br />Deux formats sont possibles. En direct, si vous disposez d’une bonne connexion internet et d’un petit équipement de diffusion : une table de mixage, une carte son, un micro. Pour les prises d’antenne en direct, on vous guidera pas à pas : tout passe par un petit logiciel libre, très léger, à installer sur votre ordinateur. Il existe aussi des solutions sur smartphone, déjà testées sur iOS ; pas encore sur Android, mais il n’y a aucune raison que cela ne marche pas aussi bien. Ou en différé : vous enregistrez votre émission chez vous, à la manière d’un podcast, vous nous l’envoyez, et on la diffuse.<br /><br />Les créneaux ne sont pas fixés d’avance. Ils seront choisis en fonction des propositions reçues : la fréquence, la durée et l’horaire se décideront avec chaque émission, pour qu’elle trouve la place qui lui va.<br /><br />Une seule règle : Le Chat Noir ne diffuse que de la musique libre. Pas de musique commerciale ni de catalogue géré par la SACEM. Vos propres créations, des morceaux sous licence libre (Creative Commons, Art Libre), les netlabels : tout cela est bienvenu.<br /><br />Pour proposer une émission, écrivez-nous à radio@lechatnoirradio.fr ou sur Mastodon (@lechatnoirradio@mastodon.social), en quelques lignes : ce que vous aimeriez faire, en direct ou en différé, et si vous en avez un, un extrait à écouter.<br /><br />On a hâte de vous entendre. Bonne écoute ! 🐈‍⬛]]></description>
+    </item>
     <item>
       <title>Un an, et une nouvelle grille des programmes</title>
       <link>https://lechatnoirradio.fr/#actualites/un-an-et-une-nouvelle-grille</link>
