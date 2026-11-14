@@ -1,11 +1,11 @@
 # Maintenance du site — Le Chat Noir
 
-## L'app de bureau (macOS / Linux) : retirée du site
+## Publier une version de l'app (macOS / Linux)
 
-La page et l'onglet « l'app » ont été retirés le 14 novembre 2026 : l'app n'est plus
-maintenue. **`assets/data/app-version.json` est conservé tel quel** : les apps déjà
-installées le lisent pour chercher une mise à jour, et son absence les ferait échouer.
-Ne plus le modifier ; le supprimer un jour où plus personne ne s'en sert.
+À chaque nouvelle release de l'app : publier le `.dmg` en GitHub Release (tag `vAA.MM.JJ`,
+asset nommé **exactement `LeChatNoir.dmg`**), puis mettre à jour `assets/data/app-version.json`
+(version, build, notes) — c'est ce fichier que l'app lit pour proposer une mise à jour.
+**Process complet dans la doc de pilotage : `LCN-RELEASE-APP.md`.**
 
 ## Ajouter une actualité
 
