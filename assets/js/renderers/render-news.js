@@ -43,6 +43,7 @@ export function renderNews({ year, visibleCount = NEWS_PAGE_SIZE, focusedSlug = 
         <article class="news-item${focused ? " is-focused" : ""}" id="news-${escapeHtml(item.slug)}">
           <span class="kicker">${escapeHtml(item.dateLabel)}</span>
           <h3 class="news-item__title">${escapeHtml(item.title)}</h3>
+          ${item.image ? `<img class="news-item__image" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.imageAlt)}" loading="lazy" decoding="async" />` : ""}
           <p class="news-item__lead">${item.leadHtml}</p>
           ${item.bodyHtml ? `<p class="news-item__body">${item.bodyHtml}</p>` : ""}
         </article>

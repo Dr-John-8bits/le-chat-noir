@@ -151,6 +151,7 @@ export function buildNewsItem(entry) {
     bodyHtml: bodyParagraphs.map((p) => inlineMarkdownToHtml(p)).join("<br /><br />"),
     bodyHtmlForFeed: bodyParagraphs.map((p) => inlineMarkdownToHtml(p, { forFeed: true })).join("<br /><br />"),
     url: buildNewsUrl(entry.slug),
+    ...(entry.image ? { image: entry.image, imageAlt: entry.imageAlt } : {}),
   };
 }
 
@@ -178,7 +179,21 @@ export function readNewsEntries(contentDir = CONTENT_DIR) {
         throw new Error(`Titre manquant dans ${fileName}`);
       }
 
-      return { title: title.trim(), publishedOn, order, slug, body, sourcePath };
+      const image = (attributes.image || "").trim();
+      const imageAlt = (attributes.imageAlt || "").trim();
+      if (image) {
+        if (!/^assets\/media\/news\/[a-z0-9._-]+\.(webp|jpe?g|png)$/.test(image)) {
+          throw new Error(`Image invalide dans ${fileName} : ${image} (attendu assets/media/news/…)`);
+        }
+        if (!fs.existsSync(path.resolve(contentDir, "../..", image))) {
+          throw new Error(`Image introuvable pour ${fileName} : ${image}`);
+        }
+        if (!imageAlt) {
+          throw new Error(`Texte alternatif (imageAlt) manquant dans ${fileName}`);
+        }
+      }
+
+      return { title: title.trim(), publishedOn, order, slug, body, sourcePath, image, imageAlt };
     })
     .map(buildNewsItem)
     .sort((left, right) => {
@@ -198,7 +213,10 @@ export function renderJsonPayload(items) {
 export function renderRss(items) {
   const feedItems = items
     .map((item) => {
-      const description = [item.leadHtmlForFeed, item.bodyHtmlForFeed].filter(Boolean).join("<br /><br />");
+      const imageHtml = item.image
+        ? `<img src="${escapeHtml(`${SITE_URL}/${item.image}`)}" alt="${escapeHtml(item.imageAlt)}" />`
+        : "";
+      const description = [imageHtml, item.leadHtmlForFeed, item.bodyHtmlForFeed].filter(Boolean).join("<br /><br />");
       return [
         "    <item>",
         `      <title>${escapeHtml(item.title)}</title>`,

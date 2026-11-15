@@ -823,6 +823,17 @@ a.action-button {
   margin: 4px 0 8px;
 }
 
+.news-item__image {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  margin: 4px 0 12px;
+}
+
 .news-item__lead {
   font-size: 15px;
   color: var(--ink);
