@@ -336,7 +336,7 @@ export const SCHEDULE_TIMELINE_DAYS = [
     "id": "sat",
     "shortName": "Sam",
     "name": "Samedi",
-    "summary": "Matin félin, Console-toi, Documents de terrain, synthèse analogique, Beats & Flow, Doucement, Camembert électrique, Pixels et When Day Chokes a Radio.",
+    "summary": "Matin félin, Console-toi, Documents de terrain, synthèse analogique, Beats & Flow, Doucement, Camembert électrique, Pixels, Bomuloc et When Day Chokes a Radio.",
     "slots": [
       {
         "time": "00h00",
@@ -403,8 +403,15 @@ export const SCHEDULE_TIMELINE_DAYS = [
       },
       {
         "time": "21h00",
+        "title": "Bomuloc",
+        "desc": "Retrouvez une nouvelle aventure du lieutenant dans…",
+        "highlight": true
+      },
+      {
+        "time": "Puis",
         "title": "When Day Chokes a Radio",
         "desc": "Focus Intégrale When Day Chokes The Night.",
+        "meta": true,
         "highlight": true,
         "badge": "Focus"
       },

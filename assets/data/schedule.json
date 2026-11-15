@@ -558,7 +558,7 @@
       "id": "sat",
       "name": "Samedi",
       "shortName": "Sam",
-      "summary": "Matin félin, Console-toi, Documents de terrain, synthèse analogique, Beats & Flow, Doucement, Camembert électrique, Pixels et When Day Chokes a Radio.",
+      "summary": "Matin félin, Console-toi, Documents de terrain, synthèse analogique, Beats & Flow, Doucement, Camembert électrique, Pixels, Bomuloc et When Day Chokes a Radio.",
       "slots": [
         {
           "time": "00h00",
@@ -669,12 +669,23 @@
         },
         {
           "time": "21h00",
+          "title": "Bomuloc",
+          "desc": "Retrouvez une nouvelle aventure du lieutenant dans…",
+          "showId": "bomuloc",
+          "kind": "editorial_event",
+          "start": "21:00",
+          "end": "22:30",
+          "highlight": true
+        },
+        {
+          "time": "Puis",
           "title": "When Day Chokes a Radio",
           "desc": "Focus Intégrale When Day Chokes The Night.",
           "showId": "when-day-chokes-a-radio",
           "kind": "music_block",
-          "start": "21:00",
+          "start": "22:30",
           "end": "23:40",
+          "meta": true,
           "highlight": true,
           "badge": "Focus"
         },
