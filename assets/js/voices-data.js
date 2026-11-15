@@ -100,11 +100,12 @@ export const SHOWS = [
     "actionLabel": "En rotation sur la radio"
   },
   {
-    "meta": "Labo Expé",
-    "title": "2600 Modulations",
-    "image": "assets/media/shows/2600-modulations.webp",
-    "text": "Voyage modulaire dans les circuits du Behringer 2600, là où les modulations prennent le dessus.",
-    "actionLabel": "En rotation sur la radio"
+    "meta": "Chronique",
+    "title": "L'instinct mode",
+    "image": "assets/media/shows/instinctmode.webp",
+    "text": "La chronique du vestiaire de Lady Em : les mythes de la mode moderne, démontés en cinq minutes.",
+    "href": "https://audioblog.arteradio.com/blog/263269/le-chat-noir",
+    "actionLabel": "Écouter le podcast"
   },
   {
     "meta": "Captations",
