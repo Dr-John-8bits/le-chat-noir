@@ -2,6 +2,8 @@
 title: "MIAOU SESSION #01 : rendez-vous le 5 décembre au Bidule"
 publishedOn: "2026-11-21"
 order: "1"
+image: "assets/media/news/miaou-session-01.webp"
+imageAlt: "Affiche de la MIAOU SESSION #1, laboratoire public d’expérimentations électroniques, sur fond bleu flou : Gauffre, Mac Hertz, Obsolete Lifeform, Knobber et Sircumflex, le 5 décembre 2026 au Bidule Bar, 19 rue Henri Kolb à Lille."
 ---
 
 Le Chat Noir a le plaisir de vous convier au Bidule, le samedi 5 décembre, pour la première MIAOU SESSION, un laboratoire public consacré aux musiques électroniques.
